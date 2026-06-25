@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "title": "First Post",
+      "collection": "blog",
+      "date": "2026-03-09",
+      "url": "/blog/undefined.html"
+    },
+    {
+      "title": "Ostara",
+      "collection": null,
+      "date": "2026-03-09",
+      "url": "/undefined.html"
+    }
+  ]
+}

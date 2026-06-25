@@ -1,0 +1,9 @@
+/*
+  X-Robots-Tag: index, follow
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+/sitemap-style.xsl
+  Content-Type: text/xsl
