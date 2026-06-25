@@ -1,0 +1,18 @@
+# Reference: https://developers.cloudflare.com/fundamentals/get-started/reference/cdn-cgi-endpoint/#disallow-using-robotstxt
+
+# Canonical hostname: https://www.ostara.work
+
+# This ensures that Cloudflare paths /cdn-cgi/trace or /cdn-cgi/styles/ are excluded from indexing.
+# These endpoints are only used for internal Cloudflare operations and are irrelevant for search engines.
+User-agent: *
+Disallow: /cdn-cgi/
+
+# This directive is honored by some search engines but not by Google, it asks crawlers to wait 2 seconds between requests, but the optional 10 seconds is useful for limiting server strain.
+User-agent: *
+Crawl-delay: 2
+
+# Canonical sitemap
+Sitemap: https://www.klasker.com/sitemap.xml
+
+# Preferred host
+Host: www.klasker.com
