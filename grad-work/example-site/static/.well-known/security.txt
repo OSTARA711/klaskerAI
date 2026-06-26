@@ -1,0 +1,5 @@
+Contact: mailto:security@ostara.work
+Expires: 2035-06-26T23:59:59Z
+Preferred-Languages: en
+Canonical: https://www.klasker.com/.well-known/security.txt
+Policy: https://www.klasker.com/privacy/
