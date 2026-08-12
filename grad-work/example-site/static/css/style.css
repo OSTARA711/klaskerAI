@@ -1,22 +1,28 @@
-/* style.css — Klasker WROS */
+/* grad-work/example-site/public/css/style.css — Klasker AITA */
+
+/* --------------------------------------------------
+   Variables
+-------------------------------------------------- */
 
 :root {
   --background: #120705;
   --surface: #1d0b08;
+  --surface-hover: #31100c;
+
   --primary: #f26b1d;
   --secondary: #c74812;
+
   --text: #f3e9df;
   --muted: #d0b6a4;
+  --footer-text: #b79f90;
 
   --border: rgba(255, 255, 255, 0.08);
-  --footer-text: #b79f90;
   --overlay: rgba(0, 0, 0, 0.35);
 }
 
-
 /* --------------------------------------------------
    Base
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -35,27 +41,46 @@ body {
     "Noto Sans",
     system-ui,
     sans-serif;
-  margin: 0;
+
   background:
-    radial-gradient(circle at top, #31100c 0%, var(--background) 65%);
+    radial-gradient(
+      circle at top,
+      #31100c 0%,
+      var(--background) 65%
+    );
+
   color: var(--text);
+  line-height: 1.6;
 }
 
+/* --------------------------------------------------
+   Links
+-------------------------------------------------- */
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
 
 /* --------------------------------------------------
    Container
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 .container {
+  width: 100%;
   max-width: 1000px;
-  margin: auto;
+  margin: 0 auto;
   padding: 1rem;
 }
 
-
 /* --------------------------------------------------
    Header
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -80,13 +105,13 @@ body {
   color: var(--text);
 }
 
-
 /* --------------------------------------------------
    Main Navigation
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 .main-nav {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -97,112 +122,216 @@ body {
 
 .main-nav a:hover {
   color: var(--primary);
-  text-decoration: underline;
 }
-
 
 /* --------------------------------------------------
    Search
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 .search {
   margin-left: auto;
 }
 
-
 /* --------------------------------------------------
-   Footer
-   -------------------------------------------------- */
+   Hero
+-------------------------------------------------- */
 
-.site-footer {
-  border-top: 1px solid var(--border);
-  margin-top: 2rem;
-  padding-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--footer-text);
-  background: rgba(0, 0, 0, 0.18);
+.hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1rem 1rem;
+  text-align: center;
 }
 
-.footer-nav {
-  margin-top: 0.5rem;
+.hero-logo {
+  display: block;
+  width: min(100%, 520px);
+  height: auto;
+  margin: 0 auto 1.5rem;
 }
 
-.footer-nav a {
-  margin-right: 1rem;
-  text-decoration: none;
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.hero .subtitle {
+  margin-top: 0.75rem;
   color: var(--muted);
+  font-size: 1.15rem;
 }
-
-.footer-nav a:hover {
-  color: var(--primary);
-}
-
 
 /* --------------------------------------------------
    Service Grid
-   -------------------------------------------------- */
+-------------------------------------------------- */
 
 .service-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 2rem;
 }
 
+/* --------------------------------------------------
+   Service Cards / Widgets
+-------------------------------------------------- */
+
 .service-card {
-  border: 1px solid var(--border);
-  padding: 1rem;
-  border-radius: 6px;
-  background: var(--surface);
-  text-decoration: none;
-  color: inherit;
   display: block;
+
+  min-height: 150px;
+  padding: 1.25rem;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--surface);
+
+  color: inherit;
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .service-card:hover {
-  background: #31100c;
+  background: var(--surface-hover);
   border-color: rgba(242, 107, 29, 0.35);
+  transform: translateY(-2px);
 }
 
+.service-card h2,
 .service-card h3 {
-  margin-top: 0;
-}
-
-
-/* --------------------------------------------------
-   Grad Navigation
-   -------------------------------------------------- */
-
-/*
- * Hamburger button
- */
-
-.grad-menu-button {
-  display: none;
-  margin-left: 1rem;
-  padding: 0.4rem 0.7rem;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  margin: 0 0 0.5rem;
   color: var(--text);
 }
 
+.service-card p {
+  margin: 0;
+  color: var(--muted);
+}
 
-/*
- * Navigation drawer
- */
+.service-card .card-label {
+  display: block;
+  margin-bottom: 0.35rem;
+
+  color: var(--primary);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------
+   Premium Card
+-------------------------------------------------- */
+
+.service-card.premium {
+  border-color: rgba(242, 107, 29, 0.3);
+}
+
+.service-card.premium .card-label {
+  color: var(--primary);
+}
+
+/* --------------------------------------------------
+   Public Evaluation
+-------------------------------------------------- */
+
+.public-evaluation {
+  margin-top: 2rem;
+  padding: 1.25rem;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: rgba(29, 11, 8, 0.75);
+
+  text-align: center;
+}
+
+.public-evaluation h2 {
+  margin-bottom: 0.5rem;
+}
+
+.public-evaluation p {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------
+   Buttons
+-------------------------------------------------- */
+
+.button {
+  display: inline-block;
+
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text);
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--primary);
+  color: #120705;
+}
+
+.button-primary {
+  background: var(--primary);
+  color: #120705;
+}
+
+.button-primary:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+/* --------------------------------------------------
+   Grad Navigation
+-------------------------------------------------- */
+
+/* Hamburger button */
+
+.grad-menu-button {
+  display: none;
+
+  margin-left: 1rem;
+  padding: 0.4rem 0.7rem;
+
+  font-size: 1.5rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  background: transparent;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  color: var(--text);
+}
+
+/* Navigation drawer */
 
 .grad-navigation {
   transition: transform 0.25s ease;
 }
 
-
-/*
- * Navigation links
- */
+/* Navigation links */
 
 .grad-navigation a,
 .grad-navigation a:visited {
@@ -216,19 +345,21 @@ body {
   text-decoration: none;
 }
 
-
-/*
- * Overlay
- */
+/* Overlay */
 
 .grad-overlay {
   display: none;
+
   position: fixed;
   inset: 0;
+
   background: var(--overlay);
+
   opacity: 0;
   pointer-events: none;
+
   transition: opacity 0.25s ease;
+
   z-index: 900;
 }
 
@@ -238,10 +369,41 @@ body {
   pointer-events: auto;
 }
 
+/* --------------------------------------------------
+   Footer
+-------------------------------------------------- */
 
-/*
- * Mobile navigation
- */
+.site-footer {
+  border-top: 1px solid var(--border);
+
+  margin-top: 3rem;
+  padding-top: 1rem;
+
+  font-size: 0.9rem;
+
+  color: var(--footer-text);
+
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.footer-nav {
+  margin-top: 0.5rem;
+}
+
+.footer-nav a {
+  margin-right: 1rem;
+
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.footer-nav a:hover {
+  color: var(--primary);
+}
+
+/* --------------------------------------------------
+   Mobile Navigation
+-------------------------------------------------- */
 
 @media (max-width: 700px) {
 
@@ -296,12 +458,26 @@ body {
     margin-top: 0.5rem;
   }
 
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header .container {
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero-logo {
+    width: min(100%, 420px);
+  }
 }
 
-
-/*
- * Desktop navigation
- */
+/* --------------------------------------------------
+   Desktop Navigation
+-------------------------------------------------- */
 
 @media (min-width: 701px) {
 
@@ -326,27 +502,4 @@ body {
     background: transparent;
     box-shadow: none;
   }
-
-}
-
-
-/* --------------------------------------------------
-   Responsive
-   -------------------------------------------------- */
-
-@media (max-width: 700px) {
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header .container {
-    flex-wrap: wrap;
-  }
-
-  .search {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
 }
