@@ -1,3 +1,5 @@
+// Path: ~/klaskerAI/grad-work/src/builder.ts
+
 import {
   writeFileSync,
   mkdirSync,
@@ -28,7 +30,10 @@ function shouldBuild(mdPath: string, htmlPath: string): boolean {
 }
 
 /**
- * Recursively copies static assets
+ * Recursively copies static assets.
+ *
+ * Internal project metadata must never become part of
+ * the generated website.
  */
 function copyStaticDir(src: string, dest: string) {
   if (!existsSync(src)) return;
@@ -36,6 +41,9 @@ function copyStaticDir(src: string, dest: string) {
   const entries = readdirSync(src, { withFileTypes: true });
 
   for (const entry of entries) {
+    // Never publish Git repository metadata.
+    if (entry.name === ".git") continue;
+
     const srcPath = join(src, entry.name);
     const destPath = join(dest, entry.name);
 
@@ -59,7 +67,11 @@ function xmlEscape(str: string) {
     .replace(/>/g, "&gt;");
 }
 
-function generateRSS(collectionName: string, pages: Page[], siteUrl: string) {
+function generateRSS(
+  collectionName: string,
+  pages: Page[],
+  siteUrl: string
+) {
   const base = siteUrl.replace(/\/$/, "");
 
   const sorted = pages
@@ -67,6 +79,7 @@ function generateRSS(collectionName: string, pages: Page[], siteUrl: string) {
     .sort((a, b) => {
       const da = a.date ? new Date(a.date).getTime() : 0;
       const db = b.date ? new Date(b.date).getTime() : 0;
+
       return db - da;
     });
 
@@ -127,10 +140,15 @@ export function buildSite(
     );
 
     const parts = relative.split("/");
-    const collectionName = parts.length > 1 ? parts[0] : null;
+    const collectionName =
+      parts.length > 1 ? parts[0] : null;
 
     if (collectionName) {
-      collections.addPage({ ...page, collection: collectionName });
+      collections.addPage({
+        ...page,
+        collection: collectionName
+      });
+
       dirtyCollections.add(collectionName);
     } else {
       rootJsonDirty = true;
@@ -157,9 +175,18 @@ export function buildSite(
   collections.sortCollections();
 
   for (const collection of collections.getAll()) {
-    if (!collection.name || !dirtyCollections.has(collection.name)) continue;
+    if (
+      !collection.name ||
+      !dirtyCollections.has(collection.name)
+    ) {
+      continue;
+    }
 
-    const indexHtmlPath = join(outputDir, collection.name, "index.html");
+    const indexHtmlPath = join(
+      outputDir,
+      collection.name,
+      "index.html"
+    );
 
     const html = renderPage(templateDir, {
       title: collection.name,
@@ -167,33 +194,66 @@ export function buildSite(
       collection: collection.name
     } as any);
 
-    mkdirSync(dirname(indexHtmlPath), { recursive: true });
+    mkdirSync(dirname(indexHtmlPath), {
+      recursive: true
+    });
+
     writeFileSync(indexHtmlPath, html);
 
-    console.log("Generated collection index:", indexHtmlPath);
+    console.log(
+      "Generated collection index:",
+      indexHtmlPath
+    );
 
-    const jsonPath = join(outputDir, collection.name, "index.json");
+    const jsonPath = join(
+      outputDir,
+      collection.name,
+      "index.json"
+    );
 
-    writeFileSync(jsonPath, JSON.stringify({
-      collection: collection.name,
-      pages: collection.pages.map(p => ({
-        title: p.title,
-        slug: p.slug,
-        url: `/${collection.name}/${p.slug}.html`
-      }))
-    }, null, 2));
+    writeFileSync(
+      jsonPath,
+      JSON.stringify(
+        {
+          collection: collection.name,
+          pages: collection.pages.map(p => ({
+            title: p.title,
+            slug: p.slug,
+            url: `/${collection.name}/${p.slug}.html`
+          }))
+        },
+        null,
+        2
+      )
+    );
   }
 
-  if (rootJsonDirty || dirtyCollections.size > 0) {
-    const siteIndexPath = join(outputDir, "index.json");
+  if (
+    rootJsonDirty ||
+    dirtyCollections.size > 0
+  ) {
+    const siteIndexPath = join(
+      outputDir,
+      "index.json"
+    );
 
-    writeFileSync(siteIndexPath, JSON.stringify({
-      pages: pages.map(p => ({
-        title: p.title,
-        url: `/${p.slug}.html`
-      }))
-    }, null, 2));
+    writeFileSync(
+      siteIndexPath,
+      JSON.stringify(
+        {
+          pages: pages.map(p => ({
+            title: p.title,
+            url: `/${p.slug}.html`
+          }))
+        },
+        null,
+        2
+      )
+    );
   }
 
-  console.log("Site build completed in", outputDir);
+  console.log(
+    "Site build completed in",
+    outputDir
+  );
 }
