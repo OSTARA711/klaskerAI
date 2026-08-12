@@ -1,4 +1,5 @@
 Klasker AITA - Artificial Intelligence Trade Analysis
+
 Copyright © 2026 OSTARA.WORK by Saskia Ostermann Toutatis
 
 PROPRIETARY SOFTWARE — ALL RIGHTS RESERVED
