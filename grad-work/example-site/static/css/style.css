@@ -2,7 +2,7 @@
 
 /* --------------------------------------------------
    Variables
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 :root {
   --background: #120705;
@@ -22,7 +22,7 @@
 
 /* --------------------------------------------------
    Base
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -57,7 +57,7 @@ body {
 
 /* --------------------------------------------------
    Links
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 a {
   color: inherit;
@@ -71,7 +71,7 @@ button:focus-visible {
 
 /* --------------------------------------------------
    Container
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .container {
   width: 100%;
@@ -82,7 +82,7 @@ button:focus-visible {
 
 /* --------------------------------------------------
    Header
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -94,35 +94,52 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  text-align: center;
 }
 
-.logo-img {
-  height: 100px;
-  width: auto;
-  display: block;
+/* Textual site identity */
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo a {
-  text-decoration: none;
-  font-weight: bold;
+  display: inline-block;
+
   color: var(--text);
+  text-decoration: none;
+
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* Header image logo, if used */
+
+.logo-img {
+  display: block;
+
+  width: auto;
+  height: 100px;
 }
 
 /* --------------------------------------------------
    Main Navigation
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .main-nav {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 1.25rem;
   flex-wrap: wrap;
 }
 
 .main-nav a {
-  text-decoration: none;
   color: var(--muted);
+  text-decoration: none;
 }
 
 .main-nav a:hover {
@@ -131,7 +148,7 @@ button:focus-visible {
 
 /* --------------------------------------------------
    Search
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .search {
   margin-left: auto;
@@ -139,7 +156,7 @@ button:focus-visible {
 
 /* --------------------------------------------------
    Main Page
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 main {
   width: 100%;
@@ -151,13 +168,14 @@ main > .public-evaluation,
 main > .section,
 main > section {
   width: min(100% - 2rem, 1000px);
+
   margin-left: auto;
   margin-right: auto;
 }
 
 /* --------------------------------------------------
    Hero
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .hero {
   padding: 3rem 1rem 1rem;
@@ -189,13 +207,14 @@ main > section {
 
 .hero p {
   max-width: 720px;
+
   margin-left: auto;
   margin-right: auto;
 }
 
 /* --------------------------------------------------
    Service Grid
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .service-grid {
   display: grid;
@@ -209,11 +228,12 @@ main > section {
 }
 
 /* --------------------------------------------------
-   Service Cards
--------------------------------------------------- */
+   Service Cards / Widgets
+   -------------------------------------------------- */
 
 .service-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
 
   min-height: 150px;
 
@@ -251,6 +271,7 @@ main > section {
 
 .service-card p {
   margin: 0;
+
   color: var(--muted);
 }
 
@@ -269,8 +290,8 @@ main > section {
 }
 
 /* --------------------------------------------------
-   Premium Card
--------------------------------------------------- */
+   Premium Widget
+   -------------------------------------------------- */
 
 .service-card.premium {
   border-color:
@@ -282,8 +303,8 @@ main > section {
 }
 
 /* --------------------------------------------------
-   Public Evaluation
--------------------------------------------------- */
+   Public Evaluation Widget
+   -------------------------------------------------- */
 
 .public-evaluation {
   margin-top: 2rem;
@@ -313,7 +334,7 @@ main > section {
 
 /* --------------------------------------------------
    Buttons
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .button {
   display: inline-block;
@@ -327,8 +348,8 @@ main > section {
   background: transparent;
 
   color: var(--text);
-  text-decoration: none;
 
+  text-decoration: none;
   font-weight: 600;
 }
 
@@ -349,10 +370,11 @@ main > section {
 
 /* --------------------------------------------------
    Section
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .section {
   margin-top: 3rem;
+
   text-align: center;
 }
 
@@ -370,8 +392,13 @@ main > section {
 }
 
 /* --------------------------------------------------
-   Grad Navigation
--------------------------------------------------- */
+   Klasker Navigation
+   -------------------------------------------------- */
+
+/*
+   The front page now uses widgets for Login and Premium.
+   They should therefore not be duplicated in the header.
+*/
 
 .grad-menu-button {
   display: none;
@@ -393,6 +420,12 @@ main > section {
 }
 
 .grad-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+
   transition: transform 0.25s ease;
 }
 
@@ -410,7 +443,7 @@ main > section {
 
 /* --------------------------------------------------
    Overlay
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .grad-overlay {
   display: none;
@@ -437,7 +470,7 @@ main > section {
 
 /* --------------------------------------------------
    Footer
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 .site-footer {
   width: 100%;
@@ -464,8 +497,8 @@ main > section {
 .footer-nav a {
   margin: 0 0.5rem;
 
-  text-decoration: none;
   color: var(--muted);
+  text-decoration: none;
 }
 
 .footer-nav a:hover {
@@ -474,7 +507,7 @@ main > section {
 
 /* --------------------------------------------------
    Mobile Navigation
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 @media (max-width: 700px) {
 
@@ -513,6 +546,8 @@ main > section {
 
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+
     gap: 1rem;
 
     transform: translateX(-100%);
@@ -556,7 +591,7 @@ main > section {
 
 /* --------------------------------------------------
    Desktop Navigation
--------------------------------------------------- */
+   -------------------------------------------------- */
 
 @media (min-width: 701px) {
 
@@ -569,6 +604,7 @@ main > section {
 
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     gap: 1rem;
 

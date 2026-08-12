@@ -26,12 +26,15 @@
 
   <!-- OpenGraph -->
   <meta property="og:title" content="Klasker AITA">
+
   <meta
     property="og:description"
     content="Artificial Intelligence Trade Analysis for websites, products and services in the emerging world of Agentic AI."
   >
+
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.klasker.com/">
+
   <meta
     property="og:image"
     content="https://www.klasker.com/img/klasker-banner.webp"
@@ -47,11 +50,22 @@
   <!-- Header -->
   <header class="site-header">
 
-    <div class="header-inner">
+    <div class="container">
 
-      <a class="site-brand" href="/" aria-label="Klasker AITA home">
-        Klasker AITA
+      <a
+        class="site-brand"
+        href="/"
+        aria-label="Klasker AITA home"
+      >
+
+        <img
+          class="logo-img"
+          src="/img/klasker-logotype.webp"
+          alt="Klasker AITA"
+        >
+
       </a>
+
 
       <nav class="main-nav" aria-label="Main navigation">
 
@@ -63,13 +77,6 @@
         <a href="#about">About</a>
 
       </nav>
-
-      <div class="account-nav">
-
-        <a class="premium-link" href="#premium">Premium</a>
-        <a class="login-link" href="#login">Login</a>
-
-      </div>
 
     </div>
 
@@ -94,7 +101,7 @@
     <section class="hero">
 
       <img
-        class="logo"
+        class="hero-logo"
         src="/img/klasker-logotype.webp"
         alt="Klasker AITA logotype"
       >
@@ -109,11 +116,17 @@
 
       <div class="hero-actions">
 
-        <a class="button button-primary" href="#public-analysis">
+        <a
+          class="button button-primary"
+          href="#public-analysis"
+        >
           Free Public Evaluation
         </a>
 
-        <a class="button button-secondary" href="#premium">
+        <a
+          class="button button-secondary"
+          href="#premium"
+        >
           Private Premium Evaluation
         </a>
 
@@ -138,6 +151,7 @@
 
       <div class="widget-grid">
 
+        <!-- Website Analysis -->
         <article class="widget" id="public-analysis">
 
           <h3>Website Analysis</h3>
@@ -150,13 +164,17 @@
             Free evaluation results are publicly displayed on Klasker.
           </p>
 
-          <a class="button button-primary" href="#public-analysis-form">
+          <a
+            class="button button-primary"
+            href="#public-analysis-form"
+          >
             Analyse a Website
           </a>
 
         </article>
 
 
+        <!-- Product & Service Analysis -->
         <article class="widget">
 
           <h3>Product &amp; Service Analysis</h3>
@@ -169,13 +187,17 @@
             Choose a public evaluation or keep the results private with Premium.
           </p>
 
-          <a class="button button-primary" href="#product-analysis-form">
+          <a
+            class="button button-primary"
+            href="#product-analysis-form"
+          >
             Analyse a Product
           </a>
 
         </article>
 
 
+        <!-- Trade Analysis -->
         <article class="widget">
 
           <h3>Trade Analysis</h3>
@@ -188,14 +210,18 @@
             Analyse how digital information can be discovered, understood and used by AI agents.
           </p>
 
-          <a class="button button-primary" href="#trade-analysis-form">
+          <a
+            class="button button-primary"
+            href="#trade-analysis-form"
+          >
             Start Analysis
           </a>
 
         </article>
 
 
-        <article class="widget" id="premium">
+        <!-- Premium -->
+        <article class="widget premium" id="premium">
 
           <h3>Premium</h3>
 
@@ -207,13 +233,17 @@
             Premium evaluations are not published on the public Klasker Observatory.
           </p>
 
-          <a class="button button-secondary" href="#premium-account">
+          <a
+            class="button button-secondary"
+            href="#premium-account"
+          >
             Explore Premium
           </a>
 
         </article>
 
 
+        <!-- Observatory -->
         <article class="widget" id="observatory">
 
           <h3>Public Observatory</h3>
@@ -226,13 +256,17 @@
             Public evaluations contribute to the Klasker body of observable trade intelligence.
           </p>
 
-          <a class="button button-secondary" href="/observatory/">
+          <a
+            class="button button-secondary"
+            href="/observatory/"
+          >
             Explore Observatory
           </a>
 
         </article>
 
 
+        <!-- Compare -->
         <article class="widget" id="compare">
 
           <h3>Compare</h3>
@@ -245,8 +279,30 @@
             Discover differences in Agentic AI readiness between businesses, products and services.
           </p>
 
-          <a class="button button-secondary" href="/compare/">
+          <a
+            class="button button-secondary"
+            href="/compare/"
+          >
             Compare Analyses
+          </a>
+
+        </article>
+
+
+        <!-- Login -->
+        <article class="widget" id="login">
+
+          <h3>Login</h3>
+
+          <p>
+            Access your Klasker evaluations, account and Premium services.
+          </p>
+
+          <a
+            class="button button-primary"
+            href="/login/"
+          >
+            Login
           </a>
 
         </article>
@@ -256,8 +312,11 @@
     </section>
 
 
-    <!-- Public Evaluation -->
-    <section id="public-analysis-form" class="section section-highlight">
+    <!-- Free Public Evaluation -->
+    <section
+      id="public-analysis-form"
+      class="section section-highlight"
+    >
 
       <div class="section-heading">
 
@@ -270,7 +329,12 @@
 
       </div>
 
-      <form class="analysis-form" action="#" method="get">
+
+      <form
+        class="analysis-form"
+        action="#"
+        method="get"
+      >
 
         <label for="public-url">
           Website or service URL
@@ -284,7 +348,10 @@
           required
         >
 
-        <button class="button button-primary" type="submit">
+        <button
+          class="button button-primary"
+          type="submit"
+        >
           Start Free Evaluation
         </button>
 
@@ -306,13 +373,17 @@
 
       </div>
 
+
       <div class="observatory-preview">
 
         <p>
           Public analyses will appear here as the Klasker Observatory grows.
         </p>
 
-        <a class="button button-secondary" href="/observatory/">
+        <a
+          class="button button-secondary"
+          href="/observatory/"
+        >
           View Public Observatory
         </a>
 
@@ -355,31 +426,11 @@
 
     </section>
 
-
-    <!-- Login -->
-    <section id="login" class="section">
-
-      <div class="section-heading">
-
-        <h2>Login</h2>
-
-        <p>
-          Access your Klasker evaluations, account and Premium services.
-        </p>
-
-      </div>
-
-      <a class="button button-primary" href="/login/">
-        Login
-      </a>
-
-    </section>
-
   </main>
 
 
   <!-- Footer -->
-  <footer>
+  <footer class="site-footer">
 
     <p>
       OSTARA.WORK © 2026
@@ -389,7 +440,10 @@
       OSTARA-3339 AAY 00074
     </p>
 
-    <nav aria-label="Footer navigation">
+    <nav
+      class="footer-nav"
+      aria-label="Footer navigation"
+    >
 
       <a href="/privacy/">Privacy</a>
       <a href="/cookies/">Cookies</a>
