@@ -1,0 +1,521 @@
+# Klasker AITA
+
+> Klasker AITA (Artificial Intelligence Trade Analysis) is an analytical platform for evaluating websites, products and services in the emerging world of Agentic AI.
+
+Klasker investigates how digital information can be discovered, understood, interpreted and used by AI agents.
+
+The platform combines public research, automated evaluation and comparative analysis to examine the machine-facing readiness of websites, products, services and businesses.
+
+## Important Notes
+
+- Klasker AITA is developed and maintained by OSTARA.WORK
+- OSTARA.WORK is a micro-enterprise founded in France.
+- Klasker provides public evaluations and private Premium evaluations.
+- Free public evaluations are published through the Klasker Observatory.
+- Premium evaluations may remain private.
+- Klasker analyses the digital environment rather than making guarantees about the behaviour of individual AI systems.
+- Evaluation results represent analytical observations and should not be interpreted as certifications, legal opinions or guarantees of commercial success.
+- Klasker prioritises privacy, accessibility, clear information, minimal dependencies and machine-readable content.
+- The public Klasker website is generated using Grad SSG and deployed on Cloudflare Pages.
+
+## Website
+
+- [Klasker AITA Homepage](https://www.klasker.com/): Official Klasker AITA website.
+- [Klasker AITA llms.txt](https://www.klasker.com/llms.txt): Concise machine-readable description of Klasker.
+- [Klasker AITA llms-full.txt](https://www.klasker.com/llms-full.txt): Detailed machine-readable description of Klasker.
+- [Public Observatory](https://www.klasker.com/observatory/): Publicly available Klasker evaluations.
+- [Compare](https://www.klasker.com/compare/): Comparison of publicly available Klasker evaluations.
+- [Blog](https://www.klasker.com/blog/): Klasker articles, research and technical publications.
+
+## Klasker AITA
+
+### Artificial Intelligence Trade Analysis
+
+Klasker AITA examines the readiness of digital businesses and their information for the emerging Agentic AI environment.
+
+The platform is concerned with questions such as:
+
+- Can an AI agent discover the website?
+- Can an AI agent understand what the organisation offers?
+- Can an AI agent identify products and services?
+- Can an AI agent determine how those products or services should be used?
+- Can an AI agent distinguish important information from secondary information?
+- Can an AI agent understand the commercial context?
+- Can an AI agent identify relevant actions or transactions?
+- Can an AI agent access useful machine-readable information?
+- Can an AI agent compare the organisation with alternatives?
+- Can an AI agent use the available information reliably?
+
+Klasker therefore treats the website as a machine-facing information environment as well as a human-facing interface.
+
+## Evaluation Types
+
+### Website Analysis
+
+Website Analysis evaluates how well a website presents its information to Agentic AI.
+
+Areas of interest may include:
+
+- discoverability;
+- semantic structure;
+- machine-readable information;
+- navigation;
+- content clarity;
+- metadata;
+- accessibility;
+- security;
+- performance;
+- structured information;
+- AI-agent accessibility;
+- commercial information;
+- calls to action;
+- technical consistency.
+
+Free website evaluations may be published publicly through the Klasker Observatory.
+
+### Product & Service Analysis
+
+Product & Service Analysis evaluates how a product or service is represented in a digital environment.
+
+The analysis may consider:
+
+- product identity;
+- service identity;
+- descriptions;
+- features;
+- pricing information;
+- availability;
+- documentation;
+- usage information;
+- commercial context;
+- machine-readable information;
+- discoverability;
+- comparison potential;
+- suitability for AI-agent interpretation.
+
+The evaluation may be public or private depending on the selected service.
+
+### Trade Analysis
+
+Trade Analysis examines the machine-facing commercial readiness of a business.
+
+The purpose is to understand whether an AI agent can discover and interpret the information required to understand a commercial offering.
+
+Relevant information may include:
+
+- organisation identity;
+- products;
+- services;
+- prices;
+- availability;
+- terms;
+- contact information;
+- purchasing information;
+- delivery information;
+- technical information;
+- business relationships;
+- digital accessibility.
+
+Trade Analysis is concerned with the interface between digital information and machine-mediated commercial activity.
+
+## Public Evaluation
+
+A Free Public Evaluation allows a website, product or service to be submitted for analysis without keeping the resulting evaluation private.
+
+Public evaluation results become part of the Klasker Observatory.
+
+Public evaluations may therefore be:
+
+- discovered by users;
+- compared with other evaluations;
+- referenced by researchers;
+- accessed by AI systems;
+- used as publicly observable examples of Agentic AI readiness.
+
+Submission of a website or service for public evaluation implies acceptance that the resulting evaluation will be publicly accessible.
+
+## Premium Evaluation
+
+Premium Evaluation provides private evaluation.
+
+Premium evaluations are intended for users who do not want the results of their analysis published in the public Klasker Observatory.
+
+Premium functionality may include:
+
+- private evaluations;
+- access to private results;
+- account-based evaluation history;
+- additional analytical capabilities;
+- access to Premium services.
+
+Premium availability and functionality may evolve as the Klasker platform develops.
+
+## Public Observatory
+
+The Klasker Observatory is the public collection of Klasker evaluations.
+
+Its purpose is to provide an observable body of information about Agentic AI readiness across websites, products, services and businesses.
+
+The Observatory can be used to:
+
+- inspect public evaluations;
+- discover analysed organisations;
+- compare results;
+- identify patterns;
+- conduct research;
+- observe changes over time.
+
+## Compare
+
+The Compare functionality allows publicly available Klasker evaluations to be examined against one another.
+
+Comparison may help identify differences in:
+
+- Agentic AI readiness;
+- machine-readable information;
+- accessibility;
+- digital trade information;
+- website structure;
+- technical implementation;
+- commercial discoverability.
+
+Only information available through public evaluations should be assumed to be available for public comparison.
+
+## Research
+
+Klasker conducts research into the emerging relationship between websites, businesses and Agentic AI.
+
+Research areas may include:
+
+- Agentic AI;
+- AI-agent accessibility;
+- machine-readable websites;
+- digital commerce;
+- AI-mediated trade;
+- website discoverability;
+- structured information;
+- accessibility;
+- web standards;
+- security;
+- privacy;
+- performance;
+- semantic information;
+- machine-facing interfaces;
+- AI-assisted research;
+- digital autonomy.
+
+Klasker research is intended to contribute to a better understanding of how digital information can function in an environment where AI agents increasingly act on behalf of users.
+
+## Agentic AI
+
+Agentic AI refers here to AI systems capable of performing tasks on behalf of users rather than merely producing conversational responses.
+
+In the context of Klasker, an AI agent may need to:
+
+1. discover information;
+2. understand information;
+3. determine relevance;
+4. compare alternatives;
+5. make decisions based on available information;
+6. initiate actions;
+7. communicate with external systems.
+
+Klasker therefore evaluates digital environments from both human and machine perspectives.
+
+## Digital Trade
+
+Digital trade in the Klasker context concerns the exchange of information and commercial actions through digital environments.
+
+A machine-facing digital trade environment should make important information sufficiently discoverable and understandable for both humans and AI agents.
+
+Relevant information can include:
+
+- who provides a product or service;
+- what is offered;
+- who it is intended for;
+- how it works;
+- how much it costs;
+- whether it is available;
+- how it can be obtained;
+- what conditions apply;
+- how the provider can be contacted.
+
+## Machine-Facing Information
+
+Machine-facing information is information presented in a form that software systems and AI agents can discover and interpret.
+
+This can include:
+
+- HTML content;
+- semantic markup;
+- metadata;
+- structured data;
+- JSON;
+- JSON-LD;
+- machine-readable documents;
+- APIs;
+- documentation;
+- descriptive URLs;
+- navigation structures;
+- robots directives;
+- llms.txt resources;
+- accessible textual content.
+
+Klasker does not assume that one particular machine-readable format is universally sufficient.
+
+## Accessibility
+
+Accessibility is relevant to Klasker because information that cannot be reliably accessed or interpreted by users and software may become less useful in an Agentic AI environment.
+
+Klasker may therefore consider:
+
+- semantic HTML;
+- meaningful headings;
+- alternative text;
+- form labels;
+- keyboard accessibility;
+- logical navigation;
+- textual equivalents;
+- document structure;
+- content clarity.
+
+## Performance
+
+Website performance can affect both human users and automated systems.
+
+Klasker may consider:
+
+- page loading;
+- resource size;
+- image optimisation;
+- layout stability;
+- unnecessary dependencies;
+- rendering performance;
+- network efficiency.
+
+Performance is considered as part of the wider digital environment rather than as an isolated metric.
+
+## Security
+
+Security is relevant to the reliability and trustworthiness of digital information.
+
+Relevant technical considerations may include:
+
+- HTTPS;
+- HSTS;
+- Content Security Policy;
+- X-Content-Type-Options;
+- X-Frame-Options;
+- Referrer-Policy;
+- Permissions-Policy;
+- secure cookies;
+- appropriate cross-origin policies;
+- secure resource loading.
+
+Security observations do not constitute a security certification or penetration test unless explicitly stated.
+
+## Privacy
+
+Klasker prioritises privacy and minimisation of unnecessary data collection.
+
+The existence of a public evaluation does not imply that private account information is made public.
+
+Premium evaluations are specifically designed to permit evaluation results to remain private.
+
+Users should consult the applicable Klasker privacy documentation for the current handling of personal data.
+
+## Technical Architecture
+
+The public Klasker website is designed around a relatively lightweight architecture.
+
+Current technologies include:
+
+- HTML;
+- CSS;
+- static assets;
+- Grad SSG;
+- Cloudflare Pages.
+
+The platform is designed to avoid unnecessary dependencies where practical.
+
+The architecture may evolve as analytical and account-based functionality is introduced.
+
+## Grad SSG
+
+Grad SSG is a static website generator developed by OSTARA.WORK
+
+It is written for Bun and is used to generate static websites from structured content.
+
+Repository:
+
+https://github.com/OSTARA711/grad
+
+Grad SSG is used in the generation of the public Klasker website.
+
+## Cloudflare Pages
+
+The public Klasker website is deployed using Cloudflare Pages.
+
+Cloudflare provides the infrastructure used to deliver the public static website.
+
+## OSTARA.WORK
+
+OSTARA.WORK is the micro-enterprise responsible for developing and maintaining Klasker AITA.
+
+Official website:
+
+https://www.ostara.work/
+
+OSTARA.WORK develops independent software and digital projects with an emphasis on:
+
+- Open Source software;
+- digital autonomy;
+- privacy;
+- accessibility;
+- minimal dependencies;
+- static and efficient web technologies;
+- software experimentation;
+- digital commons.
+
+OSTARA.WORK was founded in France.
+
+## OSTARA.WORK Projects
+
+### Grad SSG
+
+Static website generator written with Bun "hot reload".
+
+Repository:
+
+https://github.com/OSTARA711/grad
+
+### Nua.CSS
+
+Mobile-first CSS reset and normalisation framework.
+
+Official project page:
+
+https://www.ostara.work/nua
+
+Demo:
+
+https://nua-css.pages.dev/
+
+Repository:
+
+https://github.com/OSTARA711/nua-css
+
+### Klasker AITA
+
+Artificial Intelligence Trade Analysis.
+
+Official website:
+
+https://www.klasker.com/
+
+### Klasker OGMA
+
+Offline Guidance, Monitoring and Analysis.
+
+Repository:
+
+https://github.com/OSTARA711/klasker-ogma
+
+### Kambos
+
+File encryption utility.
+
+Repository:
+
+https://github.com/OSTARA711/kambos
+
+### OSTARA-3339
+
+Chronological protocol designed to be interoperable with ISO-8601 and RFC3339.
+
+Repository:
+
+https://github.com/OSTARA711/ostara-3339
+
+## OSTARA.WORK Website
+
+- [OSTARA.WORK Homepage](https://www.ostara.work/): Official website of OSTARA.WORK.
+- [OSTARA.WORK Services](https://www.ostara.work/services): Development and services information.
+- [Nua.CSS](https://www.ostara.work/nua): Official Nua.CSS project page.
+
+## Source Code
+
+OSTARA.WORK maintains public source repositories through GitHub.
+
+Organisation:
+
+https://github.com/OSTARA711
+
+Individual repositories should be consulted for current source code, development status, issues, releases and applicable licences.
+
+## Licensing
+
+Klasker AITA and its associated components may have licensing terms that differ between repositories and components.
+
+The applicable licence for a particular source-code repository should always be determined from that repository's current licence file.
+
+OSTARA.WORK projects may use Open Source licences including MIT and GNU Affero General Public License version 3 (AGPLv3), depending on the individual project.
+
+This document does not grant additional rights to any software, documentation, trademarks, designs or other intellectual property.
+
+## Intellectual Property
+
+Klasker AITA, its name, branding, analytical methodology, research, software, documentation and associated materials may contain intellectual property belonging to OSTARA.WORK or their respective authors and contributors.
+
+Publicly accessible evaluation results should not be interpreted as placing the underlying Klasker software, methodology or intellectual property into the public domain.
+
+## Author
+
+Saskia Ostermann Toutatis
+
+Founder and maintainer of OSTARA.WORK.
+
+Official website:
+
+https://www.ostara.work/
+
+## Organisation
+
+OSTARA.WORK
+
+Official website:
+
+https://www.ostara.work/
+
+OSTARA.WORK is the micro-enterprise developing and maintaining Klasker AITA.
+
+## Related Resources
+
+- [OSTARA.WORK](https://www.ostara.work/)
+- [OSTARA.WORK Services](https://www.ostara.work/services)
+- [Grad SSG](https://github.com/OSTARA711/grad)
+- [Nua.CSS](https://github.com/OSTARA711/nua-css)
+- [Klasker OGMA](https://github.com/OSTARA711/klasker-ogma)
+- [Kambos](https://github.com/OSTARA711/kambos)
+- [OSTARA-3339](https://github.com/OSTARA711/ostara-3339)
+
+## Canonical Website
+
+https://www.klasker.com/
+
+## Machine-Readable Resources
+
+- https://www.klasker.com/llms.txt
+- https://www.klasker.com/llms-full.txt
+- https://www.klasker.com/robots.txt
+- https://www.klasker.com/sitemap.xml
+
+## Status
+
+Klasker AITA is an actively developing platform.
+
+Features, analytical methods, evaluation criteria, Premium services and technical architecture may change as research and development continue.
+
+The current Klasker website and its associated documentation should be treated as the authoritative source for current functionality.
+
+## End
