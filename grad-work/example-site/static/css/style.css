@@ -1,8 +1,8 @@
 /* grad-work/example-site/public/css/style.css — Klasker AITA */
 
 /* --------------------------------------------------
-   Variables
-   -------------------------------------------------- */
+Variables
+-------------------------------------------------- */
 
 :root {
   --background: #120705;
@@ -20,9 +20,10 @@
   --overlay: rgba(0, 0, 0, 0.35);
 }
 
+
 /* --------------------------------------------------
-   Base
-   -------------------------------------------------- */
+Base
+-------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -55,9 +56,10 @@ body {
   line-height: 1.6;
 }
 
+
 /* --------------------------------------------------
-   Links
-   -------------------------------------------------- */
+Links
+-------------------------------------------------- */
 
 a {
   color: inherit;
@@ -69,20 +71,23 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+
 /* --------------------------------------------------
-   Container
-   -------------------------------------------------- */
+Container
+-------------------------------------------------- */
 
 .container {
   width: 100%;
   max-width: 1000px;
+
   margin: 0 auto;
   padding: 1rem;
 }
 
+
 /* --------------------------------------------------
-   Header
-   -------------------------------------------------- */
+Header
+-------------------------------------------------- */
 
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -93,40 +98,38 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 2rem;
+
   text-align: center;
 }
 
-/* Textual site identity */
 
-.logo {
+/* --------------------------------------------------
+Site Brand
+-------------------------------------------------- */
+
+.site-brand {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.logo a {
-  display: inline-block;
+  flex-shrink: 0;
 
-  color: var(--text);
   text-decoration: none;
-
-  font-weight: 700;
-  letter-spacing: 0.03em;
 }
 
-/* Header image logo, if used */
-
-.logo-img {
+.site-brand .logo-img {
   display: block;
 
   width: auto;
-  height: 100px;
+  height: 70px;
 }
 
+
 /* --------------------------------------------------
-   Main Navigation
-   -------------------------------------------------- */
+Main Navigation
+-------------------------------------------------- */
 
 .main-nav {
   display: flex;
@@ -146,39 +149,67 @@ button:focus-visible {
   color: var(--primary);
 }
 
+
 /* --------------------------------------------------
-   Search
-   -------------------------------------------------- */
+Search
+-------------------------------------------------- */
 
 .search {
   margin-left: auto;
 }
 
+
 /* --------------------------------------------------
-   Main Page
-   -------------------------------------------------- */
+Banner
+-------------------------------------------------- */
+
+.banner {
+  width: 100%;
+
+  overflow: hidden;
+
+  border-bottom: 1px solid var(--border);
+
+  background: var(--background);
+
+  text-align: center;
+}
+
+.banner img {
+  display: block;
+
+  width: 100%;
+  max-width: 1600px;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+
+/* --------------------------------------------------
+Main Page
+-------------------------------------------------- */
 
 main {
   width: 100%;
 }
 
 main > .hero,
-main > .service-grid,
-main > .public-evaluation,
-main > .section,
-main > section {
+main > .section {
   width: min(100% - 2rem, 1000px);
 
   margin-left: auto;
   margin-right: auto;
 }
 
+
 /* --------------------------------------------------
-   Hero
-   -------------------------------------------------- */
+Hero
+-------------------------------------------------- */
 
 .hero {
   padding: 3rem 1rem 1rem;
+
   text-align: center;
 }
 
@@ -212,11 +243,25 @@ main > section {
   margin-right: auto;
 }
 
-/* --------------------------------------------------
-   Service Grid
-   -------------------------------------------------- */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.service-grid {
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  margin-top: 1.5rem;
+}
+
+
+/* --------------------------------------------------
+Widget Grid
+-------------------------------------------------- */
+
+.widget-grid {
+  width: 100%;
+
   display: grid;
 
   grid-template-columns:
@@ -227,86 +272,112 @@ main > section {
   margin-top: 2rem;
 }
 
-/* --------------------------------------------------
-   Service Cards / Widgets
-   -------------------------------------------------- */
 
-.service-card {
+/* --------------------------------------------------
+Widget Windows
+-------------------------------------------------- */
+
+.widget {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
-  min-height: 150px;
+  min-height: 200px;
 
-  padding: 1.25rem;
+  padding: 1.5rem;
 
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
 
-  background: var(--surface);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(49, 16, 12, 0.95),
+      rgba(29, 11, 8, 0.95)
+    );
 
-  color: inherit;
-  text-decoration: none;
+  color: var(--text);
 
-  text-align: left;
+  text-align: center;
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.25);
 
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.service-card:hover {
-  background: var(--surface-hover);
+.widget:hover {
+  background:
+    linear-gradient(
+      145deg,
+      #31100c,
+      #1d0b08
+    );
 
   border-color:
-    rgba(242, 107, 29, 0.35);
+    rgba(242, 107, 29, 0.45);
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 7px 24px rgba(0, 0, 0, 0.35);
 }
 
-.service-card h2,
-.service-card h3 {
-  margin: 0 0 0.5rem;
+.widget h3 {
+  margin: 0 0 0.75rem;
+
+  font-size: 1.25rem;
 }
 
-.service-card p {
-  margin: 0;
+.widget p {
+  max-width: 600px;
+
+  margin: 0 auto 0.75rem;
 
   color: var(--muted);
 }
 
-.service-card .card-label {
-  display: block;
-
-  margin-bottom: 0.35rem;
-
-  color: var(--primary);
-
-  font-size: 0.8rem;
-  font-weight: 700;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.widget-note {
+  font-size: 0.9rem;
 }
 
-/* --------------------------------------------------
-   Premium Widget
-   -------------------------------------------------- */
+.widget .button {
+  margin-top: auto;
+}
 
-.service-card.premium {
+
+/* --------------------------------------------------
+Premium Widget
+-------------------------------------------------- */
+
+.widget.premium {
   border-color:
-    rgba(242, 107, 29, 0.3);
+    rgba(242, 107, 29, 0.35);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(61, 21, 12, 0.98),
+      rgba(29, 11, 8, 0.98)
+    );
 }
 
-.service-card.premium .card-label {
+.widget.premium h3 {
   color: var(--primary);
 }
 
+
 /* --------------------------------------------------
-   Public Evaluation Widget
-   -------------------------------------------------- */
+Public Evaluation
+-------------------------------------------------- */
 
 .public-evaluation {
+  width: 100%;
+
   margin-top: 2rem;
   padding: 1.5rem;
 
@@ -332,45 +403,10 @@ main > section {
   color: var(--muted);
 }
 
-/* --------------------------------------------------
-   Buttons
-   -------------------------------------------------- */
-
-.button {
-  display: inline-block;
-
-  margin-top: 1rem;
-  padding: 0.65rem 1rem;
-
-  border: 1px solid var(--primary);
-  border-radius: 6px;
-
-  background: transparent;
-
-  color: var(--text);
-
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.button:hover {
-  background: var(--primary);
-  color: #120705;
-}
-
-.button-primary {
-  background: var(--primary);
-  color: #120705;
-}
-
-.button-primary:hover {
-  background: var(--secondary);
-  color: var(--text);
-}
 
 /* --------------------------------------------------
-   Section
-   -------------------------------------------------- */
+Section
+-------------------------------------------------- */
 
 .section {
   margin-top: 3rem;
@@ -391,13 +427,143 @@ main > section {
   color: var(--muted);
 }
 
+.section-heading {
+  text-align: center;
+}
+
+
 /* --------------------------------------------------
-   Klasker Navigation
-   -------------------------------------------------- */
+Buttons
+-------------------------------------------------- */
+
+.button {
+  display: inline-block;
+
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text);
+
+  text-decoration: none;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--primary);
+
+  color: #120705;
+}
+
+.button-primary {
+  background: var(--primary);
+
+  color: #120705;
+}
+
+.button-primary:hover {
+  background: var(--secondary);
+
+  color: var(--text);
+
+  border-color: var(--secondary);
+}
+
+.button-secondary {
+  background: transparent;
+
+  color: var(--text);
+}
+
+.button-secondary:hover {
+  background: var(--primary);
+
+  color: #120705;
+}
+
+
+/* --------------------------------------------------
+Analysis Form
+-------------------------------------------------- */
+
+.analysis-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 700px;
+
+  margin: 1.5rem auto 0;
+}
+
+.analysis-form label {
+  margin-bottom: 0.5rem;
+
+  font-weight: 600;
+}
+
+.analysis-form input {
+  width: 100%;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  background: var(--surface);
+
+  color: var(--text);
+
+  font: inherit;
+}
+
+.analysis-form input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+
+/* --------------------------------------------------
+Observatory Preview
+-------------------------------------------------- */
+
+.observatory-preview {
+  width: 100%;
+
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--surface);
+
+  text-align: center;
+}
+
+.observatory-preview p {
+  margin-bottom: 0.5rem;
+}
+
+
+/* --------------------------------------------------
+Klasker Navigation
+-------------------------------------------------- */
 
 /*
-   The front page now uses widgets for Login and Premium.
-   They should therefore not be duplicated in the header.
+The front page uses widgets for Login and Premium.
+They are therefore not duplicated in the header.
 */
 
 .grad-menu-button {
@@ -441,9 +607,10 @@ main > section {
   text-decoration: none;
 }
 
+
 /* --------------------------------------------------
-   Overlay
-   -------------------------------------------------- */
+Overlay
+-------------------------------------------------- */
 
 .grad-overlay {
   display: none;
@@ -468,9 +635,10 @@ main > section {
   pointer-events: auto;
 }
 
+
 /* --------------------------------------------------
-   Footer
-   -------------------------------------------------- */
+Footer
+-------------------------------------------------- */
 
 .site-footer {
   width: 100%;
@@ -490,6 +658,10 @@ main > section {
   text-align: center;
 }
 
+.site-footer p {
+  margin: 0.25rem 0;
+}
+
 .footer-nav {
   margin-top: 0.5rem;
 }
@@ -505,18 +677,28 @@ main > section {
   color: var(--primary);
 }
 
+
 /* --------------------------------------------------
-   Mobile Navigation
-   -------------------------------------------------- */
+Mobile Navigation
+-------------------------------------------------- */
 
 @media (max-width: 700px) {
 
   .site-header .container {
+    flex-direction: column;
     flex-wrap: wrap;
+
+    gap: 1rem;
+  }
+
+  .site-brand .logo-img {
+    height: 60px;
   }
 
   .main-nav {
     width: 100%;
+
+    gap: 0.75rem 1rem;
   }
 
   .grad-menu-button {
@@ -573,11 +755,16 @@ main > section {
 
   .search {
     width: 100%;
+
     margin-top: 0.5rem;
   }
 
-  .service-grid {
+  .widget-grid {
     grid-template-columns: 1fr;
+  }
+
+  .widget {
+    min-height: 180px;
   }
 
   .hero {
@@ -587,11 +774,21 @@ main > section {
   .hero-logo {
     width: min(100%, 420px);
   }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
+
 /* --------------------------------------------------
-   Desktop Navigation
-   -------------------------------------------------- */
+Desktop Navigation
+-------------------------------------------------- */
 
 @media (min-width: 701px) {
 
@@ -603,6 +800,7 @@ main > section {
     position: static;
 
     display: flex;
+
     flex-direction: row;
     align-items: center;
 
@@ -616,6 +814,7 @@ main > section {
     padding: 0;
 
     background: transparent;
+
     box-shadow: none;
   }
 }
