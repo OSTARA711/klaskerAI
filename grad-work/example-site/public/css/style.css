@@ -1,22 +1,29 @@
-/* style.css — Klasker WROS */
+/* grad-work/example-site/public/css/style.css — Klasker AITA */
+
+/* --------------------------------------------------
+Variables
+-------------------------------------------------- */
 
 :root {
   --background: #120705;
   --surface: #1d0b08;
+  --surface-hover: #31100c;
+
   --primary: #f26b1d;
   --secondary: #c74812;
+
   --text: #f3e9df;
   --muted: #d0b6a4;
+  --footer-text: #b79f90;
 
   --border: rgba(255, 255, 255, 0.08);
-  --footer-text: #b79f90;
   --overlay: rgba(0, 0, 0, 0.35);
 }
 
 
 /* --------------------------------------------------
-   Base
-   -------------------------------------------------- */
+Base
+-------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -30,32 +37,57 @@ body {
 }
 
 body {
+  min-height: 100vh;
+
   font-family:
     Inter,
     "Noto Sans",
     system-ui,
     sans-serif;
-  margin: 0;
+
   background:
-    radial-gradient(circle at top, #31100c 0%, var(--background) 65%);
+    radial-gradient(
+      circle at top,
+      #31100c 0%,
+      var(--background) 65%
+    );
+
   color: var(--text);
+  line-height: 1.6;
 }
 
 
 /* --------------------------------------------------
-   Container
-   -------------------------------------------------- */
+Links
+-------------------------------------------------- */
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+
+/* --------------------------------------------------
+Container
+-------------------------------------------------- */
 
 .container {
+  width: 100%;
   max-width: 1000px;
-  margin: auto;
+
+  margin: 0 auto;
   padding: 1rem;
 }
 
 
 /* --------------------------------------------------
-   Header
-   -------------------------------------------------- */
+Header
+-------------------------------------------------- */
 
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -65,45 +97,62 @@ body {
 .site-header .container {
   display: flex;
   align-items: center;
+  justify-content: center;
+
   gap: 2rem;
-}
 
-.logo-img {
-  height: 100px;
-  width: auto;
-  display: block;
-}
-
-.logo a {
-  text-decoration: none;
-  font-weight: bold;
-  color: var(--text);
+  text-align: center;
 }
 
 
 /* --------------------------------------------------
-   Main Navigation
-   -------------------------------------------------- */
+Site Brand
+-------------------------------------------------- */
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+}
+
+.site-brand .logo-img {
+  display: block;
+
+  width: auto;
+  height: 70px;
+}
+
+
+/* --------------------------------------------------
+Main Navigation
+-------------------------------------------------- */
 
 .main-nav {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .main-nav a {
-  text-decoration: none;
   color: var(--muted);
+  text-decoration: none;
 }
 
 .main-nav a:hover {
   color: var(--primary);
-  text-decoration: underline;
 }
 
 
 /* --------------------------------------------------
-   Search
-   -------------------------------------------------- */
+Search
+-------------------------------------------------- */
 
 .search {
   margin-left: auto;
@@ -111,98 +160,440 @@ body {
 
 
 /* --------------------------------------------------
-   Footer
-   -------------------------------------------------- */
+Banner
+-------------------------------------------------- */
 
-.site-footer {
-  border-top: 1px solid var(--border);
+.banner {
+  width: 100%;
+
+  overflow: hidden;
+
+  border-bottom: 1px solid var(--border);
+
+  background: var(--background);
+
+  text-align: center;
+}
+
+.banner img {
+  display: block;
+
+  width: 100%;
+  max-width: 1600px;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+
+/* --------------------------------------------------
+Main Page
+-------------------------------------------------- */
+
+main {
+  width: 100%;
+}
+
+main > .hero,
+main > .section {
+  width: min(100% - 2rem, 1000px);
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* --------------------------------------------------
+Hero
+-------------------------------------------------- */
+
+.hero {
+  padding: 3rem 1rem 1rem;
+
+  text-align: center;
+}
+
+.hero-logo {
+  display: block;
+
+  width: min(100%, 520px);
+  height: auto;
+
+  margin: 0 auto 1.5rem;
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.hero .subtitle {
+  margin-top: 0.75rem;
+
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.hero p {
+  max-width: 720px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  margin-top: 1.5rem;
+}
+
+
+/* --------------------------------------------------
+Widget Grid
+-------------------------------------------------- */
+
+.widget-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 1rem;
+
   margin-top: 2rem;
-  padding-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--footer-text);
-  background: rgba(0, 0, 0, 0.18);
 }
 
-.footer-nav {
-  margin-top: 0.5rem;
+
+/* --------------------------------------------------
+Widget Windows
+-------------------------------------------------- */
+
+.widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 200px;
+
+  padding: 1.5rem;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(49, 16, 12, 0.95),
+      rgba(29, 11, 8, 0.95)
+    );
+
+  color: var(--text);
+
+  text-align: center;
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.25);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.footer-nav a {
-  margin-right: 1rem;
-  text-decoration: none;
+.widget:hover {
+  background:
+    linear-gradient(
+      145deg,
+      #31100c,
+      #1d0b08
+    );
+
+  border-color:
+    rgba(242, 107, 29, 0.45);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 7px 24px rgba(0, 0, 0, 0.35);
+}
+
+.widget h3 {
+  margin: 0 0 0.75rem;
+
+  font-size: 1.25rem;
+}
+
+.widget p {
+  max-width: 600px;
+
+  margin: 0 auto 0.75rem;
+
   color: var(--muted);
 }
 
-.footer-nav a:hover {
+.widget-note {
+  font-size: 0.9rem;
+}
+
+.widget .button {
+  margin-top: auto;
+}
+
+
+/* --------------------------------------------------
+Premium Widget
+-------------------------------------------------- */
+
+.widget.premium {
+  border-color:
+    rgba(242, 107, 29, 0.35);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(61, 21, 12, 0.98),
+      rgba(29, 11, 8, 0.98)
+    );
+}
+
+.widget.premium h3 {
   color: var(--primary);
 }
 
 
 /* --------------------------------------------------
-   Service Grid
-   -------------------------------------------------- */
+Public Evaluation
+-------------------------------------------------- */
 
-.service-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+.public-evaluation {
+  width: 100%;
+
   margin-top: 2rem;
-}
+  padding: 1.5rem;
 
-.service-card {
   border: 1px solid var(--border);
-  padding: 1rem;
-  border-radius: 6px;
-  background: var(--surface);
-  text-decoration: none;
-  color: inherit;
-  display: block;
+  border-radius: 8px;
+
+  background:
+    rgba(29, 11, 8, 0.75);
+
+  text-align: center;
 }
 
-.service-card:hover {
-  background: #31100c;
-  border-color: rgba(242, 107, 29, 0.35);
+.public-evaluation h2 {
+  margin-bottom: 0.5rem;
 }
 
-.service-card h3 {
-  margin-top: 0;
+.public-evaluation p {
+  max-width: 720px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  color: var(--muted);
 }
 
 
 /* --------------------------------------------------
-   Grad Navigation
-   -------------------------------------------------- */
+Section
+-------------------------------------------------- */
 
-/*
- * Hamburger button
- */
+.section {
+  margin-top: 3rem;
 
-.grad-menu-button {
-  display: none;
-  margin-left: 1rem;
-  padding: 0.4rem 0.7rem;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.section h2 {
+  margin-bottom: 0.75rem;
+}
+
+.section p {
+  max-width: 760px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  color: var(--muted);
+}
+
+.section-heading {
+  text-align: center;
+}
+
+
+/* --------------------------------------------------
+Buttons
+-------------------------------------------------- */
+
+.button {
+  display: inline-block;
+
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+
+  border: 1px solid var(--primary);
   border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text);
+
+  text-decoration: none;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--primary);
+
+  color: #120705;
+}
+
+.button-primary {
+  background: var(--primary);
+
+  color: #120705;
+}
+
+.button-primary:hover {
+  background: var(--secondary);
+
+  color: var(--text);
+
+  border-color: var(--secondary);
+}
+
+.button-secondary {
+  background: transparent;
+
   color: var(--text);
 }
 
+.button-secondary:hover {
+  background: var(--primary);
 
-/*
- * Navigation drawer
- */
-
-.grad-navigation {
-  transition: transform 0.25s ease;
+  color: #120705;
 }
 
 
+/* --------------------------------------------------
+Analysis Form
+-------------------------------------------------- */
+
+.analysis-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 700px;
+
+  margin: 1.5rem auto 0;
+}
+
+.analysis-form label {
+  margin-bottom: 0.5rem;
+
+  font-weight: 600;
+}
+
+.analysis-form input {
+  width: 100%;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  background: var(--surface);
+
+  color: var(--text);
+
+  font: inherit;
+}
+
+.analysis-form input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+
+/* --------------------------------------------------
+Observatory Preview
+-------------------------------------------------- */
+
+.observatory-preview {
+  width: 100%;
+
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--surface);
+
+  text-align: center;
+}
+
+.observatory-preview p {
+  margin-bottom: 0.5rem;
+}
+
+
+/* --------------------------------------------------
+Klasker Navigation
+-------------------------------------------------- */
+
 /*
- * Navigation links
- */
+The front page uses widgets for Login and Premium.
+They are therefore not duplicated in the header.
+*/
+
+.grad-menu-button {
+  display: none;
+
+  margin-left: 1rem;
+  padding: 0.4rem 0.7rem;
+
+  font-size: 1.5rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  background: transparent;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  color: var(--text);
+}
+
+.grad-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+
+  transition: transform 0.25s ease;
+}
 
 .grad-navigation a,
 .grad-navigation a:visited {
@@ -217,36 +608,102 @@ body {
 }
 
 
-/*
- * Overlay
- */
+/* --------------------------------------------------
+Overlay
+-------------------------------------------------- */
 
 .grad-overlay {
   display: none;
+
   position: fixed;
   inset: 0;
+
   background: var(--overlay);
+
   opacity: 0;
   pointer-events: none;
+
   transition: opacity 0.25s ease;
+
   z-index: 900;
 }
 
 .grad-overlay.is-visible {
   display: block;
+
   opacity: 1;
   pointer-events: auto;
 }
 
 
-/*
- * Mobile navigation
- */
+/* --------------------------------------------------
+Footer
+-------------------------------------------------- */
+
+.site-footer {
+  width: 100%;
+
+  margin-top: 3rem;
+  padding: 1.5rem 1rem;
+
+  border-top: 1px solid var(--border);
+
+  font-size: 0.9rem;
+
+  color: var(--footer-text);
+
+  background:
+    rgba(0, 0, 0, 0.18);
+
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0.25rem 0;
+}
+
+.footer-nav {
+  margin-top: 0.5rem;
+}
+
+.footer-nav a {
+  margin: 0 0.5rem;
+
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: var(--primary);
+}
+
+
+/* --------------------------------------------------
+Mobile Navigation
+-------------------------------------------------- */
 
 @media (max-width: 700px) {
 
+  .site-header .container {
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    gap: 1rem;
+  }
+
+  .site-brand .logo-img {
+    height: 60px;
+  }
+
+  .main-nav {
+    width: 100%;
+
+    gap: 0.75rem 1rem;
+  }
+
   .grad-menu-button {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
   }
@@ -266,10 +723,13 @@ body {
 
     background: var(--surface);
 
-    box-shadow: 3px 0 12px rgba(0, 0, 0, 0.5);
+    box-shadow:
+      3px 0 12px rgba(0, 0, 0, 0.5);
 
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+
     gap: 1rem;
 
     transform: translateX(-100%);
@@ -283,7 +743,9 @@ body {
 
   .grad-navigation a {
     color: var(--muted);
+
     text-decoration: none;
+
     font-size: 1.1rem;
   }
 
@@ -293,15 +755,40 @@ body {
 
   .search {
     width: 100%;
+
     margin-top: 0.5rem;
   }
 
+  .widget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .widget {
+    min-height: 180px;
+  }
+
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero-logo {
+    width: min(100%, 420px);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
 
-/*
- * Desktop navigation
- */
+/* --------------------------------------------------
+Desktop Navigation
+-------------------------------------------------- */
 
 @media (min-width: 701px) {
 
@@ -313,7 +800,10 @@ body {
     position: static;
 
     display: flex;
+
     flex-direction: row;
+    align-items: center;
+
     gap: 1rem;
 
     transform: none;
@@ -324,29 +814,7 @@ body {
     padding: 0;
 
     background: transparent;
+
     box-shadow: none;
   }
-
-}
-
-
-/* --------------------------------------------------
-   Responsive
-   -------------------------------------------------- */
-
-@media (max-width: 700px) {
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header .container {
-    flex-wrap: wrap;
-  }
-
-  .search {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
 }

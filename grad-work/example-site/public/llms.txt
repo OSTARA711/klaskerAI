@@ -1,0 +1,54 @@
+# Klasker AITA
+
+> Klasker AITA (Artificial Intelligence Trade Analysis) is an analytical platform for evaluating websites, products and services in the emerging world of Agentic AI.
+
+Important notes:
+
+- Klasker evaluates digital trade readiness, machine-facing information, accessibility to AI agents and Agentic AI readiness.
+- Public evaluations are made available through the Klasker Observatory.
+- Premium evaluations may remain private.
+- Klasker is developed and maintained by OSTARA.WORK, a micro-enterprise founded in France.
+- Klasker prioritises privacy, accessibility, static content, clear information and minimal dependencies.
+- The public Klasker website is generated using Grad SSG and deployed on Cloudflare Pages.
+
+## Website
+
+- [Klasker AITA Homepage](https://www.klasker.com/): Official Klasker AITA website.
+- [Public Observatory](https://www.klasker.com/observatory/): Publicly available Klasker evaluations.
+- [Compare](https://www.klasker.com/compare/): Comparison of publicly available Klasker evaluations.
+- [Blog](https://www.klasker.com/blog/): Klasker articles and research.
+
+## Organisation
+
+- [OSTARA.WORK](https://www.ostara.work/): Official website of OSTARA.WORK, the micro-enterprise developing and maintaining Klasker AITA.
+- [OSTARA.WORK Services](https://www.ostara.work/services): Development status and services provided by OSTARA.WORK
+- [Saskia Ostermann Toutatis](https://www.ostara.work/): Founder and maintainer of OSTARA.WORK
+
+## Development
+
+- [Grad SSG](https://github.com/OSTARA711/grad): Static website generator written with Bun "hot reload" and used by OSTARA.WORK website.
+- [Klasker WROS](https://www.klasker.com/): Workspaces Research Operating System.
+- [Klasker OGMA](https://github.com/OSTARA711/klasker-ogma): Offline Guidance, Monitoring and Analysis.
+
+## Source Code
+
+- [Klasker repositories](https://github.com/OSTARA711): GitHub repositories maintained by OSTARA.WORK
+
+## Related OSTARA.WORK Projects
+
+- [Nua.CSS](https://www.ostara.work/nua): Mobile-first CSS reset and normalisation framework.
+- [Kambos](https://github.com/OSTARA711/kambos): File encryption utility.
+- [OSTARA-3339](https://github.com/OSTARA711/ostara-3339): Chronological protocol interoperable with ISO-8601 and RFC3339.
+
+## Author
+
+Saskia Ostermann Toutatis
+
+- [Saskia Ostermann Toutatis](https://www.ostara.work/): Founder and maintainer of OSTARA.WORK
+- [OSTARA.WORK](https://www.ostara.work/): Micro-enterprise founded in France and developer of Klasker AITA.
+
+## Licence
+
+Klasker AITA is developed and maintained by OSTARA.WORK, and holds a proprietary license.
+
+Individual Klasker components and related projects may have their own licences. Refer to the relevant project repository or website for applicable licensing information.
