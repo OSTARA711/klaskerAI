@@ -1,4 +1,3 @@
-cat > static/js/analysis.js <<'EOF'
 "use strict";
 
 const API_BASE = "https://klasker-api.vedras1973.workers.dev";
@@ -32,12 +31,6 @@ async function handleSubmit(event) {
   let channel = null;
 
   try {
-    /*
-     * Create the Ably client first.
-     *
-     * The Worker supplies a short-lived TokenRequest restricted
-     * to this exact analysis channel.
-     */
     realtime = new Ably.Realtime({
       authUrl: `${API_BASE}/api/ably-auth`,
       authParams: {
@@ -45,11 +38,6 @@ async function handleSubmit(event) {
       },
     });
 
-    /*
-     * Obtain the channel before submitting the analysis request.
-     * This is deliberately done first so the browser cannot miss
-     * a fast scanner result.
-     */
     channel = realtime.channels.get(channelName);
 
     await realtime.connection.once("connected");
@@ -99,7 +87,6 @@ async function handleSubmit(event) {
     ) {
       throw new Error("The analysis service returned an unexpected response.");
     }
-
   } catch (error) {
     console.error("Klasker analysis failed:", error);
 
@@ -125,10 +112,6 @@ function handleAblyMessage(message) {
 
   let data = message.data;
 
-  /*
-   * Ably normally gives us the object directly because the Worker
-   * publishes JSON. Keep this fallback for encoded/string payloads.
-   */
   if (typeof data === "string") {
     try {
       data = JSON.parse(data);
@@ -247,4 +230,3 @@ function isValidUrl(value) {
     return false;
   }
 }
-EOF
