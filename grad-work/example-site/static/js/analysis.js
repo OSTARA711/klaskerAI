@@ -1,6 +1,6 @@
 "use strict";
 
-const API_BASE = "https://klasker-api.vedras1973.workers.dev";
+const API_BASE = "https://api.klasker.com";
 
 const form = document.querySelector(".analysis-form");
 const input = document.getElementById("public-url");

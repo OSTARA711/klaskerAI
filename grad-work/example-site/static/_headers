@@ -4,7 +4,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://klasker-api.vedras1973.workers.dev https://main.realtime.ably.net https://internet-up.ably-realtime.com wss://main.realtime.ably.net; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.klasker.com https://main.realtime.ably.net https://internet-up.ably-realtime.com wss://main.realtime.ably.net; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests
 
 /sitemap-style.xsl
   Content-Type: text/xsl; charset=utf-8
