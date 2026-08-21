@@ -818,3 +818,41 @@ Desktop Navigation
     box-shadow: none;
   }
 }
+
+/* --------------------------------------------------
+Cloudflare Worker + Ably
+---------------------------------------------------*/
+
+.analysis-result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.analysis-result-pending {
+  opacity: 0.8;
+}
+
+.analysis-result-error {
+  border-color: #b00020;
+}
+
+.analysis-result-success {
+  border-color: #16733a;
+}
+
+.analysis-result pre {
+  margin: 1rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.analysis-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
