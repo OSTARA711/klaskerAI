@@ -824,11 +824,14 @@ Cloudflare Worker + Ably
 ---------------------------------------------------*/
 
 .analysis-result {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+}
+
+.analysis-result-pending,
+.analysis-result-error {
   padding: 1.5rem;
   border: 1px solid currentColor;
   border-radius: 0.5rem;
-  overflow-x: auto;
 }
 
 .analysis-result-pending {
@@ -839,20 +842,205 @@ Cloudflare Worker + Ably
   border-color: #b00020;
 }
 
-.analysis-result-success {
-  border-color: #16733a;
+.analysis-report {
+  margin: 0;
+  border: 1px solid currentColor;
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
-.analysis-result pre {
-  margin: 1rem 0 0;
-  white-space: pre-wrap;
+.analysis-report-header {
+  padding: 2rem;
+  border-bottom: 1px solid currentColor;
+}
+
+.analysis-report-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.analysis-report-header h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
   overflow-wrap: anywhere;
+}
+
+.analysis-report-url {
+  margin: 0.75rem 0 0;
+  overflow-wrap: anywhere;
+  opacity: 0.7;
   font-family: monospace;
   font-size: 0.9rem;
+}
+
+.analysis-score {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid currentColor;
+}
+
+.analysis-score-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.analysis-score-value {
+  line-height: 1;
+}
+
+.analysis-score-value strong {
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: 700;
+}
+
+.analysis-score-value span {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.analysis-score-status {
+  margin: 1rem 0 0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.analysis-section {
+  padding: 2rem;
+  border-bottom: 1px solid currentColor;
+}
+
+.analysis-section h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.analysis-section-description {
+  margin: 0.5rem 0 1.5rem;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.analysis-findings {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.analysis-finding {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
   line-height: 1.5;
+}
+
+.analysis-finding-marker {
+  flex: 0 0 auto;
+  width: 1.5rem;
+  font-weight: 700;
+}
+
+.analysis-finding-pass .analysis-finding-marker {
+  color: #16733a;
+}
+
+.analysis-finding-fail .analysis-finding-marker {
+  color: #b00020;
+}
+
+.analysis-check-list {
+  display: grid;
+  gap: 0;
+}
+
+.analysis-check-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid currentColor;
+  line-height: 1.4;
+}
+
+.analysis-check-row:first-child {
+  padding-top: 0;
+}
+
+.analysis-check-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.analysis-check-value {
+  flex: 0 0 auto;
+  font-weight: 700;
+  text-align: right;
+}
+
+.analysis-check-pass {
+  color: #16733a;
+}
+
+.analysis-check-fail {
+  color: #b00020;
+}
+
+.analysis-recommendations {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 1.6;
+}
+
+.analysis-technical {
+  padding: 1.25rem 2rem;
+}
+
+.analysis-technical summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.analysis-technical-content {
+  margin-top: 1rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.analysis-technical-content p {
+  margin: 0.4rem 0;
 }
 
 .analysis-form button:disabled {
   cursor: wait;
   opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .analysis-report-header,
+  .analysis-score,
+  .analysis-section {
+    padding: 1.5rem;
+  }
+
+  .analysis-technical {
+    padding: 1rem 1.5rem;
+  }
+
+  .analysis-check-row {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .analysis-check-value {
+    text-align: left;
+  }
 }
