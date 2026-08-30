@@ -27,12 +27,12 @@
 
     <div class="logo">
       <a href="/">
-      <img src="/img/ostara.svg" alt="OSTARA.WORK Logo" class="logo-img">
+      <img src="/img/ostara-logotype.webp" alt="OSTARA.WORK Logotype" class="logo-img">
       </a>
     </div>
 
     <nav class="main-nav">
-      <a href="/">Ostara</a>
+      <a href="/">Klasker</a>
       <a href="/resources/">Resources</a>
       <a href="/history/">History</a>
     </nav>
@@ -63,47 +63,6 @@
 
   </div>
 </footer>
-
-<script>
-fetch("/index.json")
-  .then(r => r.json())
-  .then(data => {
-
-    const input = document.getElementById("search");
-
-    let results = document.getElementById("results");
-    if (!results) {
-      results = document.createElement("ul");
-      results.id = "results";
-      input.parentNode.appendChild(results);
-    }
-
-    let timer;
-
-    input.addEventListener("input", () => {
-
-      clearTimeout(timer);
-
-      timer = setTimeout(() => {
-
-        const q = input.value.toLowerCase();
-
-        if (!q) {
-          results.innerHTML = "";
-          return;
-        }
-
-        results.innerHTML = data.pages
-          .filter(p => p.title.toLowerCase().includes(q))
-          .map(p => `<li><a href="${p.url}">${p.title}</a></li>`)
-          .join("");
-
-      }, 120);
-
-    });
-
-  });
-</script>
 
 </body>
 </html>
