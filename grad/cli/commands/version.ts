@@ -1,3 +1,3 @@
 export default function version() {
-  console.log("GRAD v0.1.0");
+  console.log("Grad SSG — Beta v0.2.0");
 }

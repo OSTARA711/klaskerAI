@@ -11,7 +11,7 @@ export default async function build(args: string[]) {
 
   // FIX: correct sitePath resolution (no args.slice(1))
   const sitePath =
-    args.find(a => !a.startsWith("--")) ?? "./example-site";
+    args.find(a => !a.startsWith("--")) ?? "./website";
 
   // FIX: safe config fallback (no try/catch needed upstream anymore,
   // but kept minimal safety layer)

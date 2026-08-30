@@ -10,7 +10,7 @@ const command = args[0];
 
 // first non-flag argument after command = sitePath
 const sitePath =
-  args.slice(1).find(a => !a.startsWith("--")) ?? "./example-site";
+  args.slice(1).find(a => !a.startsWith("--")) ?? "./website";
 
 const flags = args.filter(a => a.startsWith("--"));
 

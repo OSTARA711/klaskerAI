@@ -6,7 +6,7 @@ GRAD Static Site Generator
 Commands:
 
   grad new <site>
-  grad build [--clean]
+  grad build [--clean] [--production]
   grad serve
   grad version
   grad help
