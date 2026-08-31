@@ -1,3 +1,5 @@
+<!-- Path: ~/klaskerAI/grad/website/templates/page.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +18,7 @@
 
   <link rel="stylesheet" href="/css/style.css">
 
-  <script>
-    try {
-      const ws = new WebSocket("ws://localhost:1314");
-      ws.onmessage = () => location.reload();
-    } catch {}
-  </script>
+  <script defer src="/hotreload.js"></script>
 
 </head>
 <body>
@@ -31,7 +28,9 @@
 
     <div class="logo">
       <a href="/">
-      <img src="/img/ostara-logotype.webp" alt="OSTARA.WORK Logotype" class="logo-img">
+        <img src="/img/ostara-logotype.webp"
+             alt="OSTARA.WORK Logotype"
+             class="logo-img">
       </a>
     </div>
 

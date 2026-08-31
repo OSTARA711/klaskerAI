@@ -261,6 +261,8 @@ export function buildSite(
   /*
    * Static assets use their source/output modification
    * times to determine whether they need copying.
+   *
+   * This remains incremental even during local development.
    */
   copyStaticDir(
     staticDir,
@@ -293,7 +295,18 @@ export function buildSite(
       )
     );
 
+    /*
+     * In development mode, always regenerate HTML.
+     *
+     * This is necessary because the development template
+     * contains {{hotreload}}, which must be injected even
+     * when the Markdown source itself has not changed.
+     *
+     * Production and normal build modes retain incremental
+     * timestamp-based rebuilding.
+     */
     const needsBuild =
+      devMode ||
       shouldBuild(
         page.sourcePath,
         outPath
@@ -320,7 +333,7 @@ export function buildSite(
     }
 
     /*
-     * A changed/new page makes its collection dirty.
+     * A rebuilt page makes its collection dirty.
      */
     if (collectionName) {
       dirtyCollections.add(
@@ -357,11 +370,11 @@ export function buildSite(
   collections.sortCollections();
 
   /*
-   * Regenerate only collection indexes belonging to
-   * collections whose Markdown content actually changed.
+   * Regenerate collection indexes belonging to
+   * collections whose pages were rebuilt.
    *
-   * A clean build naturally makes every page new, so all
-   * relevant collection indexes are regenerated.
+   * In development mode, every page is rebuilt, so the
+   * relevant collection indexes are also regenerated.
    */
   for (const collection of collections.getAll()) {
     if (
@@ -437,10 +450,7 @@ export function buildSite(
 
   /*
    * Regenerate the root index only when a root-level
-   * Markdown page actually changed.
-   *
-   * Collection changes also affect the overall site
-   * index, so dirty collections trigger regeneration too.
+   * Markdown page was rebuilt or a collection changed.
    */
   if (
     rootJsonDirty ||
