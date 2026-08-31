@@ -1,3 +1,5 @@
+// Path: ~/klaskerAI/grad/src/template.ts
+
 import { readFileSync } from "fs";
 import { join } from "path";
 import { Page } from "./parser";
@@ -23,14 +25,13 @@ function generateFaviconLinks(): string {
 }
 
 /**
- * Hot reload injection (dev only)
+ * Generate the development hot-reload script injection.
+ *
+ * Hot reload is enabled only when explicitly requested by
+ * the local development server.
  */
-function getHotReloadSnippet(): string {
-  const isProduction =
-    process.env.NODE_ENV === "production" ||
-    process.argv.includes("--production");
-
-  if (isProduction) return "";
+function getHotReloadSnippet(devMode: boolean): string {
+  if (!devMode) return "";
 
   return `
 <script defer src="/hotreload.js"></script>
@@ -40,12 +41,16 @@ function getHotReloadSnippet(): string {
 /**
  * Render a Page object into full HTML using a template
  */
-export function renderPage(templateDir: string, page: Page): string {
+export function renderPage(
+  templateDir: string,
+  page: Page,
+  devMode: boolean = false
+): string {
   const templatePath = join(templateDir, "page.html");
   const rawTemplate = readFileSync(templatePath, "utf-8");
 
   const faviconLinks = generateFaviconLinks();
-  const hotreload = getHotReloadSnippet();
+  const hotreload = getHotReloadSnippet(devMode);
 
   let html = rawTemplate;
 
