@@ -1,3 +1,5 @@
+// grad/cli/commands/build.ts
+
 import { loadConfig } from "../../src/config";
 import { scanMarkdownFiles } from "../../src/scanner";
 import { parseMarkdownFile } from "../../src/parser";

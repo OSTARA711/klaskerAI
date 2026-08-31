@@ -19,9 +19,17 @@ import { CollectionRegistry } from "./collections";
 import { loadConfig } from "./config";
 
 /**
- * Determines whether a Markdown page should be rebuilt into HTML
+ * Determines whether a Markdown page should be rebuilt into HTML.
+ *
+ * A page is rebuilt when:
+ *
+ * - the output HTML does not exist; or
+ * - the Markdown source is newer than the output HTML.
  */
-function shouldBuild(mdPath: string, htmlPath: string): boolean {
+function shouldBuild(
+  mdPath: string,
+  htmlPath: string
+): boolean {
   if (!existsSync(htmlPath)) return true;
 
   const mdTime = statSync(mdPath).mtimeMs;
@@ -39,10 +47,15 @@ function shouldBuild(mdPath: string, htmlPath: string): boolean {
  * Internal project metadata must never become part of
  * the generated website.
  */
-function copyStaticDir(src: string, dest: string) {
+function copyStaticDir(
+  src: string,
+  dest: string
+) {
   if (!existsSync(src)) return;
 
-  const entries = readdirSync(src, { withFileTypes: true });
+  const entries = readdirSync(src, {
+    withFileTypes: true
+  });
 
   for (const entry of entries) {
     // Never publish Git repository metadata.
@@ -52,7 +65,10 @@ function copyStaticDir(src: string, dest: string) {
     const destPath = join(dest, entry.name);
 
     if (entry.isDirectory()) {
-      mkdirSync(destPath, { recursive: true });
+      mkdirSync(destPath, {
+        recursive: true
+      });
+
       copyStaticDir(srcPath, destPath);
       continue;
     }
@@ -67,12 +83,16 @@ function copyStaticDir(src: string, dest: string) {
       }
     }
 
-    mkdirSync(dirname(destPath), { recursive: true });
+    mkdirSync(dirname(destPath), {
+      recursive: true
+    });
 
     copyFileSync(srcPath, destPath);
 
-    // Preserve the source modification times so subsequent
-    // incremental builds can correctly detect unchanged files.
+    /*
+     * Preserve the source modification times so subsequent
+     * incremental builds can correctly detect unchanged files.
+     */
     const srcStat = statSync(srcPath);
 
     utimesSync(
@@ -86,7 +106,7 @@ function copyStaticDir(src: string, dest: string) {
 }
 
 /**
- * XML escape for RSS
+ * XML escape for RSS.
  */
 function xmlEscape(str: string) {
   return str
@@ -95,6 +115,9 @@ function xmlEscape(str: string) {
     .replace(/>/g, "&gt;");
 }
 
+/**
+ * Generate RSS for a collection.
+ */
 function generateRSS(
   collectionName: string,
   pages: Page[],
@@ -105,8 +128,8 @@ function generateRSS(
   const sorted = pages
     .filter(p => !p.draft)
     .sort((a, b) => {
-      const da = a.date ? new Date(a.date).getTime() : 0;
-      const db = b.date ? new Date(b.date).getTime() : 0;
+      const da = pDate(a);
+      const db = pDate(b);
 
       return db - da;
     });
@@ -132,7 +155,36 @@ function generateRSS(
 }
 
 /**
- * Build site
+ * Convert a page date into a timestamp.
+ */
+function pDate(page: Page): number {
+  return page.date
+    ? new Date(page.date).getTime()
+    : 0;
+}
+
+/**
+ * Build site.
+ *
+ * Modes:
+ *
+ * build
+ *   Incremental development build.
+ *
+ * build --production
+ *   Incremental production build.
+ *   Currently identical to a normal incremental build.
+ *
+ * build --clean
+ *   Delete the entire output directory before rebuilding.
+ *
+ * build --clean --production
+ *   Clean production build.
+ *   This is suitable for deployment to Cloudflare Pages.
+ *
+ * serve
+ *   Calls this function with devMode=true so that the
+ *   development-only hot-reload client is injected.
  */
 export function buildSite(
   sitePath: string,
@@ -140,72 +192,183 @@ export function buildSite(
   templateDir: string,
   clean: boolean = false,
   siteUrl: string = "",
-  production: boolean = false
+  production: boolean = false,
+  devMode: boolean = false
 ) {
   const config = loadConfig(sitePath);
 
-  const contentDir = join(sitePath, config.content);
-  const staticDir = join(sitePath, config.static);
-  const outputDir = join(sitePath, config.output);
+  const contentDir = join(
+    sitePath,
+    config.content
+  );
 
+  const staticDir = join(
+    sitePath,
+    config.static
+  );
+
+  const outputDir = join(
+    sitePath,
+    config.output
+  );
+
+  /*
+   * --clean means exactly what its name says:
+   * remove the complete output directory.
+   *
+   * It does not depend on --production.
+   */
   if (clean && existsSync(outputDir)) {
-    console.log("Cleaning output directory...");
-    rmSync(outputDir, { recursive: true, force: true });
-  }
-
-  mkdirSync(outputDir, { recursive: true });
-
-  const collections = new CollectionRegistry();
-  const dirtyCollections = new Set<string>();
-  let rootJsonDirty = false;
-
-  copyStaticDir(staticDir, outputDir);
-
-  for (const page of pages) {
-    const relative = page.sourcePath.replace(
-      contentDir + "/",
-      ""
+    console.log(
+      "Cleaning output directory..."
     );
 
-    const parts = relative.split("/");
-    const collectionName =
-      parts.length > 1 ? parts[0] : null;
+    rmSync(outputDir, {
+      recursive: true,
+      force: true
+    });
+  }
 
+  mkdirSync(outputDir, {
+    recursive: true
+  });
+
+  const collections = new CollectionRegistry();
+
+  /*
+   * Collections are marked dirty only when at least one
+   * Markdown page actually needs to be rebuilt.
+   */
+  const dirtyCollections =
+    new Set<string>();
+
+  let rootJsonDirty = false;
+
+  /*
+   * production is deliberately not used to alter the
+   * current build behaviour.
+   *
+   * This preserves:
+   *
+   *   build
+   *   build --production
+   *
+   * as equivalent incremental builds while keeping the
+   * flag available for future production-specific features.
+   */
+  void production;
+
+  /*
+   * Static assets use their source/output modification
+   * times to determine whether they need copying.
+   */
+  copyStaticDir(
+    staticDir,
+    outputDir
+  );
+
+  /*
+   * Build Markdown pages.
+   */
+  for (const page of pages) {
+    const relative =
+      page.sourcePath.replace(
+        contentDir + "/",
+        ""
+      );
+
+    const parts =
+      relative.split("/");
+
+    const collectionName =
+      parts.length > 1
+        ? parts[0]
+        : null;
+
+    const outPath = join(
+      outputDir,
+      relative.replace(
+        /\.md$/,
+        ".html"
+      )
+    );
+
+    const needsBuild =
+      shouldBuild(
+        page.sourcePath,
+        outPath
+      );
+
+    /*
+     * Register every page so collection indexes always
+     * contain the complete collection.
+     */
     if (collectionName) {
       collections.addPage({
         ...page,
         collection: collectionName
       });
+    }
 
-      dirtyCollections.add(collectionName);
+    if (!needsBuild) {
+      console.log(
+        "Skipped:",
+        outPath
+      );
+
+      continue;
+    }
+
+    /*
+     * A changed/new page makes its collection dirty.
+     */
+    if (collectionName) {
+      dirtyCollections.add(
+        collectionName
+      );
     } else {
       rootJsonDirty = true;
     }
 
-    const outPath = join(
-      outputDir,
-      relative.replace(/\.md$/, ".html")
+    const html = renderPage(
+      templateDir,
+      page,
+      devMode
     );
 
-    if (!shouldBuild(page.sourcePath, outPath)) {
-      console.log("Skipped:", outPath);
-      continue;
-    }
+    mkdirSync(
+      dirname(outPath),
+      {
+        recursive: true
+      }
+    );
 
-    const html = renderPage(templateDir, page);
+    writeFileSync(
+      outPath,
+      html
+    );
 
-    mkdirSync(dirname(outPath), { recursive: true });
-    writeFileSync(outPath, html);
-
-    console.log("Written:", outPath);
+    console.log(
+      "Written:",
+      outPath
+    );
   }
 
   collections.sortCollections();
 
+  /*
+   * Regenerate only collection indexes belonging to
+   * collections whose Markdown content actually changed.
+   *
+   * A clean build naturally makes every page new, so all
+   * relevant collection indexes are regenerated.
+   */
   for (const collection of collections.getAll()) {
     if (
       !collection.name ||
-      !dirtyCollections.has(collection.name)
+      !dirtyCollections.has(
+        collection.name
+      )
     ) {
       continue;
     }
@@ -216,17 +379,27 @@ export function buildSite(
       "index.html"
     );
 
-    const html = renderPage(templateDir, {
-      title: collection.name,
-      pages: collection.pages,
-      collection: collection.name
-    } as any);
+    const html = renderPage(
+      templateDir,
+      {
+        title: collection.name,
+        pages: collection.pages,
+        collection: collection.name
+      } as any,
+      devMode
+    );
 
-    mkdirSync(dirname(indexHtmlPath), {
-      recursive: true
-    });
+    mkdirSync(
+      dirname(indexHtmlPath),
+      {
+        recursive: true
+      }
+    );
 
-    writeFileSync(indexHtmlPath, html);
+    writeFileSync(
+      indexHtmlPath,
+      html
+    );
 
     console.log(
       "Generated collection index:",
@@ -243,12 +416,18 @@ export function buildSite(
       jsonPath,
       JSON.stringify(
         {
-          collection: collection.name,
-          pages: collection.pages.map(p => ({
-            title: p.title,
-            slug: p.slug,
-            url: `/${collection.name}/${p.slug}.html`
-          }))
+          collection:
+            collection.name,
+
+          pages:
+            collection.pages.map(
+              p => ({
+                title: p.title,
+                slug: p.slug,
+                url:
+                  `/${collection.name}/${p.slug}.html`
+              })
+            )
         },
         null,
         2
@@ -256,6 +435,13 @@ export function buildSite(
     );
   }
 
+  /*
+   * Regenerate the root index only when a root-level
+   * Markdown page actually changed.
+   *
+   * Collection changes also affect the overall site
+   * index, so dirty collections trigger regeneration too.
+   */
   if (
     rootJsonDirty ||
     dirtyCollections.size > 0
@@ -269,10 +455,12 @@ export function buildSite(
       siteIndexPath,
       JSON.stringify(
         {
-          pages: pages.map(p => ({
-            title: p.title,
-            url: `/${p.slug}.html`
-          }))
+          pages:
+            pages.map(p => ({
+              title: p.title,
+              url:
+                `/${p.slug}.html`
+            }))
         },
         null,
         2

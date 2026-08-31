@@ -1,3 +1,5 @@
+// grad/cli/grad.ts
+
 import build from "./commands/build";
 import serve from "./commands/serve";
 import create from "./commands/new";
