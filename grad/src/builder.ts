@@ -1,4 +1,4 @@
-// Path: ~/klaskerAI/grad-work/src/builder.ts
+// Path: ~/klaskerAI/grad/src/builder.ts
 
 import {
   writeFileSync,
@@ -7,7 +7,8 @@ import {
   rmSync,
   statSync,
   readdirSync,
-  copyFileSync
+  copyFileSync,
+  utimesSync
 } from "fs";
 
 import { join, dirname } from "node:path";
@@ -32,6 +33,9 @@ function shouldBuild(mdPath: string, htmlPath: string): boolean {
 /**
  * Recursively copies static assets.
  *
+ * Only new or modified files are copied.
+ * Unchanged files are skipped.
+ *
  * Internal project metadata must never become part of
  * the generated website.
  */
@@ -50,10 +54,34 @@ function copyStaticDir(src: string, dest: string) {
     if (entry.isDirectory()) {
       mkdirSync(destPath, { recursive: true });
       copyStaticDir(srcPath, destPath);
-    } else {
-      copyFileSync(srcPath, destPath);
-      console.log("Copied:", destPath);
+      continue;
     }
+
+    if (existsSync(destPath)) {
+      const srcStat = statSync(srcPath);
+      const destStat = statSync(destPath);
+
+      if (srcStat.mtimeMs <= destStat.mtimeMs) {
+        console.log("Skipped:", destPath);
+        continue;
+      }
+    }
+
+    mkdirSync(dirname(destPath), { recursive: true });
+
+    copyFileSync(srcPath, destPath);
+
+    // Preserve the source modification times so subsequent
+    // incremental builds can correctly detect unchanged files.
+    const srcStat = statSync(srcPath);
+
+    utimesSync(
+      destPath,
+      srcStat.atime,
+      srcStat.mtime
+    );
+
+    console.log("Copied:", destPath);
   }
 }
 
