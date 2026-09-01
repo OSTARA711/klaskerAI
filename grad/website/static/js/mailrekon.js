@@ -3,255 +3,260 @@
 "use strict";
 
 const MAILREKON_API =
-  "https://klasker-mail-api.vedras1973.workers.dev/api/mail-analysis";
-
+"https://klasker-mail-api.vedras1973.workers.dev/api/mail-analysis";
 
 const form = document.getElementById(
-  "mailrekon-form"
+"mailrekon-form"
 );
 
 const domainInput = document.getElementById(
-  "mailrekon-domain"
+"mailrekon-domain"
 );
 
 const statusElement = document.getElementById(
-  "mailrekon-status"
+"mailrekon-status"
 );
 
 const resultElement = document.getElementById(
-  "mailrekon-result"
+"mailrekon-result"
 );
 
-
 function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+return String(value)
+.replace(/&/g, "&")
+.replace(/</g, "<")
+.replace(/>/g, ">")
+.replace(/"/g, """)
+.replace(/'/g, "'");
 }
 
-
 function setStatus(message) {
-  statusElement.innerHTML = `
-    <p>${escapeHtml(message)}</p>
+statusElement.innerHTML = `     <p>${escapeHtml(message)}</p>
   `;
 }
 
+function getScannerLabel(scanner) {
+if (scanner === "https://scanner1.klasker.com") {
+return "Scanner 1";
+}
+
+if (scanner === "https://scanner2.klasker.com") {
+return "Scanner 2";
+}
+
+return "Scanner";
+}
 
 function formatRecords(records) {
-  if (!Array.isArray(records) || records.length === 0) {
-    return "<p>No records found.</p>";
-  }
+if (!Array.isArray(records) || records.length === 0) {
+return "<p>No records found.</p>";
+}
 
-  return `
-    <ul>
+return `     <ul>
       ${records
         .map(
           (record) =>
-            `<li><code>${escapeHtml(record)}</code></li>`
-        )
-        .join("")}
-    </ul>
+            `<li><code>${escapeHtml(record)}</code></li>`         )
+        .join("")}     </ul>
   `;
 }
-
 
 function renderResult(response) {
-  const result = response.result || {};
+const result = response.result || {};
 
-  const mx = result.mx || {};
-  const spf = result.spf || {};
-  const dmarc = result.dmarc || {};
+const mx = result.mx || {};
+const spf = result.spf || {};
+const dmarc = result.dmarc || {};
 
-  resultElement.innerHTML = `
-    <article class="widget">
+const scannerLabel = getScannerLabel(
+response.scanner
+);
 
-      <h3>
-        ${escapeHtml(response.domain)}
-      </h3>
+resultElement.innerHTML = ` <article class="widget">
 
-      <p>
-        <strong>Status:</strong>
-        ${escapeHtml(response.status)}
-      </p>
+  <h3>
+    ${escapeHtml(response.domain)}
+  </h3>
 
-      <p>
-        <strong>Analysis ID:</strong>
-        <code>${escapeHtml(response.analysis_id)}</code>
-      </p>
+  <p>
+    <strong>Status:</strong>
+    ${escapeHtml(response.status)}
+  </p>
 
-      <p>
-        <strong>Scanner:</strong>
-        <code>${escapeHtml(response.scanner || "Unknown")}</code>
-      </p>
+  <p>
+    <strong>Analysis ID:</strong>
+    <code>${escapeHtml(response.analysis_id)}</code>
+  </p>
 
-    </article>
+  <p>
+    <strong>Scanner:</strong>
+    ${escapeHtml(scannerLabel)}
+  </p>
 
-
-    <div class="widget-grid">
-
-      <article class="widget">
-
-        <h3>
-          MX
-        </h3>
-
-        <p>
-          <strong>Available:</strong>
-          ${mx.available ? "Yes" : "No"}
-        </p>
-
-        ${formatRecords(mx.records)}
-
-      </article>
+</article>
 
 
-      <article class="widget">
+<div class="widget-grid">
 
-        <h3>
-          SPF
-        </h3>
+  <article class="widget">
 
-        <p>
-          <strong>Detected:</strong>
-          ${spf.detected ? "Yes" : "No"}
-        </p>
+    <h3>
+      MX
+    </h3>
 
-        ${formatRecords(spf.records)}
+    <p>
+      <strong>Available:</strong>
+      ${mx.available ? "Yes" : "No"}
+    </p>
 
-      </article>
+    ${formatRecords(mx.records)}
+
+  </article>
 
 
-      <article class="widget">
+  <article class="widget">
 
-        <h3>
-          DMARC
-        </h3>
+    <h3>
+      SPF
+    </h3>
 
-        <p>
-          <strong>Detected:</strong>
-          ${dmarc.detected ? "Yes" : "No"}
-        </p>
+    <p>
+      <strong>Detected:</strong>
+      ${spf.detected ? "Yes" : "No"}
+    </p>
 
-        ${formatRecords(dmarc.records)}
+    ${formatRecords(spf.records)}
 
-      </article>
+  </article>
 
-    </div>
-  `;
+
+  <article class="widget">
+
+    <h3>
+      DMARC
+    </h3>
+
+    <p>
+      <strong>Detected:</strong>
+      ${dmarc.detected ? "Yes" : "No"}
+    </p>
+
+    ${formatRecords(dmarc.records)}
+
+  </article>
+
+</div>
+
+`;
 }
-
 
 async function analyseDomain(domain) {
-  setStatus("Analysing email security…");
+setStatus("Analysing email security…");
 
-  resultElement.innerHTML = `
-    <p>
+resultElement.innerHTML = `     <p>
       MailRekon is querying the domain's publicly observable
-      email infrastructure.
-    </p>
+      email infrastructure.     </p>
   `;
 
-  try {
-    const response = await fetch(
-      MAILREKON_API,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          domain,
-        }),
-      }
-    );
+try {
+const response = await fetch(
+MAILREKON_API,
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+domain,
+}),
+}
+);
 
-    let data;
+let data;
 
-    try {
-      data = await response.json();
-    } catch {
-      throw new Error(
-        "The MailRekon service returned an invalid response."
-      );
-    }
-
-    if (!response.ok) {
-      throw new Error(
-        data.error ||
-        "MailRekon could not complete the analysis."
-      );
-    }
-
-    if (
-      data.status !== "completed" ||
-      !data.result
-    ) {
-      throw new Error(
-        "MailRekon did not return a completed analysis."
-      );
-    }
-
-    setStatus(
-      "MailRekon analysis completed."
-    );
-
-    renderResult(data);
-
-  } catch (error) {
-    console.error(
-      "MailRekon analysis failed:",
-      error
-    );
-
-    setStatus(
-      "MailRekon analysis failed."
-    );
-
-    resultElement.innerHTML = `
-      <article class="widget">
-
-        <h3>
-          Analysis Unavailable
-        </h3>
-
-        <p>
-          ${escapeHtml(
-            error instanceof Error
-              ? error.message
-              : "Unable to complete the analysis."
-          )}
-        </p>
-
-      </article>
-    `;
-  }
+try {
+  data = await response.json();
+} catch {
+  throw new Error(
+    "MailRekon returned an invalid response."
+  );
 }
 
+if (!response.ok) {
+  throw new Error(
+    data.error ||
+    "MailRekon could not complete the analysis."
+  );
+}
+
+if (
+  data.status !== "completed" ||
+  !data.result
+) {
+  throw new Error(
+    "MailRekon did not return a completed analysis."
+  );
+}
+
+setStatus(
+  "MailRekon analysis completed."
+);
+
+renderResult(data);
+
+} catch (error) {
+console.error(
+"MailRekon analysis failed:",
+error
+);
+
+setStatus(
+  "MailRekon analysis failed."
+);
+
+resultElement.innerHTML = `
+  <article class="widget">
+
+    <h3>
+      Analysis Unavailable
+    </h3>
+
+    <p>
+      ${escapeHtml(
+        error instanceof Error
+          ? error.message
+          : "Unable to complete the analysis."
+      )}
+    </p>
+
+  </article>
+`;
+
+}
+}
 
 if (form && domainInput) {
-  form.addEventListener(
-    "submit",
-    (event) => {
-      event.preventDefault();
+form.addEventListener(
+"submit",
+(event) => {
+event.preventDefault();
 
-      const domain = domainInput.value
-        .trim()
-        .toLowerCase();
+  const domain = domainInput.value
+    .trim()
+    .toLowerCase();
 
-      if (!domain) {
-        setStatus(
-          "Please enter a domain."
-        );
+  if (!domain) {
+    setStatus(
+      "Please enter a domain, not an URL"
+    );
 
-        domainInput.focus();
+    domainInput.focus();
 
-        return;
-      }
+    return;
+  }
 
-      analyseDomain(domain);
-    }
-  );
+  analyseDomain(domain);
+}
+
+);
 }
