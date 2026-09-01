@@ -44,11 +44,11 @@ function setStatus(message) {
 
 function getScannerLabel(scanner) {
   if (scanner === "https://scanner1.klasker.com") {
-    return "Scanner 1";
+    return "Rekon1";
   }
 
   if (scanner === "https://scanner2.klasker.com") {
-    return "Scanner 2";
+    return "Rekon2";
   }
 
   return "Scanner";
