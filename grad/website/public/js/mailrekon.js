@@ -35,8 +35,23 @@ function escapeHtml(value) {
 
 function setStatus(message) {
   statusElement.innerHTML = `
-    <p>${escapeHtml(message)}</p>
+    <p>
+      ${escapeHtml(message)}
+    </p>
   `;
+}
+
+
+function getScannerLabel(scanner) {
+  if (scanner === "https://scanner1.klasker.com") {
+    return "Rekon1";
+  }
+
+  if (scanner === "https://scanner2.klasker.com") {
+    return "Rekon2";
+  }
+
+  return "Scanner";
 }
 
 
@@ -65,6 +80,11 @@ function renderResult(response) {
   const spf = result.spf || {};
   const dmarc = result.dmarc || {};
 
+  const scannerLabel = getScannerLabel(
+    response.scanner
+  );
+
+
   resultElement.innerHTML = `
     <article class="widget">
 
@@ -84,7 +104,7 @@ function renderResult(response) {
 
       <p>
         <strong>Scanner:</strong>
-        <code>${escapeHtml(response.scanner || "Unknown")}</code>
+        ${escapeHtml(scannerLabel)}
       </p>
 
     </article>
@@ -145,7 +165,10 @@ function renderResult(response) {
 
 
 async function analyseDomain(domain) {
-  setStatus("Analysing email security…");
+  setStatus(
+    "Analysing email security…"
+  );
+
 
   resultElement.innerHTML = `
     <p>
@@ -154,19 +177,23 @@ async function analyseDomain(domain) {
     </p>
   `;
 
+
   try {
     const response = await fetch(
       MAILREKON_API,
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           domain,
         }),
       }
     );
+
 
     let data;
 
@@ -174,9 +201,10 @@ async function analyseDomain(domain) {
       data = await response.json();
     } catch {
       throw new Error(
-        "The MailRekon service returned an invalid response."
+        "MailRekon returned an invalid response."
       );
     }
+
 
     if (!response.ok) {
       throw new Error(
@@ -184,6 +212,7 @@ async function analyseDomain(domain) {
         "MailRekon could not complete the analysis."
       );
     }
+
 
     if (
       data.status !== "completed" ||
@@ -194,9 +223,11 @@ async function analyseDomain(domain) {
       );
     }
 
+
     setStatus(
       "MailRekon analysis completed."
     );
+
 
     renderResult(data);
 
@@ -206,9 +237,11 @@ async function analyseDomain(domain) {
       error
     );
 
+
     setStatus(
       "MailRekon analysis failed."
     );
+
 
     resultElement.innerHTML = `
       <article class="widget">
@@ -237,9 +270,11 @@ if (form && domainInput) {
     (event) => {
       event.preventDefault();
 
+
       const domain = domainInput.value
         .trim()
         .toLowerCase();
+
 
       if (!domain) {
         setStatus(
@@ -250,6 +285,7 @@ if (form && domainInput) {
 
         return;
       }
+
 
       analyseDomain(domain);
     }
