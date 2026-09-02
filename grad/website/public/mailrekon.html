@@ -28,6 +28,21 @@ content="MailRekon by Klasker AITA — analyse email security, mail infrastructu
 
   <link rel="stylesheet" href="/css/style.css">
 
+  <!-- MailRekon Widget Lists -->
+
+  <style>
+    .widget-list {
+      text-align: left;
+      margin: 1rem 0 0;
+      padding-left: 1.5rem;
+    }
+
+    .widget-list li {
+      text-align: left;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+
   <!-- Favicon -->
 
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -76,7 +91,7 @@ content="summary_large_image"
 
   <header class="site-header">
 
-```
+
 <div class="container">
 
   <a
@@ -109,7 +124,7 @@ content="summary_large_image"
   </nav>
 
 </div>
-```
+
 
   </header>
 
@@ -117,14 +132,14 @@ content="summary_large_image"
 
   <header class="banner">
 
-```
+
 <img
   src="/img/klasker-banner.webp"
   alt="Klasker AITA banner"
   width="1983"
   height="793"
 >
-```
+
 
   </header>
 
@@ -132,7 +147,7 @@ content="summary_large_image"
 
   <main>
 
-```
+
 <!-- MailRekon Hero -->
 
 <section class="hero">
@@ -256,11 +271,17 @@ content="summary_large_image"
     </h2>
 
     <p>
-      MailRekon examines multiple layers of a domain's publicly observable email infrastructure.
-      A domain can have a functioning website while its email infrastructure contains outdated,
-      inconsistent or incorrect DNS configuration. MailRekon examines the publicly visible
-      configuration of your email domain and helps you understand where authentication, routing
-      and policy settings may need attention.
+      MailRekon examines multiple layers of a domain's publicly observable
+      email infrastructure. A domain can have a functioning website while
+      its email infrastructure contains outdated, inconsistent or incorrect
+      DNS configuration.
+    </p>
+
+    <p>
+      The Free Tier provides a basic configuration assessment. Premium
+      includes the complete Free analysis and extends it with deeper
+      analysis, active technical testing, advanced discovery,
+      deliverability assessment and professional reporting.
     </p>
 
   </div>
@@ -271,12 +292,13 @@ content="summary_large_image"
   <div class="section-heading">
 
     <h3>
-      Free Tier
+      Free Tier — Basic Configuration Assessment
     </h3>
 
     <p>
-      The Free Tier provides a basic assessment of the domain's
-      publicly observable email routing and authentication configuration.
+      The Free Tier analyses publicly observable DNS, authentication
+      and email-security configuration. Where a feature is marked
+      as Basic, MailRekon performs a limited or passive assessment.
     </p>
 
   </div>
@@ -284,22 +306,30 @@ content="summary_large_image"
 
   <div class="widget-grid">
 
-    <!-- DNS -->
+    <!-- Basic DNS Audit -->
 
     <article class="widget">
 
       <h3>
-        Mail DNS
+        Basic DNS Audit
       </h3>
 
       <p>
-        Examine MX records, mail host resolution and related
-        DNS configuration.
+        Examine publicly observable DNS configuration relevant to
+        the domain's email infrastructure.
       </p>
 
-      <p class="widget-note">
-        Identifies the infrastructure responsible for receiving email.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          Basic DNS record inspection
+        </li>
+
+        <li>
+          Email-related configuration
+        </li>
+
+      </ul>
 
     </article>
 
@@ -317,9 +347,45 @@ content="summary_large_image"
         by the domain.
       </p>
 
-      <p class="widget-note">
-        Includes policy structure and relevant SPF mechanisms.
+      <ul class="widget-list">
+
+        <li>
+          SPF record detection
+        </li>
+
+        <li>
+          Policy and mechanism assessment
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- DKIM -->
+
+    <article class="widget">
+
+      <h3>
+        DKIM — Basic
+      </h3>
+
+      <p>
+        Inspect discoverable DKIM selectors and publicly available
+        cryptographic keys.
       </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Basic selector discovery
+        </li>
+
+        <li>
+          Public key validation
+        </li>
+
+      </ul>
 
     </article>
 
@@ -337,9 +403,217 @@ content="summary_large_image"
         alignment configuration.
       </p>
 
-      <p class="widget-note">
-        Examines policy, alignment and reporting configuration.
+      <ul class="widget-list">
+
+        <li>
+          Policy assessment
+        </li>
+
+        <li>
+          Alignment and reporting configuration
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- MX -->
+
+    <article class="widget">
+
+      <h3>
+        MX — Basic
+      </h3>
+
+      <p>
+        Examine the domain's mail exchange records and identify
+        the publicly advertised receiving infrastructure.
       </p>
+
+      <ul class="widget-list">
+
+        <li>
+          MX record detection
+        </li>
+
+        <li>
+          Mail host identification
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- MTA-STS -->
+
+    <article class="widget">
+
+      <h3>
+        MTA-STS — Basic
+      </h3>
+
+      <p>
+        Check whether the domain publishes a Mail Transfer Agent
+        Strict Transport Security policy.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          DNS policy detection
+        </li>
+
+        <li>
+          Basic policy availability check
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- TLS-RPT -->
+
+    <article class="widget">
+
+      <h3>
+        TLS-RPT — Basic
+      </h3>
+
+      <p>
+        Inspect SMTP TLS reporting configuration published by
+        the domain.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          TLS-RPT record detection
+        </li>
+
+        <li>
+          Reporting destination inspection
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- DNSSEC -->
+
+    <article class="widget">
+
+      <h3>
+        DNSSEC — Basic
+      </h3>
+
+      <p>
+        Examine whether DNSSEC is present and whether the domain's
+        DNS configuration provides basic DNS integrity protection.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          DNSKEY detection
+        </li>
+
+        <li>
+          DS detection
+        </li>
+
+        <li>
+          Basic validation status
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- CAA -->
+
+    <article class="widget">
+
+      <h3>
+        CAA
+      </h3>
+
+      <p>
+        Inspect Certification Authority Authorisation records
+        published for the domain.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          CAA record detection
+        </li>
+
+        <li>
+          Certificate-authority restrictions
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- DANE -->
+
+    <article class="widget">
+
+      <h3>
+        DANE/TLSA — Basic
+      </h3>
+
+      <p>
+        Inspect publicly observable TLSA information associated
+        with mail transport.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Basic TLSA record observation
+        </li>
+
+        <li>
+          No active DANE testing
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Detailed Remediation -->
+
+    <article class="widget">
+
+      <h3>
+        Remediation — Basic
+      </h3>
+
+      <p>
+        Provide basic indications of configuration areas that may
+        require attention.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Identify observable weaknesses
+        </li>
+
+        <li>
+          Basic configuration guidance
+        </li>
+
+      </ul>
 
     </article>
 
@@ -351,17 +625,13 @@ content="summary_large_image"
   <div class="section-heading">
 
     <h3>
-      Premium Tier
+      Premium Tier — Advanced Analysis
     </h3>
 
     <p>
-      Premium includes all Free Tier checks and extends MailRekon
-      into deeper email security, transport protection, trust
-      mechanisms and deliverability analysis.
-    </p>
-
-    <p>
-      In addition to Mail DNS, SPF and DMARC, Premium includes:
+      Premium includes everything in the Free Tier and adds deeper
+      analysis, active technical testing, advanced discovery,
+      reputation and deliverability assessment.
     </p>
 
   </div>
@@ -369,23 +639,190 @@ content="summary_large_image"
 
   <div class="widget-grid">
 
-    <!-- DKIM -->
+    <!-- Deep DKIM -->
 
     <article class="widget">
 
       <h3>
-        DKIM
+        DKIM — Deep
       </h3>
 
       <p>
-        Inspect discoverable DKIM selectors and their public
-        cryptographic keys.
+        Extend DKIM analysis beyond the limited selector discovery
+        available in the Free Tier.
       </p>
 
-      <p class="widget-note">
-        DKIM discovery depends on selectors published by the domain's
-        sending infrastructure.
+      <ul class="widget-list">
+
+        <li>
+          Advanced selector discovery
+        </li>
+
+        <li>
+          Deeper key and selector analysis
+        </li>
+
+        <li>
+          Identification of additional observable selectors
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Deep DMARC -->
+
+    <article class="widget">
+
+      <h3>
+        DMARC — Deep
+      </h3>
+
+      <p>
+        Provide a deeper assessment of DMARC policy, alignment
+        and operational configuration.
       </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Detailed policy analysis
+        </li>
+
+        <li>
+          Alignment assessment
+        </li>
+
+        <li>
+          Reporting configuration analysis
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Deep MX -->
+
+    <article class="widget">
+
+      <h3>
+        MX — Deep
+      </h3>
+
+      <p>
+        Extend MX analysis beyond basic DNS observation into
+        deeper mail infrastructure assessment.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Deeper mail-host analysis
+        </li>
+
+        <li>
+          Infrastructure relationships
+        </li>
+
+        <li>
+          MX reputation assessment
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Deep MTA-STS -->
+
+    <article class="widget">
+
+      <h3>
+        MTA-STS — Deep
+      </h3>
+
+      <p>
+        Analyse MTA-STS configuration and policy implementation
+        in greater depth.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          DNS policy analysis
+        </li>
+
+        <li>
+          HTTPS policy analysis
+        </li>
+
+        <li>
+          Policy consistency assessment
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Deep TLS-RPT -->
+
+    <article class="widget">
+
+      <h3>
+        TLS-RPT — Deep
+      </h3>
+
+      <p>
+        Extend TLS reporting analysis into the operational
+        configuration of the domain.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Reporting configuration analysis
+        </li>
+
+        <li>
+          Destination assessment
+        </li>
+
+        <li>
+          Transport-reporting observations
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Deep DNSSEC -->
+
+    <article class="widget">
+
+      <h3>
+        DNSSEC — Deep
+      </h3>
+
+      <p>
+        Extend DNSSEC analysis beyond basic presence and status
+        into deeper DNS security observations.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Deeper DNSSEC assessment
+        </li>
+
+        <li>
+          Chain and configuration observations
+        </li>
+
+      </ul>
 
     </article>
 
@@ -395,139 +832,289 @@ content="summary_large_image"
     <article class="widget">
 
       <h3>
-        SMTP
+        SMTP Testing
       </h3>
 
       <p>
-        Examine the publicly accessible mail transport infrastructure
-        associated with the domain.
+        Perform active testing of publicly accessible SMTP
+        infrastructure.
       </p>
 
-      <p class="widget-note">
-        Includes connection, SMTP and transport-layer observations.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          SMTP connection testing
+        </li>
+
+        <li>
+          Server response analysis
+        </li>
+
+        <li>
+          Transport observations
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- TLS -->
+    <!-- STARTTLS/TLS -->
 
     <article class="widget">
 
       <h3>
-        TLS
+        STARTTLS / TLS Analysis
       </h3>
 
       <p>
-        Analyse the encryption capabilities presented by mail servers.
+        Assess encryption capabilities presented by publicly
+        accessible mail servers.
       </p>
 
-      <p class="widget-note">
-        Certificate and TLS observations contribute to the transport
-        security assessment.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          STARTTLS testing
+        </li>
+
+        <li>
+          TLS configuration analysis
+        </li>
+
+        <li>
+          Certificate observations
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- MTA-STS -->
+    <!-- DANE/TLSA -->
 
     <article class="widget">
 
       <h3>
-        MTA-STS
+        DANE / TLSA
       </h3>
 
       <p>
-        Check whether the domain publishes a Mail Transfer Agent
-        Strict Transport Security policy.
+        Perform deeper analysis of DNS-based authentication for
+        mail transport.
       </p>
 
-      <p class="widget-note">
-        DNS and HTTPS policy information are evaluated together.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          TLSA analysis
+        </li>
+
+        <li>
+          DANE validation
+        </li>
+
+        <li>
+          Mail transport correlation
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- TLS-RPT -->
+    <!-- MX Reputation -->
 
     <article class="widget">
 
       <h3>
-        TLS-RPT
+        MX Reputation
       </h3>
 
       <p>
-        Inspect SMTP TLS reporting configuration and reporting
-        destinations.
+        Assess observable reputation signals associated with
+        the domain's mail infrastructure.
       </p>
 
-      <p class="widget-note">
-        Helps identify whether transport failures can be reported.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          Mail-host reputation signals
+        </li>
+
+        <li>
+          Infrastructure reputation assessment
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- BIMI -->
+    <!-- Advanced DKIM Discovery -->
 
     <article class="widget">
 
       <h3>
-        BIMI
+        Advanced DKIM Discovery
       </h3>
 
       <p>
-        Inspect Brand Indicators for Message Identification records
-        and associated resources.
+        Extend DKIM selector discovery beyond the limited
+        selector set available to the Free Tier.
       </p>
 
-      <p class="widget-note">
-        BIMI is treated as a trust and brand layer rather than a
-        replacement for email authentication.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          Expanded selector discovery
+        </li>
+
+        <li>
+          Additional selector analysis
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- DANE -->
+    <!-- Detailed Remediation -->
 
     <article class="widget">
 
       <h3>
-        DANE
+        Detailed Remediation
       </h3>
 
       <p>
-        Inspect TLSA records where DNS-based authentication of
-        mail transport is available.
+        Provide detailed technical guidance for correcting
+        identified email-security and infrastructure issues.
       </p>
 
-      <p class="widget-note">
-        DANE results are reported independently from conventional
-        certificate validation.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          Configuration-specific recommendations
+        </li>
+
+        <li>
+          Prioritised remediation guidance
+        </li>
+
+      </ul>
 
     </article>
 
 
-    <!-- DNSSEC -->
+    <!-- Professional Report -->
 
     <article class="widget">
 
       <h3>
-        DNSSEC
+        Professional Report
       </h3>
 
       <p>
-        Examine DNSSEC-related information relevant to the domain's
-        email security infrastructure.
+        Produce a detailed report suitable for professional
+        review and remediation planning.
       </p>
 
-      <p class="widget-note">
-        DNS integrity contributes to the overall security assessment.
+      <ul class="widget-list">
+
+        <li>
+          Complete analysis summary
+        </li>
+
+        <li>
+          Findings and recommendations
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Historical Comparison -->
+
+    <article class="widget">
+
+      <h3>
+        Historical Comparison
+      </h3>
+
+      <p>
+        Compare current results with previous MailRekon
+        assessments.
       </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Previous-result comparison
+        </li>
+
+        <li>
+          Configuration changes over time
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Monitoring -->
+
+    <article class="widget">
+
+      <h3>
+        Monitoring
+      </h3>
+
+      <p>
+        Monitor the analysed domain for changes to its observable
+        email-security configuration.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Configuration change detection
+        </li>
+
+        <li>
+          Ongoing analysis
+        </li>
+
+      </ul>
+
+    </article>
+
+
+    <!-- Email Alerts -->
+
+    <article class="widget">
+
+      <h3>
+        Email Alerts
+      </h3>
+
+      <p>
+        Receive notifications when monitored email-security
+        configuration changes require attention.
+      </p>
+
+      <ul class="widget-list">
+
+        <li>
+          Change notifications
+        </li>
+
+        <li>
+          Security-related alerts
+        </li>
+
+      </ul>
 
     </article>
 
@@ -537,19 +1124,79 @@ content="summary_large_image"
     <article class="widget">
 
       <h3>
-        Deliverability
+        Deliverability Analysis
       </h3>
 
       <p>
-        Combine observable infrastructure and configuration signals
-        into a practical deliverability assessment.
+        Extend the configuration assessment into deeper
+        deliverability and mail infrastructure analysis.
       </p>
 
-      <p class="widget-note">
-        Deliverability is assessed separately from email security.
-      </p>
+      <ul class="widget-list">
+
+        <li>
+          Active deliverability assessment
+        </li>
+
+        <li>
+          Infrastructure and reputation signals
+        </li>
+
+        <li>
+          Delivery-readiness analysis
+        </li>
+
+      </ul>
 
     </article>
+
+  </div>
+
+
+  <!-- Tier Summary -->
+
+  <div class="section-heading">
+
+    <h3>
+      Free vs Premium
+    </h3>
+
+    <ul class="widget-list">
+
+      <li>
+        Free provides the basic DNS, authentication and email-security
+        configuration assessment.
+      </li>
+
+      <li>
+        Premium includes the complete Free analysis.
+      </li>
+
+      <li>
+        Premium adds deeper analysis of selected Free features.
+      </li>
+
+      <li>
+        Premium adds active SMTP, STARTTLS/TLS and DANE/TLSA testing.
+      </li>
+
+      <li>
+        Premium adds MX reputation, advanced DKIM discovery and
+        detailed remediation.
+      </li>
+
+      <li>
+        Premium adds professional reports, historical comparison,
+        monitoring and email alerts.
+      </li>
+
+      <li>
+        An email address is not required for the analysis unless
+        the user requests a feature that requires email delivery,
+        such as alerts or report delivery.
+      </li>
+
+    </ul>
 
   </div>
 
@@ -625,8 +1272,8 @@ content="summary_large_image"
       </h3>
 
       <p>
-        MailRekon does not need to send an email to the analysed
-        domain in order to perform its initial assessment.
+        MailRekon does not require an email address to perform the
+        basic domain analysis.
       </p>
 
     </article>
@@ -670,7 +1317,7 @@ content="summary_large_image"
   </div>
 
 </section>
-```
+
 
   </main>
 
@@ -678,7 +1325,7 @@ content="summary_large_image"
 
   <footer class="site-footer">
 
-```
+
 <p>
   OSTARA.WORK © 2026
 </p>
@@ -697,7 +1344,7 @@ content="summary_large_image"
   <a href="https://www.ostara.work/legal">Terms &amp; Conditions</a>
 
 </nav>
-```
+
 
   </footer>
 
