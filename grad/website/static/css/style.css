@@ -346,7 +346,31 @@ Widget Windows
 }
 
 .widget .button {
-  margin-top: auto;
+  margin-top: 1rem;
+}
+
+
+/* --------------------------------------------------
+Widget Lists
+-------------------------------------------------- */
+
+.widget-list {
+  width: fit-content;
+
+  margin: 1rem auto 0;
+  padding-left: 1.5rem;
+
+  text-align: left;
+}
+
+.widget-list li {
+  margin-bottom: 0.5rem;
+
+  text-align: left;
+}
+
+.widget-list li:last-child {
+  margin-bottom: 0;
 }
 
 
