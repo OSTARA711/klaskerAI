@@ -295,7 +295,7 @@ function createOverviewSection(
   );
 
   const list = document.createElement("ul");
-  list.className = "analysis-findings";
+  list.className = "scanner-list";
 
   const passed = checks.filter((check) => check[1] === true).length;
   const failed = checks.length - passed;
@@ -456,7 +456,7 @@ function createRecommendations(checks, html, discovery) {
   );
 
   const list = document.createElement("ul");
-  list.className = "analysis-recommendations";
+  list.className = "scanner-list";
 
   const recommendations = [];
 

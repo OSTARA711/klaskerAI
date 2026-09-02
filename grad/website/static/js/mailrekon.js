@@ -1,4 +1,4 @@
-// ~/klaskerAI/grad/website/static/js/mailrekon.js
+// Path: ~/klaskerAI/grad/website/static/js/mailrekon.js
 
 "use strict";
 
@@ -71,12 +71,29 @@ function formatRecords(records) {
   }
 
   return `
-    <ul>
+    <ul class="scanner-list">
       ${records
-        .map(
-          (record) =>
-            `<li><code>${escapeHtml(record)}</code></li>`
-        )
+        .map((record) => {
+          let value = record;
+
+          if (
+            record !== null &&
+            typeof record === "object"
+          ) {
+            value =
+              record.selector ??
+              record.name ??
+              record.value ??
+              record.record ??
+              JSON.stringify(record);
+          }
+
+          return `
+            <li>
+              <code>${escapeHtml(value)}</code>
+            </li>
+          `;
+        })
         .join("")}
     </ul>
   `;
@@ -594,7 +611,7 @@ function renderResult(response) {
       ${
         recommendations.length > 0
           ? `
-            <ul>
+            <ul class="scanner-list">
               ${recommendations
                 .map(
                   (recommendation) =>
@@ -628,7 +645,7 @@ function renderResult(response) {
         DNS and email-security configuration.
       </p>
 
-      <ul>
+      <ul class="scanner-list">
 
         <li>
           Active SMTP testing:
