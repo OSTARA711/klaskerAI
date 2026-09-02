@@ -2,6 +2,7 @@
 
 "use strict";
 
+
 const MAILREKON_API =
   "https://klasker-mail-api.vedras1973.workers.dev/api/mail-analysis";
 
@@ -190,6 +191,7 @@ async function analyseDomain(domain) {
 
         body: JSON.stringify({
           domain,
+          tier: "free",
         }),
       }
     );
