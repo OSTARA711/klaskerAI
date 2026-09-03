@@ -1,4 +1,4 @@
-<!-- /login.html -->
+<!-- /register.html -->
 
 <!DOCTYPE html>
 
@@ -9,17 +9,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Login — Klasker AITA</title>
+  <title>Register — Klasker AITA</title>
 
 <meta
 name="description"
-content="Sign in to Klasker AITA to access your evaluations, account and Premium services."
+content="Register an account on Klasker AITA to access advanced services."
 
 >
 
   <!-- Canonical -->
 
-  <link rel="canonical" href="https://www.klasker.com/login.html">
+  <link rel="canonical" href="https://www.klasker.com/register.html">
 
   <!-- Stylesheet -->
 
@@ -33,16 +33,16 @@ content="Sign in to Klasker AITA to access your evaluations, account and Premium
 
   <!-- OpenGraph -->
 
-  <meta property="og:title" content="Login — Klasker AITA">
+  <meta property="og:title" content="Register — Klasker AITA">
 
 <meta
 property="og:description"
-content="Sign in to Klasker AITA to access your evaluations, account and Premium services."
+content="Register an account on Klasker AITA to access advanced services."
 
 >
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.klasker.com/login.html">
+  <meta property="og:url" content="https://www.klasker.com/register.html">
 
 <meta
 property="og:image"
@@ -87,7 +87,7 @@ content="https://www.klasker.com/img/klasker-banner.webp"
     <a href="/#discover">Discover</a>
     <a href="/#research">Research</a>
     <a href="/academy/academy.html">Academy</a>
-    <a href="/login.html" aria-current="page">Login</a>
+    <a href="/login.html">Login</a>
 
   </nav>
 
@@ -101,18 +101,27 @@ content="https://www.klasker.com/img/klasker-banner.webp"
 
   <main>
   
+  <!-- Hero -->
+   <section class="hero">
+  
+    <h1 style="color:red;">
+       Registrations Not Yet Available
+    </h1>
+  
+   </section>
+  
 
-<!-- Login -->
+<!-- Account Registration -->
 <section class="section section-highlight">
 
   <div class="section-heading">
 
     <h1>
-      Sign in to Klasker
+      Register on Klasker AITA
     </h1>
 
     <p>
-      Access your evaluations, account and Premium services.
+      Access our most advanced services.
     </p>
 
   </div>
@@ -124,17 +133,17 @@ content="https://www.klasker.com/img/klasker-banner.webp"
     <article class="widget">
 
       <h2>
-        Sign in
+        Register
       </h2>
 
       <p>
-        Access your account with a secure Password and the previously selected eMail address which you truly own.
+        Create your account with a secure Password and a selected eMail address which you truly own.
       </p>
 
 
       <form
         class="analysis-form"
-        action="/api/auth/login"
+        action="/api/auth/register"
         method="post"
       >
 
@@ -160,8 +169,8 @@ content="https://www.klasker.com/img/klasker-banner.webp"
           id="password"
           name="password"
           type="password"
-          placeholder="Example5&46"
-          autocomplete="current-password"
+          placeholder="Example7&49"
+          autocomplete="new-password"
           required
         >
 
@@ -170,19 +179,10 @@ content="https://www.klasker.com/img/klasker-banner.webp"
           class="button button-primary"
           type="submit"
         >
-          Sign in
+          Register
         </button>
 
       </form>
-
-
-      <p class="widget-note">
-
-        <a href="/forgot-password/">
-          Forgot your password?
-        </a>
-
-      </p>
 
     </article>
 
@@ -191,17 +191,16 @@ content="https://www.klasker.com/img/klasker-banner.webp"
     <article class="widget">
 
       <h2>
-        Single Sign-On
+        Register Sign-On
       </h2>
 
       <p>
-        Sign in using OpenID Connect.
+        Register using OpenID Connect.
       </p>
 
       <p class="widget-note">
-        Klasker SSO is powered by <a href="https://goauthentik.io/" target="_blank" rel="noopener" rel="noreferrer">Authentik</a>
+        Klasker SSO is powered by <a href="https://goauthentik.io/" target="_blank" rel="noopener noreferrer">Authentik</a>
       </p>
-
 
       <a
         class="button button-secondary"
@@ -213,21 +212,7 @@ content="https://www.klasker.com/img/klasker-banner.webp"
     </article>
 
   </div>
-
-<br>
-
-  <!-- Account Registration -->
-  <div class="section-heading">
-
-    <p>
-      New to Klasker?
-      <a href="/register.html">
-        <strong>Create an Account</strong>
-      </a>
-    </p>
-
-  </div>
-  
+   
   <br>
   
   <img
