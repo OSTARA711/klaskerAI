@@ -1,0 +1,347 @@
+<!-- /login.html -->
+
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login — Klasker AITA</title>
+
+<meta
+name="description"
+content="Sign in to Klasker AITA to access your evaluations, account and Premium services."
+
+>
+
+  <!-- Canonical -->
+
+  <link rel="canonical" href="https://www.klasker.com/login.html">
+
+  <!-- Stylesheet -->
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Favicon -->
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- OpenGraph -->
+
+  <meta property="og:title" content="Login — Klasker AITA">
+
+<meta
+property="og:description"
+content="Sign in to Klasker AITA to access your evaluations, account and Premium services."
+
+>
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.klasker.com/login.html">
+
+<meta
+property="og:image"
+content="https://www.klasker.com/img/klasker-banner.webp"
+
+>
+
+  <meta name="twitter:card" content="summary_large_image">
+
+</head>
+
+<body>
+  
+  
+  <!-- Header -->
+
+  <header class="site-header">
+
+
+<div class="container">
+
+  <a
+    class="site-brand"
+    href="/"
+    aria-label="Klasker AITA home"
+  >
+
+    <img
+      class="logo-img"
+      src="/img/ostara-logotype.webp"
+      alt="OSTARA.WORK"
+    >
+
+  </a>
+
+
+  <nav class="main-nav" aria-label="Main navigation">
+
+    <a href="/#analyse">Analyse</a>
+    <a href="/mailrekon.html">MailRekon</a>
+    <a href="/#observatory">Observatory</a>
+    <a href="/#discover">Discover</a>
+    <a href="/#research">Research</a>
+    <a href="/academy/academy.html">Academy</a>
+    <a href="/login.html" aria-current="page">Login</a>
+
+  </nav>
+
+</div>
+
+
+  </header>
+
+
+  <!-- Main Content -->
+
+  <main>
+  
+
+<!-- Login -->
+<section class="section section-highlight">
+
+  <div class="section-heading">
+
+    <h1>
+      Sign in to Klasker
+    </h1>
+
+    <p>
+      Access your evaluations, account and Premium services.
+    </p>
+
+  </div>
+
+
+  <div class="widget-grid">
+
+    <!-- Email & Password -->
+    <article class="widget">
+
+      <h2>
+        Sign in
+      </h2>
+
+      <p>
+        Access your account with a secure Password and the previously selected eMail address which you truly own.
+      </p>
+
+
+      <form
+        class="analysis-form"
+        action="/api/auth/login"
+        method="post"
+      >
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="username@mailer.com"
+          autocomplete="email"
+          required
+        >
+
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Example5&46"
+          autocomplete="current-password"
+          required
+        >
+
+
+        <button
+          class="button button-primary"
+          type="submit"
+        >
+          Sign in
+        </button>
+
+      </form>
+
+
+      <p class="widget-note">
+
+        <a href="/forgot-password/">
+          Forgot your password?
+        </a>
+
+      </p>
+
+    </article>
+
+
+    <!-- SSO -->
+    <article class="widget">
+
+      <h2>
+        Single Sign-On
+      </h2>
+
+      <p>
+        Sign in using OpenID Connect.
+      </p>
+
+      <p class="widget-note">
+        Klasker SSO is powered by <a href="https://goauthentik.io/" target="_blank" rel="noopener" rel="noreferrer">Authentik</a>
+      </p>
+
+
+      <a
+        class="button button-secondary"
+        href="/api/auth/sso"
+      >
+        Continue with SSO
+      </a>
+
+    </article>
+
+  </div>
+
+
+  <!-- Account Registration -->
+  <div class="section-heading">
+
+    <p>
+      New to Klasker?
+      <a href="/register.html">
+        <strong>Create an Account</strong>
+      </a>
+    </p>
+
+  </div>
+  
+  <br>
+  
+  <img
+  class="hero-logo"
+  src="/img/klasker-logotype.webp"
+  alt="Klasker AITA logotype"
+  width="500"
+  height="500"
+  >
+
+</section>
+
+
+
+
+<!-- Klasker Account -->
+<section class="section">
+
+  <div class="section-heading">
+
+    <h2>
+      Your Klasker Account
+    </h2>
+
+    <p>
+      Access your evaluations and services.
+    </p>
+
+  </div>
+
+
+  <div class="widget-grid">
+
+    <article class="widget">
+
+      <h3>
+        Evaluations
+      </h3>
+
+      <p>
+        Access evaluations associated with your Klasker account.
+      </p>
+
+    </article>
+
+
+    <article class="widget premium">
+
+      <h3>
+        Premium Services
+      </h3>
+
+      <p>
+        Manage private evaluations and other Premium services from
+        your account.
+      </p>
+
+    </article>
+
+
+    <article class="widget">
+
+      <h3>
+        Privacy
+      </h3>
+
+      <p>
+        Klasker SSO authentication does not require an account with a
+        major social-media or advertising platform.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+  </main>
+
+  <!-- Footer -->
+
+  <footer class="site-footer">
+
+
+<p>
+  OSTARA.WORK © 2026
+</p>
+
+<p>
+  OSTARA-3339 AAY 00074
+</p>
+
+<nav
+  class="footer-nav"
+  aria-label="Footer navigation"
+>
+
+  <a href="https://www.ostara.work/privacy/">
+    Privacy
+  </a>
+
+  <a href="https://www.ostara.work/cookies/">
+    Cookies
+  </a>
+
+  <a href="https://www.ostara.work/legal">
+    Terms &amp; Conditions
+  </a>
+
+</nav>
+
+
+  </footer>
+
+</body>
+
+</html>
