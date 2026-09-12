@@ -1,0 +1,9 @@
+{
+"ucp": {
+"version": "2026-08-25",
+"services": {},
+"capabilities": {},
+"payment_handlers": {}
+},
+"signing_keys": []
+}
