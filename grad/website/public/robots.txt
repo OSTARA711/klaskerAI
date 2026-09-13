@@ -1,6 +1,6 @@
 # Reference: https://developers.cloudflare.com/fundamentals/get-started/reference/cdn-cgi-endpoint/#disallow-using-robotstxt
 
-# Canonical hostname: https://www.ostara.work
+# Canonical hostname: https://www.klasker.com
 
 # This ensures that Cloudflare paths /cdn-cgi/trace or /cdn-cgi/styles/ are excluded from indexing.
 # These endpoints are only used for internal Cloudflare operations and are irrelevant for search engines.
