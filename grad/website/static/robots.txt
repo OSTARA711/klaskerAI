@@ -13,6 +13,3 @@ Crawl-delay: 2
 
 # Canonical sitemap
 Sitemap: https://www.klasker.com/sitemap.xml
-
-# Preferred host
-Host: www.klasker.com
