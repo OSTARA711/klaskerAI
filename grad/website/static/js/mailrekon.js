@@ -4,7 +4,7 @@
 
 
 const MAILREKON_API =
-  "https://klasker-mail-api.vedras1973.workers.dev/api/mail-analysis";
+  "https://mail-api.klasker.com/api/mail-analysis";
 
 
 const form = document.getElementById(
