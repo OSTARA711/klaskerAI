@@ -18,6 +18,32 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://www.klasker.com/">
 
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.klasker.com/#organization",
+        "name": "Klasker AITA",
+        "url": "https://www.klasker.com/",
+        "description": "Artificial Intelligence Trade Analysis"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.klasker.com/#website",
+        "url": "https://www.klasker.com/",
+        "name": "Klasker AITA",
+        "description": "Artificial Intelligence Trade Analysis for websites, products and services in the emerging world of Agentic AI.",
+        "publisher": {
+          "@id": "https://www.klasker.com/#organization"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
 
@@ -45,7 +71,6 @@
   <meta name="twitter:card" content="summary_large_image">
 
 </head>
-
 
 <body>
 
@@ -291,7 +316,7 @@
 
           <a
             class="button button-secondary"
-            href="#premium-account"
+            href="/register.html"
           >
             Explore Premium
           </a>
