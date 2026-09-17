@@ -7,3 +7,5 @@
 
 # Local TLS certificates
 certs/
+
+node_modules/
