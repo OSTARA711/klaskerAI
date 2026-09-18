@@ -1,9 +1,4 @@
- /*
- * HexGL
- * @author Thibaut 'BKcore' Despoulain <http://bkcore.com>
- * @license This work is licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License.
- *          To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/.
- */
+// Path: ~klaskerAI/grad/website/static/gaming/bkcore/hexgl/ShipControls.js
 
 var bkcore = bkcore || {};
 bkcore.hexgl = bkcore.hexgl || {};
@@ -65,6 +60,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 	this.collisionPixelRatio = 1.0;
 	this.collisionDetection = false;
 	this.collisionPreviousPosition = new THREE.Vector3();
+	this.collisionPixelPosition = new THREE.Vector3();
 
 	this.heightMap = null;
 	this.heightPixelRatio = 1.0;
@@ -120,7 +116,10 @@ bkcore.hexgl.ShipControls = function(ctx)
 
 	this.touchController = null;
 	this.orientationController = null;
-	this.gamepadController = null
+	this.gamepadController = null;
+	this.leapController = null;
+	this.leapInfo = null;
+	this.leapBridge = null;
 
 	if(ctx.controlType == 1 && bkcore.controllers.TouchController.isCompatible())
 	{
@@ -158,16 +157,17 @@ bkcore.hexgl.ShipControls = function(ctx)
 	else if(ctx.controlType == 3 && bkcore.controllers.GamepadController.isCompatible())
 	{
 		this.gamepadController = new bkcore.controllers.GamepadController(
-      function(controller){
-        if (controller.select)
-          ctx.restart();
-        else
-          self.key.forward = controller.acceleration > 0;
-          self.key.ltrigger = controller.ltrigger > 0;
-          self.key.rtrigger = controller.rtrigger > 0;
-          self.key.left = controller.lstickx < -0.1;
-          self.key.right = controller.lstickx > 0.1;
-      });
+			function(controller){
+				if (controller.select)
+					ctx.restart();
+				else
+					self.key.forward = controller.acceleration > 0;
+
+				self.key.ltrigger = controller.ltrigger > 0;
+				self.key.rtrigger = controller.rtrigger > 0;
+				self.key.left = controller.lstickx < -0.1;
+				self.key.right = controller.lstickx > 0.1;
+			});
 	}
 	else if(ctx.controlType == 2)
 	{
@@ -175,7 +175,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 			throw new Error("Unable to reach LeapJS!");
 
 		var leapInfo = this.leapInfo = document.getElementById('leapinfo');
-		isServerConnected = false;
+		var isServerConnected = false;
 		var lb = this.leapBridge = {
 			isConnected: true,
 			hasHands: false,
@@ -186,7 +186,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 		{
 			if(!isServerConnected)
 			{
-				leapInfo.innerHTML = 'Waiting for the Leap Motion Controller server...'
+				leapInfo.innerHTML = 'Waiting for the Leap Motion Controller server...';
 				leapInfo.style.display = 'block';
 			}
 			else if(lb.isConnected && lb.hasHands)
@@ -195,18 +195,18 @@ bkcore.hexgl.ShipControls = function(ctx)
 			}
 			else if(!lb.isConnected)
 			{
-				leapInfo.innerHTML = 'Please connect your Leap Motion Controller.'
+				leapInfo.innerHTML = 'Please connect your Leap Motion Controller.';
 				leapInfo.style.display = 'block';
 			}
 			else if(!lb.hasHands)
 			{
-				leapInfo.innerHTML = 'Put your hand over the Leap Motion Controller to play.'
+				leapInfo.innerHTML = 'Put your hand over the Leap Motion Controller to play.';
 				leapInfo.style.display = 'block';
 			}
 		}
 		updateInfo();
 
-		var lc = this.leapController =  new Leap.Controller({enableGestures: false});
+		var lc = this.leapController = new Leap.Controller({enableGestures: false});
 		lc.on('connect', function()
 		{
 			isServerConnected = true;
@@ -225,7 +225,8 @@ bkcore.hexgl.ShipControls = function(ctx)
 		lc.on('frame', function(frame)
 		{
 			if(!lb.isConnected) return;
-		  hand = frame.hands[0];
+
+			var hand = frame.hands[0];
 			if(typeof hand === 'undefined')
 			{
 				if(lb.hasHands)
@@ -295,7 +296,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 bkcore.hexgl.ShipControls.prototype.control = function(threeMesh)
 {
 	this.mesh = threeMesh;
-	this.mesh.martixAutoUpdate = false;
+	this.mesh.matrixAutoUpdate = false;
 	this.dummy.position = this.mesh.position;
 };
 
@@ -351,14 +352,16 @@ bkcore.hexgl.ShipControls.prototype.destroy = function()
 
 bkcore.hexgl.ShipControls.prototype.fall = function()
 {
+	var self = this;
+
 	this.active = false;
 	this.collision.front = false;
 	this.collision.left = false;
 	this.collision.right = false;
 	this.falling = true;
-	_this = this;
+
 	setTimeout(function(){
-		_this.destroyed = true;
+		self.destroyed = true;
 	}, 1500);
 }
 
@@ -476,12 +479,8 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 
 	this.boosterCheck(dt);
 
-	//this.movement.multiplyScalar(dt);
-	//this.rotation.multiplyScalar(dt);
-
 	this.dummy.translateX(this.movement.x);
 	this.dummy.translateZ(this.movement.z);
-
 
 	this.heightCheck(dt);
 	this.dummy.translateY(this.movement.y);
@@ -537,7 +536,7 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 		this.mesh.updateMatrixWorld(true);
 	}
 
-	//Update listener position
+	// Update listener position
 	bkcore.Audio.setListenerPos(this.movement);
 	bkcore.Audio.setListenerVelocity(this.currentVelocity);
 };
@@ -549,8 +548,6 @@ bkcore.hexgl.ShipControls.prototype.teleport = function(pos, quat)
 
 	this.dummy.position.copy(pos);
 	this.dummy.matrix.setPosition(this.dummy.position);
-
-	//console.log(pos.x, pos.y, pos.z);
 
 	this.dummy.matrix.setRotationFromQuaternion(this.dummy.quaternion);
 
@@ -587,24 +584,25 @@ bkcore.hexgl.ShipControls.prototype.boosterCheck = function(dt)
 		return false;
 
 	this.boost -= this.boosterDecay * dt;
-	if(this.boost < 0){
+	if(this.boost < 0)
+	{
 		this.boost = 0.0;
 		bkcore.Audio.stop('boost');
 	}
 
 	var x = Math.round(this.collisionMap.pixels.width/2 + this.dummy.position.x * this.collisionPixelRatio);
 	var z = Math.round(this.collisionMap.pixels.height/2 + this.dummy.position.z * this.collisionPixelRatio);
-	var pos = new THREE.Vector3(x, 0, z);
 
 	var color = this.collisionMap.getPixel(x, z);
 
-	if(color.r == 255 && color.g < 127 && color.b < 127) {
+	if(color.r == 255 && color.g < 127 && color.b < 127)
+	{
 		bkcore.Audio.play('boost');
 		this.boost = this.boosterSpeed;
 	}
 
 	this.movement.z += this.boost * dt;
-}
+};
 
 bkcore.hexgl.ShipControls.prototype.collisionCheck = function(dt)
 {
@@ -614,15 +612,15 @@ bkcore.hexgl.ShipControls.prototype.collisionCheck = function(dt)
 	if(this.shieldDelay > 0)
 		this.shieldDelay -= dt;
 
+	this.collision.front = false;
 	this.collision.left = false;
 	this.collision.right = false;
-	this.collision.front = false;
 
 	var x = Math.round(this.collisionMap.pixels.width/2 + this.dummy.position.x * this.collisionPixelRatio);
 	var z = Math.round(this.collisionMap.pixels.height/2 + this.dummy.position.z * this.collisionPixelRatio);
-	var pos = new THREE.Vector3(x, 0, z);
+	var pos = this.collisionPixelPosition;
 
-	//console.log({c: this.collisionMap.getPixel(414, 670), d: this.dummy.position, x: x, y: y, p: this.collisionMap.getPixel(x, y)})
+	pos.set(x, 0, z);
 
 	var collision = this.collisionMap.getPixelBilinear(x, z);
 
@@ -665,7 +663,6 @@ bkcore.hexgl.ShipControls.prototype.collisionCheck = function(dt)
 		}
 		else
 		{
-			//console.log(collision.r+"  --  "+fCol+"  @  "+lCol+"  /  "+rCol);
 			this.repulsionForce.z += -this.repulsionAmount*4;
 			this.collision.front = true;
 			this.speed = 0;
@@ -692,7 +689,7 @@ bkcore.hexgl.ShipControls.prototype.collisionCheck = function(dt)
 	{
 		return false;
 	}
-}
+};
 
 bkcore.hexgl.ShipControls.prototype.heightCheck = function(dt)
 {
@@ -798,9 +795,9 @@ bkcore.hexgl.ShipControls.prototype.getShield = function(scale)
 bkcore.hexgl.ShipControls.prototype.getPosition = function()
 {
 	return this.dummy.position;
-}
+};
 
 bkcore.hexgl.ShipControls.prototype.getQuaternion = function()
 {
 	return this.dummy.quaternion;
-}
+};

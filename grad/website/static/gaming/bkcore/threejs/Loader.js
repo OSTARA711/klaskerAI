@@ -1,10 +1,9 @@
 /*!
- * @class bkcore.threejs.Loader
+ * Path: ~/klaskerAI/grad/website/static/gaming/bkcore/threejs/Loader.js
  *
  * Loads multiple recources, get progress, callback friendly.
  * Supports textures, texturesCube, geometries, analysers, images.
  * 
- * @author Thibaut 'BKcore' Despoulain <http://bkcore.com>
  */
 
 /*!

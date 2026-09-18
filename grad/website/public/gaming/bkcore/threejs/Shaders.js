@@ -1,8 +1,5 @@
-/**
- * @author Thibaut Despoulain / http://bkcore.com
- * @author alteredq / http://alteredqualia.com/
- * @author mr.doob / http://mrdoob.com/
- */
+// Path: ~/klaskerAI/grad/website/static/gaming/bkcore/threejs/Shaders.js
+
 var bkcore = bkcore || {};
 bkcore.threejs = bkcore.threejs || {};
 
@@ -45,7 +42,6 @@ bkcore.threejs.Shaders =
 
 	/* ------------------------------------------------------------------------------------------------
 	//	Hexagonal Vignette shader
-	//  by BKcore.com
 	 ------------------------------------------------------------------------------------------------ */
 
 	'hexvignette': {
