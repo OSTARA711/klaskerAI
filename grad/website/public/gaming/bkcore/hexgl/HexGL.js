@@ -487,13 +487,12 @@ bkcore.hexgl.HexGL.prototype.createMesh = function(
 )
 {
 	/*
-	 * Tangent generation remains enabled for now.
+	 * Tangent generation is disabled.
 	 *
-	 * It is a potentially significant load-time cost, but removing it
-	 * safely requires auditing every material and shader using meshes
-	 * created through this function.
+	 * The hardwired renderer no longer uses the tangent-dependent
+	 * rendering path, so there is no reason to pay the CPU-side
+	 * geometry processing cost during scene construction.
 	 */
-	geometry.computeTangents();
 
 	var mesh = new THREE.Mesh(
 		geometry,
