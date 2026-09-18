@@ -20,10 +20,9 @@ bkcore.hexgl.HexGL = function(opts)
 	/*
 	 * Always render at the native browser viewport resolution.
 	 *
-	 * The original LOW quality mode divided both dimensions by two.
-	 * That produced a visibly poor image and is no longer used.
-	 *
-	 * Resolution is therefore independent of the legacy quality setting.
+	 * Quality is no longer a user-selectable rendering option.
+	 * The game always uses the complete high-quality asset/material
+	 * pipeline.
 	 */
 	this.width = window.innerWidth;
 	this.height = window.innerHeight;
@@ -40,13 +39,24 @@ bkcore.hexgl.HexGL = function(opts)
 	this.controlType = opts.controlType == undefined ? 1 : opts.controlType;
 
 	/*
-	 * Keep the legacy quality value available to the track/material code,
-	 * but do not allow it to reduce render resolution or enable the old
-	 * expensive VERY HIGH renderer path.
+	 * High quality is mandatory.
 	 *
-	 * The game uses the visually useful MID rendering path as its baseline.
+	 * Quality 3 selects the complete high-quality material pipeline,
+	 * including:
+	 *
+	 * - ship.feisar normal map
+	 * - ship.feisar specular map
+	 * - track.cityscape normal map
+	 * - track.cityscape specular map
+	 * - scraper normal/specular maps
+	 * - start normal/specular maps
+	 * - bonus normal/specular maps
+	 * - cube-map reflections
+	 *
+	 * The value is deliberately hardwired so neither URL parameters
+	 * nor launcher settings can reduce the visual quality.
 	 */
-	this.quality = 1;
+	this.quality = 3;
 
 	this.settings = null;
 	this.renderer = null;
@@ -153,6 +163,10 @@ bkcore.hexgl.HexGL.prototype.init = function()
 {
 	this.initHUD();
 
+	/*
+	 * Always pass the mandatory high-quality level to the track.
+	 * This enables the complete high-quality material and asset set.
+	 */
 	this.track.buildMaterials(this.quality);
 	this.track.buildScenes(this, this.quality);
 
@@ -161,6 +175,11 @@ bkcore.hexgl.HexGL.prototype.init = function()
 
 bkcore.hexgl.HexGL.prototype.load = function(opts)
 {
+	/*
+	 * Always load the high-quality asset set.
+	 *
+	 * This is intentionally independent of launcher parameters.
+	 */
 	this.track.load(opts, this.quality);
 }
 
@@ -336,11 +355,15 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 		8
 	);
 
+	/*
+	 * Retain the diagnostic message, but do not offer a lower
+	 * graphics setting. High quality is mandatory.
+	 */
 	if(this.manager.get('game').objects.lowFPS >= 999)
 	{
 		sl != undefined &&
 			(sl.innerHTML =
-				'Note: Your framerate was pretty low, you should try a lesser graphic setting!');
+				'Note: Your framerate was pretty low while running the mandatory high-quality renderer.');
 	}
 	else
 	{
@@ -353,20 +376,20 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 bkcore.hexgl.HexGL.prototype.initRenderer = function()
 {
 	var renderer = new THREE.WebGLRenderer({
+		/*
+		 * Keep the renderer compatible with the legacy HexGL
+		 * material/shader pipeline. High-quality assets provide
+		 * the visual detail through normal/specular/cube maps.
+		 */
 		antialias: false,
 		clearColor: 0x000000
 	});
 
 	/*
-	 * Deliberately avoid the original VERY HIGH renderer features:
+	 * High-quality asset rendering is mandatory.
 	 *
-	 * - physically based shading
-	 * - gamma processing
-	 * - shadow maps
-	 * - soft shadows
-	 *
-	 * They increase GPU work without increasing render resolution.
-	 * Native viewport resolution is the visual priority.
+	 * The renderer therefore does not expose a lower-quality path.
+	 * Native viewport resolution is retained as the framebuffer size.
 	 */
 
 	renderer.autoClear = false;
@@ -439,22 +462,19 @@ bkcore.hexgl.HexGL.prototype.initGameComposer = function()
 	this.composers.game.addPass(renderModel);
 
 	/*
-	 * FXAA is intentionally disabled.
-	 *
-	 * The game already renders at native viewport resolution, so an
-	 * additional anti-aliasing shader would add another full-screen pass.
+	 * FXAA remains disabled because the game renders at the native
+	 * viewport resolution and the high-quality material system already
+	 * carries the intended visual detail.
 	 */
 
 	/*
-	 * Bloom is intentionally disabled.
-	 *
-	 * It requires additional render work and does not increase spatial
-	 * resolution.
+	 * Bloom remains disabled because it is a post-processing effect,
+	 * not part of the high-quality texture/material asset set.
 	 */
 
 	/*
-	 * Retain the Hex vignette because it is part of the game's visual
-	 * presentation and costs only one final shader pass.
+	 * Retain the Hex vignette because it is part of the original
+	 * presentation and does not replace the high-quality materials.
 	 */
 	var effectHex = new THREE.ShaderPass(
 		bkcore.threejs.Shaders["hexvignette"]
@@ -487,12 +507,16 @@ bkcore.hexgl.HexGL.prototype.createMesh = function(
 )
 {
 	/*
-	 * Tangent generation is disabled.
+	 * Do not remove tangent generation here.
 	 *
-	 * The hardwired renderer no longer uses the tangent-dependent
-	 * rendering path, so there is no reason to pay the CPU-side
-	 * geometry processing cost during scene construction.
+	 * The mandatory high-quality material set uses normal maps.
+	 * Tangent-space normal mapping requires tangent data when the
+	 * underlying material/shader path uses it.
+	 *
+	 * The original geometry API is used when available.
 	 */
+	if(geometry.computeTangents)
+		geometry.computeTangents();
 
 	var mesh = new THREE.Mesh(
 		geometry,
@@ -506,11 +530,6 @@ bkcore.hexgl.HexGL.prototype.createMesh = function(
 	);
 
 	parent.add(mesh);
-
-	/*
-	 * Shadow rendering is deliberately disabled globally, so meshes do
-	 * not need shadow-map flags.
-	 */
 
 	return mesh;
 }

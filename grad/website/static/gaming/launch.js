@@ -9,13 +9,18 @@
    * Modernised from the original CoffeeScript-generated launcher.
    * The original HexGL DOM IDs, startup sequence, configuration options,
    * asset paths and bkcore interfaces are deliberately preserved.
+   *
+   * Rendering quality is fixed at HIGH. It is not exposed as a user
+   * setting or URL parameter.
    */
+
+  var HIGH_QUALITY = 3;
 
   function getElement(id) {
     return document.getElementById(id);
   }
 
-  function init(controlType, quality, hud, godmode) {
+  function init(controlType, hud, godmode) {
     var hexGL = new bkcore.hexgl.HexGL({
       document: document,
       width: window.innerWidth,
@@ -23,7 +28,7 @@
       container: getElement('main'),
       overlay: getElement('overlay'),
       gameover: getElement('step-5'),
-      quality: quality,
+      quality: HIGH_QUALITY,
       difficulty: 0,
       hud: hud === 1,
       controlType: controlType,
@@ -85,11 +90,8 @@
    *   2 = Leap Motion Controller
    *   3 = gamepad
    *
-   * quality:
-   *   0 = low
-   *   1 = mid
-   *   2 = high
-   *   3 = very high
+   * Rendering quality:
+   *   HIGH is always used.
    *
    * hud:
    *   0 = off
@@ -112,18 +114,6 @@
       defaultValue: defaultControls,
       value: defaultControls,
       label: 'Controls: '
-    },
-    {
-      name: 'quality',
-      labels: [
-        'LOW',
-        'MID',
-        'HIGH',
-        'VERY HIGH'
-      ],
-      defaultValue: 3,
-      value: 3,
-      label: 'Quality: '
     },
     {
       name: 'hud',
@@ -199,8 +189,7 @@
       init(
         settings[0].value,
         settings[1].value,
-        settings[2].value,
-        settings[3].value
+        settings[2].value
       );
     };
   }
