@@ -53,10 +53,7 @@ loading.textContent =
 "WebGL2 is required to play Klasker Frontier.";
 }
 
-
 return;
-
-
 }
 
 /*
@@ -78,16 +75,13 @@ console.error(
 error
 );
 
-
 if (loading) {
-  loading.hidden = false;
-  loading.textContent =
-    "Unable to initialise the galaxy data.";
+loading.hidden = false;
+loading.textContent =
+"Unable to initialise the galaxy data.";
 }
 
 return;
-
-
 }
 
 var state = {
@@ -99,8 +93,25 @@ height: 0,
 pixelRatio: 1,
 running: false,
 previousTime: 0,
-deltaTime: 0
-};
+deltaTime: 0,
+
+/*
+
+* Keyboard controls.
+*
+* Controls are only active while the game is fullscreen.
+* Directional keys are represented as held state so future
+* movement and camera logic can read them continuously.
+  */
+  controls: {
+  up: false,
+  down: false,
+  left: false,
+  right: false,
+  fire: false,
+  select: false
+  }
+  };
 
 var renderer;
 
@@ -108,78 +119,176 @@ function resize() {
 var rect =
 canvas.getBoundingClientRect();
 
-
 state.pixelRatio =
-  Math.min(
-    window.devicePixelRatio || 1,
-    2
-  );
+Math.min(
+window.devicePixelRatio || 1,
+2
+);
 
 state.width =
-  Math.max(
-    1,
-    Math.round(
-      rect.width *
-      state.pixelRatio
-    )
-  );
+Math.max(
+1,
+Math.round(
+rect.width *
+state.pixelRatio
+)
+);
 
 state.height =
-  Math.max(
-    1,
-    Math.round(
-      rect.height *
-      state.pixelRatio
-    )
-  );
+Math.max(
+1,
+Math.round(
+rect.height *
+state.pixelRatio
+)
+);
 
 if (
-  canvas.width !== state.width ||
-  canvas.height !== state.height
+canvas.width !== state.width ||
+canvas.height !== state.height
 ) {
-  canvas.width = state.width;
-  canvas.height = state.height;
+canvas.width = state.width;
+canvas.height = state.height;
 }
 
 gl.viewport(
-  0,
-  0,
-  state.width,
-  state.height
+0,
+0,
+state.width,
+state.height
 );
 
 if (renderer) {
-  renderer.resize();
+renderer.resize();
+}
 }
 
-
+function handleKeyDown(event) {
+if (
+document.fullscreenElement !==
+gameShell
+) {
+return;
 }
+
+var key =
+event.key;
+
+if (
+key === "ArrowUp" ||
+key === "ArrowDown" ||
+key === "ArrowLeft" ||
+key === "ArrowRight" ||
+key === " " ||
+key === "Enter"
+) {
+event.preventDefault();
+}
+
+if (key === "ArrowUp") {
+state.controls.up = true;
+return;
+}
+
+if (key === "ArrowDown") {
+state.controls.down = true;
+return;
+}
+
+if (key === "ArrowLeft") {
+state.controls.left = true;
+return;
+}
+
+if (key === "ArrowRight") {
+state.controls.right = true;
+return;
+}
+
+if (key === " ") {
+state.controls.fire = true;
+return;
+}
+
+if (key === "Enter") {
+state.controls.select = true;
+}
+}
+
+function handleKeyUp(event) {
+if (
+document.fullscreenElement !==
+gameShell
+) {
+return;
+}
+
+var key =
+event.key;
+
+if (key === "ArrowUp") {
+state.controls.up = false;
+return;
+}
+
+if (key === "ArrowDown") {
+state.controls.down = false;
+return;
+}
+
+if (key === "ArrowLeft") {
+state.controls.left = false;
+return;
+}
+
+if (key === "ArrowRight") {
+state.controls.right = false;
+return;
+}
+
+if (key === " ") {
+state.controls.fire = false;
+return;
+}
+
+if (key === "Enter") {
+state.controls.select = false;
+}
+}
+
+window.addEventListener(
+"keydown",
+handleKeyDown,
+{ passive: false }
+);
+
+window.addEventListener(
+"keyup",
+handleKeyUp
+);
 
 function enterGameFullscreen() {
 if (!gameShell) {
 return;
 }
 
-
 if (
-  document.fullscreenElement ===
-  gameShell
+document.fullscreenElement ===
+gameShell
 ) {
-  return;
+return;
 }
 
 if (gameShell.requestFullscreen) {
-  gameShell
-    .requestFullscreen()
-    .catch(function (error) {
-      console.error(
-        "Klasker Frontier fullscreen request failed:",
-        error
-      );
-    });
+gameShell
+.requestFullscreen()
+.catch(function (error) {
+console.error(
+"Klasker Frontier fullscreen request failed:",
+error
+);
+});
 }
-
-
 }
 
 function exitGameFullscreen() {
@@ -187,19 +296,16 @@ if (!document.fullscreenElement) {
 return;
 }
 
-
 if (document.exitFullscreen) {
-  document
-    .exitFullscreen()
-    .catch(function (error) {
-      console.error(
-        "Klasker Frontier fullscreen exit failed:",
-        error
-      );
-    });
+document
+.exitFullscreen()
+.catch(function (error) {
+console.error(
+"Klasker Frontier fullscreen exit failed:",
+error
+);
+});
 }
-
-
 }
 
 function updateFullscreenControls() {
@@ -207,26 +313,32 @@ var fullscreen =
 document.fullscreenElement ===
 gameShell;
 
-
 if (enterFullscreen) {
-  enterFullscreen.hidden =
-    fullscreen;
+enterFullscreen.hidden =
+fullscreen;
 }
 
 if (exitFullscreen) {
-  exitFullscreen.hidden = true;
+exitFullscreen.hidden = true;
 }
 
 if (gameShell) {
-  gameShell.classList.toggle(
-    "is-fullscreen",
-    fullscreen
-  );
+gameShell.classList.toggle(
+"is-fullscreen",
+fullscreen
+);
+}
+
+if (!fullscreen) {
+state.controls.up = false;
+state.controls.down = false;
+state.controls.left = false;
+state.controls.right = false;
+state.controls.fire = false;
+state.controls.select = false;
 }
 
 resize();
-
-
 }
 
 if (enterFullscreen) {
@@ -264,17 +376,14 @@ canvas.addEventListener(
 function (event) {
 event.preventDefault();
 
+state.running = false;
 
-  state.running = false;
-
-  if (loading) {
-    loading.hidden = false;
-    loading.textContent =
-      "WebGL context lost. Waiting for recovery...";
-  }
+if (loading) {
+loading.hidden = false;
+loading.textContent =
+"WebGL context lost. Waiting for recovery...";
 }
-
-
+}
 );
 
 canvas.addEventListener(
@@ -288,36 +397,33 @@ canvas,
 galaxy
 );
 
+resize();
 
-    resize();
+state.running = true;
+state.previousTime =
+performance.now();
 
-    state.running = true;
-    state.previousTime =
-      performance.now();
-
-    if (loading) {
-      loading.hidden = true;
-    }
-
-    window.KlaskerFrontier.renderer =
-      renderer;
-
-    requestAnimationFrame(frame);
-  } catch (error) {
-    console.error(
-      "Klasker Frontier renderer recovery failed:",
-      error
-    );
-
-    if (loading) {
-      loading.hidden = false;
-      loading.textContent =
-        "Unable to restore the galaxy renderer.";
-    }
-  }
+if (loading) {
+loading.hidden = true;
 }
 
+window.KlaskerFrontier.renderer =
+renderer;
 
+requestAnimationFrame(frame);
+} catch (error) {
+console.error(
+"Klasker Frontier renderer recovery failed:",
+error
+);
+
+if (loading) {
+loading.hidden = false;
+loading.textContent =
+"Unable to restore the galaxy renderer.";
+}
+}
+}
 );
 
 gl.disable(gl.BLEND);
@@ -344,15 +450,12 @@ console.error(
 error
 );
 
-
 if (loading) {
-  loading.hidden = false;
-  loading.textContent =
-    "Unable to initialise the galaxy renderer: " +
-    error.message;
+loading.hidden = false;
+loading.textContent =
+"Unable to initialise the galaxy renderer: " +
+error.message;
 }
-
-
 }
 
 resize();
@@ -367,31 +470,28 @@ if (!state.running) {
 return;
 }
 
-
 if (!state.previousTime) {
-  state.previousTime = time;
+state.previousTime = time;
 }
 
 state.deltaTime =
-  Math.min(
-    (time - state.previousTime) /
-      1000,
-    0.1
-  );
+Math.min(
+(time - state.previousTime) /
+1000,
+0.1
+);
 
 state.previousTime = time;
 
 renderer.render(
-  state.deltaTime
+state.deltaTime
 );
 
 if (loading) {
-  loading.hidden = true;
+loading.hidden = true;
 }
 
 requestAnimationFrame(frame);
-
-
 }
 
 window.KlaskerFrontier = {
