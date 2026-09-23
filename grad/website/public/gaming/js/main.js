@@ -120,8 +120,6 @@ function updateFullscreenControls() {
   resize();
 }
 
-}
-
 if (enterFullscreen) {
 enterFullscreen.addEventListener("click", function (event) {
 event.preventDefault();
