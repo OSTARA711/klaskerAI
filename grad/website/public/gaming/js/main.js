@@ -1,13 +1,11 @@
 /*
-*
-
-* Agentic AI Klasker Frontier
-* Path: grad/website/static/gaming/js/main.js
-*
-* Agentic AI space strategy and trade game.
-*
-
-*/
+ *
+ * Agentic AI Klasker Frontier
+ * Path: grad/website/static/gaming/js/main.js
+ *
+ * Agentic AI space strategy and trade game.
+ *
+ */
 
 import { createGalaxy } from "./galaxy.js";
 import { createRenderer } from "./render.js";
@@ -103,15 +101,17 @@ deltaTime: 0,
 * Directional keys are represented as held state so future
 * movement and camera logic can read them continuously.
   */
-  controls: {
-  up: false,
-  down: false,
-  left: false,
-  right: false,
-  fire: false,
-  select: false
-  }
-  };
+
+controls: {
+up: false,
+down: false,
+left: false,
+right: false,
+fire: false,
+fireSequence: 0,
+select: false
+}
+};
 
 var renderer;
 
@@ -206,6 +206,10 @@ return;
 }
 
 if (key === " ") {
+if (!event.repeat) {
+state.controls.fireSequence += 1;
+}
+
 state.controls.fire = true;
 return;
 }
@@ -428,6 +432,7 @@ loading.textContent =
 
 gl.disable(gl.BLEND);
 gl.enable(gl.DEPTH_TEST);
+
 gl.depthFunc(gl.LEQUAL);
 
 gl.clearColor(

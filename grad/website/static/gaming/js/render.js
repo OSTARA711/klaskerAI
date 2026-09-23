@@ -1,7 +1,7 @@
 /*
 *
 * Agentic AI Klasker Frontier
-* Path: grad/website/static/gaming/js/render.js
+* Path: grad/website/public/gaming/js/render.js
 *
 * Lightweight WebGL2 galaxy renderer.
 *
@@ -48,7 +48,7 @@ cameraX: 0,
 cameraY: 0,
 cameraZ: 75,
 
-cannonTimer: 0,
+cannonBurst: null,
 previousFire: false
 };
 
@@ -91,7 +91,6 @@ var message =
 gl.getShaderInfoLog(
 shader
 );
-
 gl.deleteShader(
 shader
 );
@@ -674,16 +673,16 @@ var fragmentSource = [
 "  }",
 "",
 "  float flame =",
-"    1.0 - smoothstep(0.45, 0.05, distanceFromCentre);",
+"    1.0 - smoothstep(0.46, 0.06, distanceFromCentre);",
 "",
 "  float core =",
-"    1.0 - smoothstep(0.22, 0.0, distanceFromCentre);",
+"    1.0 - smoothstep(0.18, 0.0, distanceFromCentre);",
 "",
 "  vec3 flameColour =",
 "    mix(",
-"      vec3(1.0, 0.0, 0.0),",
-"      vec3(1.0, 0.82, 0.02),",
-"      flame",
+"      vec3(1.0, 0.02, 0.0),",
+"      vec3(1.0, 0.18, 0.0),",
+"      flame * 0.35",
 "    );",
 "",
 "  vec3 colour =",
@@ -696,7 +695,7 @@ var fragmentSource = [
 "  colour =",
 "    mix(",
 "      colour,",
-"      vec3(1.0, 1.0, 0.75),",
+"      vec3(1.0, 0.72, 0.18),",
 "      core",
 "    );",
 "",
@@ -1024,20 +1023,73 @@ if (
 controls.fire &&
 !renderer.previousFire
 ) {
-renderer.cannonTimer =
-CANNON_DURATION;
+var fireCos =
+Math.cos(
+renderer.rotation
+);
+
+var fireSin =
+Math.sin(
+renderer.rotation
+);
+
+var forwardX =
+-fireSin;
+
+var forwardZ =
+-fireCos;
+
+var rightX =
+fireCos;
+
+var rightZ =
+-fireSin;
+
+var cannonCentreX =
+renderer.cameraX +
+forwardX *
+CANNON_DISTANCE;
+
+var cannonCentreY =
+renderer.cameraY -
+0.45;
+
+var cannonCentreZ =
+renderer.cameraZ +
+forwardZ *
+CANNON_DISTANCE;
+
+renderer.cannonBurst = {
+x: cannonCentreX,
+y: cannonCentreY,
+z: cannonCentreZ,
+rightX: rightX,
+rightZ: rightZ,
+timer: CANNON_DURATION
+};
 }
 
 renderer.previousFire =
 controls.fire;
 }
 
-renderer.cannonTimer =
+if (
+renderer.cannonBurst
+) {
+renderer.cannonBurst.timer =
 Math.max(
 0,
-renderer.cannonTimer -
+renderer.cannonBurst.timer -
 deltaTime
 );
+
+if (
+renderer.cannonBurst.timer <= 0
+) {
+renderer.cannonBurst =
+null;
+}
+}
 
 var cos =
 Math.cos(
@@ -1103,6 +1155,7 @@ gl.COLOR_BUFFER_BIT
 );
 
 /*
+*
 
 * Background stars.
   */
@@ -1173,6 +1226,7 @@ renderer.starCount
 );
 
 /*
+*
 
 * Navigable systems.
   */
@@ -1275,6 +1329,7 @@ renderer.systemCount
 }
 
 /*
+*
 
 * Planets.
   */
@@ -1377,49 +1432,36 @@ renderer.planetCount
 }
 
 /*
+*
 
 * Cannon bursts.
 *
-* Both bursts begin red and rapidly develop
-* yellow flame as the burst fades.
+* The burst position and firing direction are captured
+* when Space is pressed. Turning afterwards therefore
+* does not move or redirect an active cannon burst.
   */
 
 if (
-renderer.cannonTimer > 0
+renderer.cannonBurst
 ) {
 var intensity =
-renderer.cannonTimer /
+renderer.cannonBurst.timer /
 CANNON_DURATION;
 
-var flame =
-1.0 -
-intensity;
-
-var forwardX =
--sin;
-
-var forwardZ =
--cos;
-
-var rightX =
-cos;
-
-var rightZ =
--sin;
-
 var cannonCentreX =
-renderer.cameraX +
-forwardX *
-CANNON_DISTANCE;
+renderer.cannonBurst.x;
 
 var cannonCentreY =
-renderer.cameraY -
-0.45;
+renderer.cannonBurst.y;
 
 var cannonCentreZ =
-renderer.cameraZ +
-forwardZ *
-CANNON_DISTANCE;
+renderer.cannonBurst.z;
+
+var rightX =
+renderer.cannonBurst.rightX;
+
+var rightZ =
+renderer.cannonBurst.rightZ;
 
 var leftX =
 cannonCentreX -
@@ -1445,13 +1487,10 @@ var red =
 1.0;
 
 var green =
-Math.min(
-1.0,
-flame * 2.8
-);
+0.015;
 
 var blue =
-0.02;
+0.0;
 
 var cannonData =
 new Float32Array([
@@ -1507,7 +1546,8 @@ renderer.view
 gl.uniform1f(
 cannonSizeLocation,
 12 +
-intensity * 20
+intensity *
+20
 );
 
 gl.bindBuffer(
