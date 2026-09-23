@@ -64,7 +64,7 @@ var IMPORTANT_PLANET_POINT_SIZE = 8.0;
 var MOVEMENT_SPEED = 24.0;
 var ROTATION_SPEED = 1.5;
 
-var CANNON_DURATION = 0.16;
+var CANNON_DURATION = 0.24;
 var CANNON_DISTANCE = 3.0;
 var CANNON_SPREAD = 0.8;
 
@@ -127,20 +127,16 @@ gl.attachShader(
 program,
 vertexShader
 );
-
 gl.attachShader(
 program,
 fragmentShader
 );
-
 gl.linkProgram(
 program
 );
-
 gl.deleteShader(
 vertexShader
 );
-
 gl.deleteShader(
 fragmentShader
 );
@@ -155,7 +151,6 @@ var message =
 gl.getProgramInfoLog(
 program
 );
-
 gl.deleteProgram(
 program
 );
@@ -278,18 +273,11 @@ var brightness =
 Math.random() * 0.5 +
 centreFactor * 0.25;
 
-var offset =
-i * 4;
+var offset = i * 4;
 
-data[offset] =
-x;
-
-data[offset + 1] =
-y;
-
-data[offset + 2] =
-z;
-
+data[offset] = x;
+data[offset + 1] = y;
+data[offset + 2] = z;
 data[offset + 3] =
 Math.min(
 brightness,
@@ -307,13 +295,11 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.vertexBuffer
 );
-
 gl.bufferData(
 gl.ARRAY_BUFFER,
 data,
 gl.STATIC_DRAW
 );
-
 gl.bindBuffer(
 gl.ARRAY_BUFFER,
 null
@@ -344,8 +330,7 @@ i += 1
 var system =
 systems[i];
 
-var offset =
-i * 6;
+var offset = i * 6;
 
 var isSol =
 system.id ===
@@ -360,21 +345,16 @@ isSol
 
 data[offset] =
 system.position.x;
-
 data[offset + 1] =
 system.position.y;
-
 data[offset + 2] =
 system.position.z;
-
 data[offset + 3] =
 isSol
 ? SOL_POINT_SIZE
 : SYSTEM_POINT_SIZE;
-
 data[offset + 4] =
 brightness;
-
 data[offset + 5] =
 isSol
 ? 1
@@ -391,13 +371,11 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.systemBuffer
 );
-
 gl.bufferData(
 gl.ARRAY_BUFFER,
 data,
 gl.STATIC_DRAW
 );
-
 gl.bindBuffer(
 gl.ARRAY_BUFFER,
 null
@@ -620,13 +598,11 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.planetBuffer
 );
-
 gl.bufferData(
 gl.ARRAY_BUFFER,
 data,
 gl.STATIC_DRAW
 );
-
 gl.bindBuffer(
 gl.ARRAY_BUFFER,
 null
@@ -672,35 +648,10 @@ var fragmentSource = [
 "    discard;",
 "  }",
 "",
-"  float flame =",
-"    1.0 - smoothstep(0.46, 0.06, distanceFromCentre);",
-"",
-"  float core =",
-"    1.0 - smoothstep(0.18, 0.0, distanceFromCentre);",
-"",
-"  vec3 flameColour =",
-"    mix(",
-"      vec3(1.0, 0.02, 0.0),",
-"      vec3(1.0, 0.18, 0.0),",
-"      flame * 0.35",
-"    );",
-"",
-"  vec3 colour =",
-"    mix(",
-"      v_colour,",
-"      flameColour,",
-"      flame",
-"    );",
-"",
-"  colour =",
-"    mix(",
-"      colour,",
-"      vec3(1.0, 0.72, 0.18),",
-"      core",
-"    );",
-"",
 "  out_colour = vec4(",
-"    colour,",
+"    1.0,",
+"    0.0,",
+"    0.0,",
 "    glow",
 "  );",
 "}"
@@ -1192,11 +1143,9 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.vertexBuffer
 );
-
 gl.enableVertexAttribArray(
 0
 );
-
 gl.vertexAttribPointer(
 0,
 3,
@@ -1205,11 +1154,9 @@ false,
 16,
 0
 );
-
 gl.enableVertexAttribArray(
 1
 );
-
 gl.vertexAttribPointer(
 1,
 1,
@@ -1218,7 +1165,6 @@ false,
 16,
 12
 );
-
 gl.drawArrays(
 gl.POINTS,
 0,
@@ -1268,11 +1214,9 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.systemBuffer
 );
-
 gl.enableVertexAttribArray(
 0
 );
-
 gl.vertexAttribPointer(
 0,
 3,
@@ -1281,11 +1225,9 @@ false,
 24,
 0
 );
-
 gl.enableVertexAttribArray(
 1
 );
-
 gl.vertexAttribPointer(
 1,
 1,
@@ -1294,11 +1236,9 @@ false,
 24,
 12
 );
-
 gl.enableVertexAttribArray(
 2
 );
-
 gl.vertexAttribPointer(
 2,
 1,
@@ -1307,11 +1247,9 @@ false,
 24,
 16
 );
-
 gl.enableVertexAttribArray(
 3
 );
-
 gl.vertexAttribPointer(
 3,
 1,
@@ -1320,7 +1258,6 @@ false,
 24,
 20
 );
-
 gl.drawArrays(
 gl.POINTS,
 0,
@@ -1371,11 +1308,9 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.planetBuffer
 );
-
 gl.enableVertexAttribArray(
 0
 );
-
 gl.vertexAttribPointer(
 0,
 3,
@@ -1384,11 +1319,9 @@ false,
 32,
 0
 );
-
 gl.enableVertexAttribArray(
 1
 );
-
 gl.vertexAttribPointer(
 1,
 1,
@@ -1397,11 +1330,9 @@ false,
 32,
 12
 );
-
 gl.enableVertexAttribArray(
 2
 );
-
 gl.vertexAttribPointer(
 2,
 3,
@@ -1410,11 +1341,9 @@ false,
 32,
 16
 );
-
 gl.enableVertexAttribArray(
 3
 );
-
 gl.vertexAttribPointer(
 3,
 1,
@@ -1423,7 +1352,6 @@ false,
 32,
 28
 );
-
 gl.drawArrays(
 gl.POINTS,
 0,
@@ -1487,7 +1415,7 @@ var red =
 1.0;
 
 var green =
-0.015;
+0.0;
 
 var blue =
 0.0;
@@ -1554,17 +1482,14 @@ gl.bindBuffer(
 gl.ARRAY_BUFFER,
 renderer.cannonBuffer
 );
-
 gl.bufferData(
 gl.ARRAY_BUFFER,
 cannonData,
 gl.DYNAMIC_DRAW
 );
-
 gl.enableVertexAttribArray(
 0
 );
-
 gl.vertexAttribPointer(
 0,
 3,
@@ -1573,11 +1498,9 @@ false,
 24,
 0
 );
-
 gl.enableVertexAttribArray(
 1
 );
-
 gl.vertexAttribPointer(
 1,
 3,
@@ -1586,7 +1509,6 @@ false,
 24,
 12
 );
-
 gl.drawArrays(
 gl.POINTS,
 0,
