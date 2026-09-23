@@ -7,6 +7,8 @@
 *
 */
 
+import { createRenderer } from "./render.js";
+
 (function () {
 "use strict";
 
@@ -47,9 +49,10 @@ previousTime: 0,
 deltaTime: 0
 };
 
+var renderer;
+
 function resize() {
 var rect = canvas.getBoundingClientRect();
-
 
 state.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 state.width = Math.max(1, Math.round(rect.width * state.pixelRatio));
@@ -65,14 +68,15 @@ if (
 
 gl.viewport(0, 0, state.width, state.height);
 
-
+if (renderer) {
+  renderer.resize();
+}
 }
 
 function enterGameFullscreen() {
 if (!gameShell) {
 return;
 }
-
 
 if (document.fullscreenElement === gameShell) {
   return;
@@ -83,8 +87,6 @@ if (gameShell.requestFullscreen) {
     console.error("Klasker Frontier fullscreen request failed:", error);
   });
 }
-
-
 }
 
 function exitGameFullscreen() {
@@ -92,14 +94,11 @@ if (!document.fullscreenElement) {
 return;
 }
 
-
 if (document.exitFullscreen) {
   document.exitFullscreen().catch(function (error) {
     console.error("Klasker Frontier fullscreen exit failed:", error);
   });
 }
-
-
 }
 
 function updateFullscreenControls() {
@@ -142,25 +141,33 @@ canvas.addEventListener("webglcontextlost", function (event) {
 event.preventDefault();
 state.running = false;
 
-
 if (loading) {
   loading.hidden = false;
   loading.textContent = "WebGL context lost. Waiting for recovery...";
 }
-
-
 });
 
 canvas.addEventListener("webglcontextrestored", function () {
-state.running = true;
-state.previousTime = performance.now();
+try {
+  renderer = createRenderer(gl, canvas);
+  resize();
 
+  state.running = true;
+  state.previousTime = performance.now();
 
-if (loading) {
-  loading.hidden = true;
+  if (loading) {
+    loading.hidden = true;
+  }
+
+  requestAnimationFrame(frame);
+} catch (error) {
+  console.error("Klasker Frontier renderer recovery failed:", error);
+
+  if (loading) {
+    loading.hidden = false;
+    loading.textContent = "Unable to restore the galaxy renderer.";
+  }
 }
-
-
 });
 
 gl.disable(gl.BLEND);
@@ -169,10 +176,24 @@ gl.depthFunc(gl.LEQUAL);
 
 gl.clearColor(0, 0, 0, 1);
 
+try {
+renderer = createRenderer(gl, canvas);
+} catch (error) {
+console.error("Klasker Frontier renderer initialisation failed:", error);
+
+if (loading) {
+  loading.hidden = false;
+  loading.textContent = "Unable to initialise the galaxy.";
+}
+
+return;
+}
+
 resize();
 updateFullscreenControls();
 
 state.running = true;
+state.previousTime = performance.now();
 
 if (loading) {
 loading.hidden = true;
@@ -182,7 +203,6 @@ function frame(time) {
 if (!state.running) {
 return;
 }
-
 
 if (!state.previousTime) {
   state.previousTime = time;
@@ -195,17 +215,16 @@ state.deltaTime = Math.min(
 
 state.previousTime = time;
 
-gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+renderer.render(state.deltaTime);
 
 requestAnimationFrame(frame);
-
-
 }
 
 window.KlaskerFrontier = {
 canvas: canvas,
 gl: gl,
 state: state,
+renderer: renderer,
 resize: resize,
 enterFullscreen: enterGameFullscreen,
 exitFullscreen: exitGameFullscreen
