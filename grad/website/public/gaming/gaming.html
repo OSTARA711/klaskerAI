@@ -1,0 +1,647 @@
+<!-- /grad/website/static/gaming/gaming.html -->
+
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Agentic AI Klasker Frontier — Galaxy Exploration & Trade Game</title>
+
+<meta
+name="description"
+content="Agentic AI Klasker Frontier is a WebGL browser strategy and trade game where players explore a galaxy, establish colonies and build an interplanetary economy."
+
+>
+
+  <!-- Canonical -->
+
+  <link
+    rel="canonical"
+    href="https://www.klasker.com/gaming/gaming.html"
+  >
+
+  <!-- JSON-LD -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.klasker.com/#organization",
+        "name": "Klasker AITA",
+        "url": "https://www.klasker.com/",
+        "description": "Artificial Intelligence Trade Analysis"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.klasker.com/#website",
+        "url": "https://www.klasker.com/",
+        "name": "Klasker AITA",
+        "description": "Artificial Intelligence Trade Analysis for websites, products and services in the emerging world of Agentic AI.",
+        "publisher": {
+          "@id": "https://www.klasker.com/#organization"
+        }
+      },
+      {
+        "@type": "VideoGame",
+        "@id": "https://www.klasker.com/gaming/gaming.html#game",
+        "name": "Agentic AI Klasker Frontier",
+        "url": "https://www.klasker.com/gaming/gaming.html",
+        "description": "WebGL browser galaxy strategy and trade game about exploration, colonisation, trade and autonomous agents.",
+        "genre": [
+          "Strategy",
+          "Simulation",
+          "Trading",
+          "Space"
+        ],
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Stylesheet -->
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/gaming/css/gaming.css">
+
+  <!-- Favicon -->
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- OpenGraph -->
+
+<meta
+property="og:title"
+content="Agentic AI Klasker Frontier — Galaxy Trade Game"
+
+>
+
+<meta
+property="og:description"
+content="Explore a galaxy, establish colonies and build an interplanetary economy in the new Agentic AI Klasker Frontier."
+
+>
+
+  <meta property="og:type" content="website">
+
+<meta
+property="og:url"
+content="https://www.klasker.com/gaming/gaming.html"
+
+>
+
+<meta
+property="og:image"
+content="https://www.klasker.com/img/klasker-banner.webp"
+
+>
+
+  <meta name="twitter:card" content="summary_large_image">
+
+</head>
+
+<body>
+
+  <!-- Header -->
+
+  <header class="site-header">
+
+```
+<div class="container">
+
+  <a
+    class="site-brand"
+    href="/"
+    aria-label="Klasker AITA home"
+  >
+
+    <img
+      class="logo-img"
+      src="/img/ostara-logotype.webp"
+      alt="OSTARA.WORK Logotype"
+    >
+
+  </a>
+
+
+  <nav class="main-nav" aria-label="Main navigation">
+
+    <a href="/index.html#analyse">Analyse</a>
+    <a href="/mailrekon.html">MailRekon</a>
+    <a href="/observatory.html">Observatory</a>
+    <a href="/discovery.html">Discovery</a>
+    <a href="/index.html#research">Research</a>
+    <a href="/academy/academy.html">Academy</a>
+    <a href="/login.html">Login</a>
+
+  </nav>
+
+</div>
+```
+
+  </header>
+
+  <!-- Game -->
+
+  <main>
+
+```
+<section
+  class="gaming-section"
+  aria-labelledby="game-title"
+>
+
+  <div class="section-heading">
+
+    <h1 id="game-title">
+      Agentic AI Klasker Frontier
+    </h1>
+
+    <p class="subtitle">
+      Explore the galaxy. Establish colonies. Build an interplanetary economy with Agentic AI.
+    </p>
+
+  </div>
+
+
+  <!-- Game viewport -->
+  <div
+    id="game-shell"
+    class="game-shell"
+  >
+
+    <div
+      id="game-viewport"
+      class="game-viewport"
+    >
+
+      <canvas
+        id="game-canvas"
+        aria-label="Klasker Frontier game"
+      ></canvas>
+
+      <div
+        id="game-loading"
+        class="game-status"
+        aria-live="polite"
+      >
+        Initialising galaxy...
+      </div>
+
+    </div>
+
+
+    <!-- Game controls -->
+    <div
+      class="game-controls"
+      aria-label="Game controls"
+    >
+
+      <button
+        id="fullscreen-button"
+        class="button button-primary"
+        type="button"
+      >
+        Enter Fullscreen
+      </button>
+
+      <button
+        id="exit-fullscreen-button"
+        class="button button-secondary"
+        type="button"
+        hidden
+      >
+        Exit Fullscreen (Esc)
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Game presentation -->
+<section
+  id="about-game"
+  class="section"
+>
+
+  <div class="section-heading">
+
+    <h2>
+      Agentic AI Klasker Frontier
+    </h2>
+
+    <p>
+      Agentic AI Klasker Frontier is a browser-based space strategy and trade game
+      set across a growing galaxy of planetary systems, colonies and
+      celestial hazards.
+    </p>
+
+    <p>
+      The game begins on Earth. Your first objective is to establish a
+      foothold on Mars and begin expanding human activity beyond Earth.
+      From there, exploration, transportation, colonisation and trade
+      will gradually become the foundations of a larger interplanetary
+      economy.
+    </p>
+
+  </div>
+
+
+  <div class="widget-grid">
+
+    <!-- Exploration -->
+    <article class="widget">
+
+      <h3>
+        Explore the Galaxy
+      </h3>
+
+      <p>
+        Discover planetary systems, stars, asteroids, pulsars, supernovae
+        and other extraordinary objects distributed throughout the galaxy.
+      </p>
+
+      <p class="widget-note">
+        The galaxy is designed to grow as new systems, destinations and
+        opportunities are introduced.
+      </p>
+
+    </article>
+
+
+    <!-- Colonisation -->
+    <article class="widget">
+
+      <h3>
+        Colonise New Worlds
+      </h3>
+
+      <p>
+        Earth is the starting point. Your first major expansion is the
+        colonisation of Mars.
+      </p>
+
+      <p class="widget-note">
+        Colonies require transportation, resources and infrastructure
+        before they can become productive settlements.
+      </p>
+
+    </article>
+
+
+    <!-- Trade -->
+    <article class="widget">
+
+      <h3>
+        Trade and Earn KRON
+      </h3>
+
+      <p>
+        Transport useful resources between worlds and stations. Buy where
+        goods are available and sell where demand creates an opportunity.
+      </p>
+
+      <p class="widget-note">
+        KRON earned through successful trade can be invested in ships,
+        cargo capacity, colonies and future expansion.
+      </p>
+
+    </article>
+
+
+    <!-- Ships -->
+    <article class="widget">
+
+      <h3>
+        Build an Armoured Fleet
+      </h3>
+
+      <p>
+        Different starships serve different purposes. Cargo vessels support
+        trade and colonisation, while faster starships can eventually be used
+        for exploration, security and combat.
+      </p>
+
+      <p class="widget-note">
+        Additional starship classes and capabilities will be introduced as
+        the game develops.
+      </p>
+
+    </article>
+
+
+    <!-- Agents -->
+    <article class="widget">
+
+      <h3>
+        Autonomous Agents
+      </h3>
+
+      <p>
+        Agentic AI Klasker Frontier is designed around a galaxy in which autonomous
+        economic agents can eventually observe markets, select routes,
+        transport goods and pursue their own objectives.
+      </p>
+
+      <p class="widget-note">
+        Agentic AI gameplay will expand the economy beyond actions directly
+        controlled by the player.
+      </p>
+
+    </article>
+
+
+    <!-- Combat -->
+    <article class="widget">
+
+      <h3>
+        Space Combat
+      </h3>
+
+      <p>
+        Combat is an occasional part of the wider game rather than its
+        central purpose. Fighters and other defensive capabilities may
+        eventually protect ships, colonies and trade routes.
+      </p>
+
+      <p class="widget-note">
+        Strategic trade and exploration remain at the centre of the game.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- How to play -->
+<section
+  id="how-to-play"
+  class="section"
+>
+
+  <div class="section-heading">
+
+    <h2>
+      How to Play
+    </h2>
+
+    <p>
+      Begin on Earth, select a destination and develop your first
+      interplanetary route.
+    </p>
+
+  </div>
+
+
+  <div class="widget-grid">
+
+    <article class="widget">
+
+      <h3>
+        1. Start on Earth
+      </h3>
+
+      <p>
+        Earth is your starting world and the initial centre of your
+        operations.
+      </p>
+
+    </article>
+
+
+    <article class="widget">
+
+      <h3>
+        2. Reach Mars
+      </h3>
+
+      <p>
+        Establish the first Mars colony by sending the resources and
+        transport required to begin settlement.
+      </p>
+
+    </article>
+
+
+    <article class="widget">
+
+      <h3>
+        3. Develop Trade
+      </h3>
+
+      <p>
+        Move resources between worlds and look for profitable differences
+        between supply and demand.
+      </p>
+
+    </article>
+
+
+    <article class="widget">
+
+      <h3>
+        4. Expand
+      </h3>
+
+      <p>
+        Reinvest credits into ships, infrastructure and new destinations
+        as the galaxy becomes more accessible.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- Research / Agentic AI -->
+<section
+  id="agentic-economy"
+  class="section"
+>
+
+  <div class="section-heading">
+
+    <h2>
+      An Agentic Economy
+    </h2>
+
+    <p>
+      Agentic AI Klasker Frontier is intended as an experimental environment for
+      autonomous economic activity. Future versions may allow starships,
+      corporations and other entities to make decisions based on their
+      resources, objectives, market information and relationships with
+      other AI agents.
+    </p>
+
+    <p>
+      This creates a living economic system in which opportunities can
+      emerge from the actions of many independent participants rather
+      than from a fixed sequence of "hardwired" missions.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- About Klasker -->
+<section
+  id="about"
+  class="section"
+>
+
+  <div class="section-heading">
+
+    <h2>
+      Agentic AI Klasker Frontier
+    </h2>
+
+    <img
+      class="hero-logo"
+      src="/img/klasker-logotype.webp"
+      alt="Klasker AITA logotype"
+      width="500"
+      height="500"
+    >
+
+    <p>
+      Agentic AI Klasker Frontier is a galaxy reconnaissance WebGL
+      game for Artificial Intelligence Trade Analysis, displaying
+      a futuristic economic system in which opportunities can
+      emerge from the actions of many independent participants.
+    </p>
+
+  </div>
+
+</section>
+```
+
+  </main>
+
+  <!-- Footer -->
+
+  <footer class="site-footer">
+
+```
+<nav
+  class="footer-nav"
+  aria-label="Footer navigation"
+>
+
+  <a href="https://www.ostara.work/privacy/">
+    Privacy
+  </a>
+
+  <a href="https://www.ostara.work/cookies/">
+    Cookies
+  </a>
+
+  <a href="https://www.ostara.work/legal">
+    Terms &amp; Conditions
+  </a>
+
+</nav>
+
+<p>
+  OSTARA-3339 AAY 00074
+</p>
+
+<p>
+  OSTARA.WORK © 2026
+</p>
+```
+
+  </footer>
+
+  <!-- Game -->
+
+  <script type="module" src="/gaming/js/main.js"></script>
+
+  <!-- Fullscreen controls -->
+
+  <script>
+    (() => {
+
+      const gameShell = document.getElementById("game-shell");
+      const fullscreenButton = document.getElementById("fullscreen-button");
+      const exitFullscreenButton = document.getElementById("exit-fullscreen-button");
+
+      if (!gameShell || !fullscreenButton || !exitFullscreenButton) {
+        return;
+      }
+
+      const updateFullscreenControls = () => {
+
+        const isFullscreen = document.fullscreenElement === gameShell;
+
+        fullscreenButton.hidden = isFullscreen;
+        exitFullscreenButton.hidden = !isFullscreen;
+
+      };
+
+
+      fullscreenButton.addEventListener("click", async () => {
+
+        try {
+
+          if (!document.fullscreenElement) {
+            await gameShell.requestFullscreen();
+          }
+
+        } catch (error) {
+
+          console.error("Unable to enter fullscreen mode:", error);
+
+        }
+
+      });
+
+
+      exitFullscreenButton.addEventListener("click", async () => {
+
+        try {
+
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          }
+
+        } catch (error) {
+
+          console.error("Unable to exit fullscreen mode:", error);
+
+        }
+
+      });
+
+
+      document.addEventListener(
+        "fullscreenchange",
+        updateFullscreenControls
+      );
+
+
+      updateFullscreenControls();
+
+    })();
+  </script>
+
+</body>
+
+</html>
+
