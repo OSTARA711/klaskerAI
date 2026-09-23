@@ -1,0 +1,138 @@
+/*
+
+* Agentic AI Klasker Frontier
+* Path: grad/website/static/gaming/css/gaming.css
+*
+* Agentic AI galaxy strategy and trade game.
+  */
+
+.gaming-section {
+width: 100%;
+margin: 0 auto;
+padding: 0 0 4rem;
+}
+
+.gaming-section > h1,
+.gaming-section > p {
+max-width: 1100px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.game-shell {
+position: relative;
+width: min(1400px, 96vw);
+margin: 1.5rem auto 0;
+background: #000;
+border: 1px solid #31100c;
+overflow: hidden;
+}
+
+.game-viewport {
+position: relative;
+width: 100%;
+aspect-ratio: 16 / 9;
+min-height: 420px;
+background: #000;
+overflow: hidden;
+}
+
+#game-canvas {
+display: block;
+width: 100%;
+height: 100%;
+margin: 0;
+padding: 0;
+background: #000;
+}
+
+#game-loading {
+position: absolute;
+top: 50%;
+left: 50%;
+z-index: 2;
+width: 90%;
+transform: translate(-50%, -50%);
+margin: 0;
+text-align: center;
+color: #d0b6a4;
+font-size: 1rem;
+pointer-events: none;
+}
+
+.game-controls {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+gap: 0.75rem;
+width: 100%;
+padding: 0.85rem 1rem;
+box-sizing: border-box;
+background: #120705;
+border-top: 1px solid #31100c;
+}
+
+.game-controls button {
+appearance: none;
+border: 1px solid #c74812;
+border-radius: 3px;
+padding: 0.55rem 1rem;
+background: #1d0b08;
+color: #f3e9df;
+font: inherit;
+font-size: 0.9rem;
+line-height: 1.2;
+cursor: pointer;
+}
+
+.game-controls button:hover {
+background: #31100c;
+}
+
+.game-controls button:focus-visible {
+outline: 2px solid #f26b1d;
+outline-offset: 2px;
+}
+
+.game-controls button:active {
+background: #120705;
+}
+
+.game-shell:fullscreen {
+width: 100vw;
+height: 100vh;
+margin: 0;
+border: 0;
+}
+
+.game-shell:fullscreen .game-viewport {
+width: 100%;
+height: calc(100% - 60px);
+min-height: 0;
+aspect-ratio: auto;
+}
+
+.game-shell:fullscreen #game-canvas {
+width: 100%;
+height: 100%;
+}
+
+.game-shell:fullscreen .game-controls {
+height: 60px;
+}
+
+@media (max-width: 700px) {
+.game-viewport {
+aspect-ratio: 4 / 3;
+min-height: 300px;
+}
+
+.game-controls {
+padding: 0.7rem;
+}
+
+.game-controls button {
+flex: 1 1 auto;
+}
+}
