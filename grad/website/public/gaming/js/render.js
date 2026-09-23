@@ -1,13 +1,15 @@
 /*
-*
-
-* Agentic AI Klasker Frontier
-* Path: grad/website/static/gaming/js/render.js
-*
-* Lightweight WebGL2 galaxy renderer.
-*
-
-*/
+ * Agentic AI Klasker Frontier
+ * Path: grad/website/static/gaming/js/render.js
+ *
+ * Lightweight WebGL2 galaxy renderer.
+ *
+ * Visual layers:
+ * 1. Background stars.
+ * 2. Navigable star systems.
+ * 3. Planets belonging to those systems.
+ *
+ */
 
 export function createRenderer(
 gl,
@@ -20,15 +22,25 @@ var renderer = {
 gl: gl,
 canvas: canvas,
 galaxy: galaxy || null,
+
+
 program: null,
 vertexBuffer: null,
 starCount: 0,
+
 systemBuffer: null,
 systemCount: 0,
 systemProgram: null,
+
+planetBuffer: null,
+planetCount: 0,
+planetProgram: null,
+
 projection: new Float32Array(16),
 view: new Float32Array(16),
 rotation: 0
+
+
 };
 
 var STAR_COUNT = 6000;
@@ -36,6 +48,9 @@ var GALAXY_RADIUS = 180;
 
 var SYSTEM_POINT_SIZE = 5.0;
 var SOL_POINT_SIZE = 9.0;
+
+var PLANET_POINT_SIZE = 4.0;
+var IMPORTANT_PLANET_POINT_SIZE = 8.0;
 
 function createShader(type, source) {
 var shader = gl.createShader(type);
@@ -295,6 +310,18 @@ return;
 var systems =
   renderer.galaxy.systems;
 
+/*
+ * Each system contains:
+ *
+ * x, y, z,
+ * size,
+ * brightness,
+ * type
+ *
+ * type 1 = Sol
+ * type 0 = other star system
+ */
+
 var data =
   new Float32Array(
     systems.length * 6
@@ -352,6 +379,244 @@ renderer.systemBuffer =
 gl.bindBuffer(
   gl.ARRAY_BUFFER,
   renderer.systemBuffer
+);
+
+gl.bufferData(
+  gl.ARRAY_BUFFER,
+  data,
+  gl.STATIC_DRAW
+);
+
+gl.bindBuffer(
+  gl.ARRAY_BUFFER,
+  null
+);
+
+
+}
+
+function getPlanetColour(type) {
+if (type === "rocky") {
+return [0.72, 0.74, 0.78];
+}
+
+
+if (type === "desert") {
+  return [0.86, 0.62, 0.34];
+}
+
+if (type === "ocean") {
+  return [0.28, 0.62, 1.0];
+}
+
+if (type === "ice") {
+  return [0.72, 0.88, 1.0];
+}
+
+if (type === "gas_giant") {
+  return [0.76, 0.58, 0.38];
+}
+
+return [0.8, 0.8, 0.8];
+
+
+}
+
+function createPlanetLayer() {
+if (
+!renderer.galaxy ||
+!renderer.galaxy.systems
+) {
+return;
+}
+
+
+var records = [];
+
+/*
+ * Planets are rendered around their parent star.
+ *
+ * The galaxy data provides orbital distance but not
+ * an orbital angle. A deterministic angle is therefore
+ * derived from the planet index. This keeps the starting
+ * Sol system stable and ensures Earth and Mars are
+ * immediately visible.
+ */
+
+for (
+  var systemIndex = 0;
+  systemIndex <
+  renderer.galaxy.systems.length;
+  systemIndex += 1
+) {
+  var system =
+    renderer.galaxy.systems[
+      systemIndex
+    ];
+
+  if (
+    !system.planets ||
+    system.planets.length === 0
+  ) {
+    continue;
+  }
+
+  for (
+    var planetIndex = 0;
+    planetIndex <
+    system.planets.length;
+    planetIndex += 1
+  ) {
+    var planet =
+      system.planets[
+        planetIndex
+      ];
+
+    var orbit =
+      Number(planet.orbit);
+
+    if (
+      !Number.isFinite(orbit) ||
+      orbit <= 0
+    ) {
+      orbit =
+        planetIndex + 1;
+    }
+
+    /*
+     * Keep planetary systems compact enough to be
+     * visible at the initial 75-unit camera distance.
+     *
+     * Sol planets deliberately receive a slightly
+     * larger scale so Earth and Mars are unmistakable.
+     */
+    var orbitDistance =
+      orbit * 1.8;
+
+    var angle =
+      planetIndex *
+      1.37;
+
+    /*
+     * Earth and Mars get fixed, separated positions
+     * in the starting Sol system.
+     *
+     * Earth orbit 3:
+     * approximately +X.
+     *
+     * Mars orbit 4:
+     * approximately +Z.
+     *
+     * This prevents the two starting planets from
+     * overlapping Sol or each other.
+     */
+    if (
+      system.id === "system-sol" &&
+      planet.id === "planet-earth"
+    ) {
+      angle = 0;
+    }
+
+    if (
+      system.id === "system-sol" &&
+      planet.id === "planet-mars"
+    ) {
+      angle = Math.PI / 2;
+    }
+
+    var x =
+      system.position.x +
+      Math.cos(angle) *
+      orbitDistance;
+
+    var z =
+      system.position.z +
+      Math.sin(angle) *
+      orbitDistance;
+
+    /*
+     * A small vertical component gives planetary
+     * systems depth without moving the starting
+     * Earth/Mars positions away from the viewer.
+     */
+    var y =
+      system.position.y +
+      Math.sin(
+        angle * 0.5
+      ) *
+      orbitDistance *
+      0.08;
+
+    var colour =
+      getPlanetColour(
+        planet.type
+      );
+
+    var isStartingPlanet =
+      system.id ===
+      "system-sol" &&
+      (
+        planet.id ===
+          "planet-earth" ||
+        planet.id ===
+          "planet-mars"
+      );
+
+    var size =
+      isStartingPlanet
+        ? IMPORTANT_PLANET_POINT_SIZE
+        : PLANET_POINT_SIZE;
+
+    /*
+     * discovered controls whether a generated planet
+     * is shown at normal strength. Earth and Mars are
+     * explicitly present and discovered in Sol, so they
+     * are always visible on first entry.
+     */
+    var brightness =
+      planet.discovered ||
+      isStartingPlanet
+        ? 1.0
+        : 0.42;
+
+    records.push(
+      x,
+      y,
+      z,
+      size,
+      colour[0],
+      colour[1],
+      colour[2],
+      brightness
+    );
+  }
+}
+
+if (records.length === 0) {
+  return;
+}
+
+/*
+ * Each planet contains:
+ *
+ * x, y, z,
+ * size,
+ * red, green, blue,
+ * brightness
+ */
+
+var data =
+  new Float32Array(records);
+
+renderer.planetCount =
+  data.length / 8;
+
+renderer.planetBuffer =
+  gl.createBuffer();
+
+gl.bindBuffer(
+  gl.ARRAY_BUFFER,
+  renderer.planetBuffer
 );
 
 gl.bufferData(
@@ -488,19 +753,73 @@ renderer.systemProgram =
     systemFragmentSource
   );
 
+var planetVertexSource = [
+  "#version 300 es",
+  "precision highp float;",
+  "",
+  "layout(location = 0) in vec3 a_position;",
+  "layout(location = 1) in float a_size;",
+  "layout(location = 2) in vec3 a_colour;",
+  "layout(location = 3) in float a_brightness;",
+  "",
+  "uniform mat4 u_projection;",
+  "uniform mat4 u_view;",
+  "",
+  "out vec3 v_colour;",
+  "out float v_brightness;",
+  "",
+  "void main() {",
+  "  gl_Position = u_projection * u_view * vec4(a_position, 1.0);",
+  "  gl_PointSize = a_size;",
+  "  v_colour = a_colour;",
+  "  v_brightness = a_brightness;",
+  "}"
+].join("\n");
+
+var planetFragmentSource = [
+  "#version 300 es",
+  "precision highp float;",
+  "",
+  "in vec3 v_colour;",
+  "in float v_brightness;",
+  "out vec4 out_colour;",
+  "",
+  "void main() {",
+  "  vec2 point = gl_PointCoord - vec2(0.5);",
+  "  float distanceFromCentre = length(point);",
+  "  float edge = smoothstep(0.5, 0.38, distanceFromCentre);",
+  "",
+  "  if (edge <= 0.0) {",
+  "    discard;",
+  "  }",
+  "",
+  "  float centre = 1.0 - distanceFromCentre * 1.35;",
+  "  centre = clamp(centre, 0.0, 1.0);",
+  "",
+  "  vec3 colour =",
+  "    v_colour *",
+  "    (0.65 + centre * 0.35) *",
+  "    v_brightness;",
+  "",
+  "  out_colour = vec4(",
+  "    colour,",
+  "    edge * v_brightness",
+  "  );",
+  "}"
+].join("\n");
+
+renderer.planetProgram =
+  createProgram(
+    planetVertexSource,
+    planetFragmentSource
+  );
+
 createGalaxyStars();
 createSystemLayer();
+createPlanetLayer();
 
 gl.useProgram(
   renderer.program
-);
-
-gl.enable(
-  gl.DEPTH_TEST
-);
-
-gl.depthFunc(
-  gl.LEQUAL
 );
 
 gl.enable(
@@ -511,6 +830,18 @@ gl.blendFunc(
   gl.SRC_ALPHA,
   gl.ONE
 );
+
+/*
+ * Space objects are luminous point sprites.
+ * Depth is deliberately disabled for these layers
+ * so the 6000 background particles cannot occlude
+ * systems or starting planets.
+ */
+gl.disable(
+  gl.DEPTH_TEST
+);
+
+gl.depthMask(false);
 
 gl.enable(
   gl.PROGRAM_POINT_SIZE
@@ -611,8 +942,7 @@ return;
     cos;
 
   gl.clear(
-    gl.COLOR_BUFFER_BIT |
-    gl.DEPTH_BUFFER_BIT
+    gl.COLOR_BUFFER_BIT
   );
 
   /*
@@ -785,6 +1115,110 @@ return;
     );
   }
 
+  /*
+   * Planets.
+   *
+   * This is deliberately drawn after the system layer
+   * so the planets belonging to Sol are immediately
+   * distinguishable from the Sol star itself.
+   */
+  if (
+    renderer.planetProgram &&
+    renderer.planetBuffer &&
+    renderer.planetCount > 0
+  ) {
+    gl.useProgram(
+      renderer.planetProgram
+    );
+
+    var planetProjectionLocation =
+      gl.getUniformLocation(
+        renderer.planetProgram,
+        "u_projection"
+      );
+
+    var planetViewLocation =
+      gl.getUniformLocation(
+        renderer.planetProgram,
+        "u_view"
+      );
+
+    gl.uniformMatrix4fv(
+      planetProjectionLocation,
+      false,
+      renderer.projection
+    );
+
+    gl.uniformMatrix4fv(
+      planetViewLocation,
+      false,
+      renderer.view
+    );
+
+    gl.bindBuffer(
+      gl.ARRAY_BUFFER,
+      renderer.planetBuffer
+    );
+
+    gl.enableVertexAttribArray(
+      0
+    );
+
+    gl.vertexAttribPointer(
+      0,
+      3,
+      gl.FLOAT,
+      false,
+      32,
+      0
+    );
+
+    gl.enableVertexAttribArray(
+      1
+    );
+
+    gl.vertexAttribPointer(
+      1,
+      1,
+      gl.FLOAT,
+      false,
+      32,
+      12
+    );
+
+    gl.enableVertexAttribArray(
+      2
+    );
+
+    gl.vertexAttribPointer(
+      2,
+      3,
+      gl.FLOAT,
+      false,
+      32,
+      16
+    );
+
+    gl.enableVertexAttribArray(
+      3
+    );
+
+    gl.vertexAttribPointer(
+      3,
+      1,
+      gl.FLOAT,
+      false,
+      32,
+      28
+    );
+
+    gl.drawArrays(
+      gl.POINTS,
+      0,
+      renderer.planetCount
+    );
+  }
+
   gl.bindBuffer(
     gl.ARRAY_BUFFER,
     null
@@ -793,10 +1227,9 @@ return;
 
 
 /*
-
-* Renderer initialisation must remain inside
-* createRenderer(), where all helper functions exist.
-  */
+ * Renderer initialisation must remain inside
+ * createRenderer(), where all helper functions exist.
+ */
 
 initialise();
 
